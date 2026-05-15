@@ -1,20 +1,59 @@
-<<<<<<< HEAD
-# React + Vite
+# Meetfy Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Frontend aplikacji Meetfy stworzony w technologii React + Vite.
 
-Currently, two official plugins are available:
+## Wymagania
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+Do uruchomienia projektu wymagany jest:
 
-## React Compiler
+- Docker Desktop
+- git
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Pobranie projektu
 
-## Expanding the ESLint configuration
+```bash
+git clone https://github.com/mpilarsky/meetfy.git
+cd meetfy
+```
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
-=======
-# meetfy
->>>>>>> 8fb54e7cf6ba5fb45caec22dd7fe1dfd5b445b18
+## Uruchomienie aplikacji (pierwsze)
+
+```bash
+docker compose up -d --build
+```
+
+## Uruchomienie aplikacji
+
+```bash
+docker compose up -d
+```
+
+Albo użycie Docker Desktop (przycisk Play)
+
+## Zatrzymanie aplikacji
+
+```bash
+docker compose down
+```
+
+Albo użycie Docker Desktop (przycisk Stop)
+
+## Aktualizacja projektu
+
+Po pobraniu nowych zmian z repozytorium zaleca się ponowne uruchomienie projektu z opcją przebudowania obrazu:
+
+```bash
+git pull
+docker compose up -d --build
+```
+
+Opcja --build zapewnia ponowną instalację zależności, jeśli zmienił się plik package.json lub package-lock.json.
+
+## Technologie
+
+Projekt wykorzystuje:
+
+React
+Vite
+Docker
+Docker Compose
