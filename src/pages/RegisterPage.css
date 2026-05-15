@@ -1,0 +1,294 @@
+.register-page {
+  width: 1280px;
+  min-height: 100vh;
+  margin: 0 auto;
+  background: #e7d9bd;
+  color: #2b2118;
+  font-family: Inter, Arial, sans-serif;
+}
+
+.register-header {
+  height: 80px;
+  padding: 0 49px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #fbf4ec;
+  border-bottom: 1px solid #d8c9be;
+}
+
+.register-logo {
+  color: #743642;
+  font-size: 22px;
+  font-weight: 900;
+  text-decoration: none;
+  letter-spacing: -0.03em;
+}
+
+.register-login-button {
+  width: 114px;
+  height: 43px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: #6d2937;
+  color: #fff;
+  border-radius: 7px;
+  font-size: 16px;
+  text-decoration: none;
+}
+
+.register-main {
+  min-height: 990px;
+  padding: 38px 0 42px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: #e7d9bd;
+}
+
+.register-card {
+  width: 480px;
+  padding: 48px 48px 46px;
+  background: #fbf4ec;
+  border: 1px solid #d8c9be;
+  border-radius: 22px;
+  box-shadow: 0 18px 35px rgba(74, 45, 24, 0.04);
+}
+
+.register-heading {
+  margin-bottom: 36px;
+  text-align: center;
+}
+
+.register-heading h1 {
+  margin: 0 0 12px;
+  color: #743642;
+  font-size: 36px;
+  line-height: 1.1;
+  font-weight: 900;
+}
+
+.register-heading p {
+  margin: 0;
+  color: #83776e;
+  font-size: 17px;
+}
+
+.register-form {
+  width: 100%;
+}
+
+.register-field {
+  display: block;
+  margin-bottom: 23px;
+}
+
+.register-field span {
+  display: block;
+  margin-bottom: 14px;
+  color: #743642;
+  font-size: 14px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+}
+
+.register-field input {
+  width: 100%;
+  height: 36px;
+  padding: 0;
+  background: transparent;
+  border: 0;
+  border-bottom: 1px solid #d7bfb8;
+  color: #2b2118;
+  font-size: 16px;
+  outline: none;
+}
+
+.register-field input::placeholder {
+  color: #d5cfcc;
+}
+
+.register-field input:focus {
+  border-bottom-color: #743642;
+}
+
+.register-password-wrap {
+  position: relative;
+}
+
+.register-password-wrap input {
+  padding-right: 40px;
+}
+
+.register-password-wrap button {
+  position: absolute;
+  right: -4px;
+  top: -4px;
+  width: 36px;
+  height: 36px;
+  border: 0;
+  background: transparent;
+  color: #a59a95;
+  font-size: 17px;
+  cursor: pointer;
+}
+
+.register-checkbox {
+  margin: 31px 0 31px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: #6a5e57;
+  font-size: 13px;
+}
+
+.register-checkbox input {
+  width: 16px;
+  height: 16px;
+  accent-color: #743642;
+}
+
+.register-checkbox a {
+  color: #743642;
+  font-weight: 700;
+  text-decoration: underline;
+}
+
+.register-submit {
+  width: 100%;
+  height: 58px;
+  border: 0;
+  border-radius: 10px;
+  background: #6d2937;
+  color: #fff;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.register-divider {
+  width: 100%;
+  height: 1px;
+  margin: 32px 0 32px;
+  background: #d7bfb8;
+}
+
+.register-switch {
+  margin: 0;
+  text-align: center;
+  color: #83776e;
+  font-size: 16px;
+}
+
+.register-switch a {
+  color: #743642;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.register-benefits {
+  width: 480px;
+  margin-top: 32px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px;
+}
+
+.register-benefit-card {
+  min-height: 74px;
+  padding: 16px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  background: rgba(251, 244, 236, 0.72);
+  border: 1px solid #d8c9be;
+  border-radius: 10px;
+}
+
+.register-benefit-icon {
+  width: 42px;
+  height: 42px;
+  flex: 0 0 42px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #fffdf9;
+  color: #743642;
+  border-radius: 999px;
+  font-size: 22px;
+}
+
+.register-benefit-card strong {
+  display: block;
+  color: #743642;
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.register-benefit-card p {
+  margin: 4px 0 0;
+  color: #6a5e57;
+  font-size: 11px;
+}
+
+.register-footer {
+  height: 98px;
+  padding: 0 32px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #fbf4ec;
+  border-top: 1px solid #e5d7ce;
+}
+
+.register-footer p,
+.register-footer a {
+  margin: 0;
+  color: #9e8e87;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-decoration: none;
+}
+
+.register-footer div {
+  display: flex;
+  gap: 40px;
+}
+
+@media (max-width: 1280px) {
+  .register-page {
+    width: 100%;
+  }
+}
+
+@media (max-width: 650px) {
+  .register-header {
+    padding: 0 24px;
+  }
+
+  .register-main {
+    padding: 32px 20px;
+  }
+
+  .register-card,
+  .register-benefits {
+    width: 100%;
+  }
+
+  .register-card {
+    padding: 36px 28px;
+  }
+
+  .register-benefits {
+    grid-template-columns: 1fr;
+  }
+
+  .register-footer {
+    height: auto;
+    padding: 28px 24px;
+    gap: 24px;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
