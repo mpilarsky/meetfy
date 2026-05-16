@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 import "./LoginPage.css";
 
 import loginHero from "../assets/login-hero.png";
@@ -11,16 +13,23 @@ function LoginPage() {
 
           <div className="login-brand-card">
             <strong>MEETFY</strong>
-            <p>Cultivating sophisticated social experiences for the modern discoverer.</p>
+            <p>
+              Cultivating sophisticated social experiences for the modern
+              discoverer.
+            </p>
           </div>
         </section>
 
         <section className="login-panel">
-          <div className="login-top">
-            <a href="/register" className="login-register-button">
+          <header className="login-header">
+            <Link to="/" className="login-logo">
+              MEETFY
+            </Link>
+
+            <Link to="/register" className="login-register-button">
               Register
-            </a>
-          </div>
+            </Link>
+          </header>
 
           <form className="login-form">
             <div className="login-intro">
@@ -36,7 +45,7 @@ function LoginPage() {
             <label className="login-field">
               <div className="login-label-row">
                 <span>PASSWORD</span>
-                <a href="/forgot-password">Forgot password?</a>
+                <Link to="/forgot-password">Forgot password?</Link>
               </div>
 
               <div className="login-password-wrap">
@@ -63,8 +72,8 @@ function LoginPage() {
         <p>© 2026 MEETFY. SOCIAL SOPHISTICATION.</p>
 
         <div>
-          <a href="/contact">Contact</a>
-          <a href="/terms">Terms</a>
+          <Link to="/contact">Contact</Link>
+          <Link to="/terms">Terms</Link>
         </div>
       </footer>
     </div>

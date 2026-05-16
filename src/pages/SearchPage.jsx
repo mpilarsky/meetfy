@@ -64,6 +64,7 @@ function SearchPage() {
             <div className="search-result-image">
               <img src={event.image} alt={event.title} />
               <span>{event.tag}</span>
+
               <button type="button" aria-label="Add to favourites">
                 ♡
               </button>
@@ -79,7 +80,7 @@ function SearchPage() {
               <p className="search-result-meta">♙ {event.location}</p>
               <p className="search-result-description">{event.text}</p>
 
-              <a href="/event">View Details</a>
+              <button type="button">View Details</button>
             </div>
           </article>
         ))}

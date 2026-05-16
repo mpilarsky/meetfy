@@ -64,9 +64,18 @@
   border-left: 1px solid #eadbd0;
 }
 
-.login-top {
+.login-header {
   display: flex;
-  justify-content: flex-end;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.login-logo {
+  color: #743642;
+  font-size: 22px;
+  font-weight: 900;
+  text-decoration: none;
+  letter-spacing: -0.03em;
 }
 
 .login-register-button {
@@ -77,7 +86,7 @@
   align-items: center;
   justify-content: center;
   background: #743642;
-  color: #fff;
+  color: #ffffff;
   border-radius: 7px;
   font-size: 16px;
   text-decoration: none;
@@ -195,7 +204,7 @@
   border: 0;
   border-radius: 8px;
   background: #743642;
-  color: #fff;
+  color: #ffffff;
   box-shadow: 0 16px 26px rgba(116, 54, 66, 0.18);
   font-size: 16px;
   letter-spacing: 0.16em;
@@ -238,11 +247,12 @@
 
 @media (max-width: 900px) {
   .login-main {
+    height: auto;
     grid-template-columns: 1fr;
   }
 
   .login-visual {
-    min-height: 420px;
+    height: 420px;
   }
 
   .login-visual img {
@@ -250,6 +260,7 @@
   }
 
   .login-panel {
+    height: auto;
     min-height: auto;
     padding: 24px;
   }

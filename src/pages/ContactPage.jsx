@@ -1,11 +1,16 @@
+import { Link } from "react-router-dom";
+
 import "./ContactPage.css";
+
 import contactHero from "../assets/contact-hero.png";
 
 function ContactPage() {
   return (
     <div className="contact-page">
       <header className="contact-header">
-        <a href="/" className="contact-logo">MEETFY</a>
+        <Link to="/" className="contact-logo">
+          MEETFY
+        </Link>
       </header>
 
       <main className="contact-main">
@@ -85,12 +90,22 @@ function ContactPage() {
 
             <article className="contact-info-card online-card">
               <div className="contact-info-icon">⌯</div>
+
               <div>
                 <h2>Find us online</h2>
+
                 <div className="contact-socials">
-                  <a href="/" aria-label="Website">◎</a>
-                  <a href="/" aria-label="Global">◉</a>
-                  <a href="/" aria-label="Community">♟</a>
+                  <Link to="/" aria-label="Website">
+                    ◎
+                  </Link>
+
+                  <Link to="/" aria-label="Global">
+                    ◉
+                  </Link>
+
+                  <Link to="/" aria-label="Community">
+                    ♟
+                  </Link>
                 </div>
               </div>
             </article>
@@ -102,8 +117,8 @@ function ContactPage() {
         <p>© 2026 MEETFY. SOCIAL SOPHISTICATION.</p>
 
         <div>
-          <a href="/contact">CONTACT</a>
-          <a href="/terms">TERMS</a>
+          <Link to="/contact">CONTACT</Link>
+          <Link to="/terms">TERMS</Link>
         </div>
       </footer>
     </div>

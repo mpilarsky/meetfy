@@ -1,16 +1,18 @@
+import { Link } from "react-router-dom";
+
 import "./RegisterPage.css";
 
 function RegisterPage() {
   return (
     <div className="register-page">
       <header className="register-header">
-        <a href="/" className="register-logo">
+        <Link to="/" className="register-logo">
           MEETFY
-        </a>
+        </Link>
 
-        <a href="/login" className="register-login-button">
+        <Link to="/login" className="register-login-button">
           Login
-        </a>
+        </Link>
       </header>
 
       <main className="register-main">
@@ -49,7 +51,9 @@ function RegisterPage() {
             <label className="register-checkbox">
               <input type="checkbox" />
               <span>
-                I accept the <a href="/terms">Terms & Conditions</a> and Privacy Policy
+                I accept the{" "}
+                <Link to="/terms">Terms & Conditions</Link>
+                {" "}and Privacy Policy
               </span>
             </label>
 
@@ -61,13 +65,14 @@ function RegisterPage() {
           <div className="register-divider" />
 
           <p className="register-switch">
-            Already have an account? <a href="/login">Log in</a>
+            Already have an account? <Link to="/login">Log in</Link>
           </p>
         </section>
 
         <section className="register-benefits">
           <article className="register-benefit-card">
             <div className="register-benefit-icon">⊙</div>
+
             <div>
               <strong>Discover</strong>
               <p>Local Gatherings</p>
@@ -76,6 +81,7 @@ function RegisterPage() {
 
           <article className="register-benefit-card">
             <div className="register-benefit-icon">♢</div>
+
             <div>
               <strong>Secure</strong>
               <p>Privacy First</p>
@@ -88,8 +94,8 @@ function RegisterPage() {
         <p>© 2026 MEETFY. SOCIAL SOPHISTICATION.</p>
 
         <div>
-          <a href="/contact">CONTACT</a>
-          <a href="/terms">TERMS</a>
+          <Link to="/contact">CONTACT</Link>
+          <Link to="/terms">TERMS</Link>
         </div>
       </footer>
     </div>

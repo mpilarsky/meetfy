@@ -145,17 +145,19 @@
   line-height: 1.35;
 }
 
-.upcoming-content a,
-.past-content a {
+.upcoming-content button,
+.past-content button {
+  width: 100%;
   height: 48px;
   display: flex;
   align-items: center;
   justify-content: center;
   background: #fff0d6;
   color: #4b1822;
+  border: 0;
   border-radius: 9px;
   font-weight: 800;
-  text-decoration: none;
+  cursor: pointer;
 }
 
 .past-section {
@@ -200,7 +202,7 @@
   font-size: 14px;
 }
 
-.past-content a {
+.past-content button {
   background: transparent;
   border: 1px solid #d8c9be;
 }
