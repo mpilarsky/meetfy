@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Link } from "react-router-dom";
 
 import FormInput from "../components/Form/FormInput";
@@ -9,10 +10,41 @@ import "./ContactPage.css";
 import contactHero from "../assets/contact-hero.png";
 
 function ContactPage() {
+  const [contactData, setContactData] = useState({
+    fullName: "",
+    email: "",
+    subject: "",
+    phone: "",
+    message: "",
+  });
+
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+
+    setContactData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+  };
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+
+    console.log("Contact data:", contactData);
+
+    setContactData({
+      fullName: "",
+      email: "",
+      subject: "",
+      phone: "",
+      message: "",
+    });
+  };
+
   return (
     <div className="contact-page">
       <header className="contact-header">
-        <Link to="/" className="contact-logo">
+        <Link to="/contact" className="contact-logo">
           MEETFY
         </Link>
       </header>
@@ -31,29 +63,41 @@ function ContactPage() {
         </section>
 
         <section className="contact-content">
-          <form className="contact-form-card">
+          <form className="contact-form-card" onSubmit={handleSubmit}>
             <div className="contact-form-grid">
               <FormInput
                 label="Full Name"
                 type="text"
+                name="fullName"
+                value={contactData.fullName}
+                onChange={handleChange}
                 placeholder="John Doe"
               />
 
               <FormInput
                 label="Email Address"
                 type="email"
+                name="email"
+                value={contactData.email}
+                onChange={handleChange}
                 placeholder="john@example.com"
               />
 
               <FormInput
                 label="Subject"
                 type="text"
+                name="subject"
+                value={contactData.subject}
+                onChange={handleChange}
                 placeholder="How can we help?"
               />
 
               <FormInput
                 label="Phone Number (optional)"
                 type="tel"
+                name="phone"
+                value={contactData.phone}
+                onChange={handleChange}
                 placeholder="+48 000 000 000"
               />
             </div>
@@ -61,6 +105,9 @@ function ContactPage() {
             <FormTextarea
               className="contact-message-field"
               label="Message"
+              name="message"
+              value={contactData.message}
+              onChange={handleChange}
               placeholder="Your message..."
             />
 
@@ -95,7 +142,7 @@ function ContactPage() {
 
               <div>
                 <h2>Office</h2>
-                <p>12 Marszałkowska St, 00-001</p>
+                <p>12 Marszalkowska St, 00-001</p>
                 <p>Warsaw, Poland</p>
               </div>
             </article>

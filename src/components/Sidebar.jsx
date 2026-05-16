@@ -1,8 +1,25 @@
-import { NavLink, Link } from "react-router-dom";
+import { useState } from "react";
+import { NavLink, Link, useNavigate } from "react-router-dom";
 
 import "./Sidebar.css";
 
 function Sidebar() {
+  const navigate = useNavigate();
+  const [searchValue, setSearchValue] = useState("");
+
+  const handleSearchSubmit = (event) => {
+    event.preventDefault();
+
+    const trimmedValue = searchValue.trim();
+
+    if (!trimmedValue) {
+      navigate("/search");
+      return;
+    }
+
+    navigate(`/search?q=${encodeURIComponent(trimmedValue)}`);
+  };
+
   return (
     <aside className="app-sidebar">
       <div className="sidebar-welcome">
@@ -17,11 +34,18 @@ function Sidebar() {
         <NavLink to="/account">♟ My Account</NavLink>
       </nav>
 
-      <div className="sidebar-search">
+      <form className="sidebar-search" onSubmit={handleSearchSubmit}>
         <span>FIND EXPERIENCES</span>
-        <input type="text" placeholder="⌕ Search..." />
-        <button type="button">⌕ Search</button>
-      </div>
+
+        <input
+          type="text"
+          value={searchValue}
+          onChange={(event) => setSearchValue(event.target.value)}
+          placeholder="⌕ Search..."
+        />
+
+        <button type="submit">⌕ Search</button>
+      </form>
 
       <Link to="/create-event" className="create-event-btn">
         ＋ Create Event

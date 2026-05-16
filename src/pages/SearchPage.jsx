@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useSearchParams } from "react-router-dom";
 
 import EventDetailsModal from "../components/EventDetailsModal";
 import SearchEventCard from "../components/EventCards/SearchEventCard";
@@ -11,6 +12,9 @@ import rooftopImage from "../assets/search-rooftop.png";
 
 function SearchPage() {
   const [selectedEvent, setSelectedEvent] = useState(null);
+  const [searchParams] = useSearchParams();
+
+  const query = searchParams.get("q") || "jazz";
 
   const results = [
     {
@@ -47,7 +51,7 @@ function SearchPage() {
       <section className="search-title">
         <h1>Search Results</h1>
         <p>
-          Showing results for <strong>"jazz"</strong> in New York
+          Showing results for <strong>"{query}"</strong> in New York
         </p>
       </section>
 
@@ -91,8 +95,8 @@ function SearchPage() {
         <div className="no-events-icon">⌕</div>
         <h2>No events found</h2>
         <p>
-          We couldn't find any jazz events matching your specific filters for
-          Manhattan this weekend. Try broadening your search or resetting your
+          We couldn't find any events matching your search for "{query}" with
+          the current filters. Try broadening your search or resetting your
           preferences.
         </p>
         <button type="button">Clear filters</button>

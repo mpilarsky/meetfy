@@ -1,3 +1,6 @@
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+
 import FormInput from "../components/Form/FormInput";
 import FormTextarea from "../components/Form/FormTextarea";
 import Button from "../components/Form/Button";
@@ -7,6 +10,38 @@ import "./CreateEventPage.css";
 import tipImage from "../assets/create-event-tip.png";
 
 function CreateEventPage() {
+  const navigate = useNavigate();
+
+  const [eventData, setEventData] = useState({
+    title: "",
+    category: "",
+    location: "",
+    date: "",
+    time: "",
+    price: "",
+    participantsLimit: "",
+    description: "",
+    indoor: false,
+    publicVisibility: true,
+  });
+
+  const handleChange = (event) => {
+    const { name, value, type, checked } = event.target;
+
+    setEventData((prevData) => ({
+      ...prevData,
+      [name]: type === "checkbox" ? checked : value,
+    }));
+  };
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+
+    console.log("Created event:", eventData);
+
+    navigate("/events");
+  };
+
   return (
     <>
       <section className="create-event-title">
@@ -14,7 +49,7 @@ function CreateEventPage() {
         <p>Share your unique experience with the Meetfy community.</p>
       </section>
 
-      <form className="create-event-form-card">
+      <form className="create-event-form-card" onSubmit={handleSubmit}>
         <label className="cover-field">
           <span>EVENT COVER IMAGE</span>
 
@@ -29,6 +64,9 @@ function CreateEventPage() {
           className="form-line full-width"
           label="EVENT TITLE"
           type="text"
+          name="title"
+          value={eventData.title}
+          onChange={handleChange}
           placeholder="e.g. Minimalist Ceramic Workshop"
         />
 
@@ -36,14 +74,18 @@ function CreateEventPage() {
           <label className="form-line">
             <span>CATEGORY</span>
 
-            <select defaultValue="">
+            <select
+              name="category"
+              value={eventData.category}
+              onChange={handleChange}
+            >
               <option value="" disabled>
                 Select a category
               </option>
-              <option>Music</option>
-              <option>Culture</option>
-              <option>Food</option>
-              <option>Art</option>
+              <option value="Music">Music</option>
+              <option value="Culture">Culture</option>
+              <option value="Food">Food</option>
+              <option value="Art">Art</option>
             </select>
           </label>
 
@@ -51,6 +93,9 @@ function CreateEventPage() {
             className="form-line"
             label="LOCATION"
             type="text"
+            name="location"
+            value={eventData.location}
+            onChange={handleChange}
             placeholder="♙   Add a city or venue"
           />
 
@@ -58,6 +103,9 @@ function CreateEventPage() {
             className="form-line"
             label="DATE"
             type="text"
+            name="date"
+            value={eventData.date}
+            onChange={handleChange}
             placeholder="mm/dd/yyyy"
           />
 
@@ -65,6 +113,9 @@ function CreateEventPage() {
             className="form-line"
             label="TIME"
             type="text"
+            name="time"
+            value={eventData.time}
+            onChange={handleChange}
             placeholder="--:-- --"
           />
 
@@ -72,6 +123,9 @@ function CreateEventPage() {
             className="form-line"
             label="PRICE (USD)"
             type="text"
+            name="price"
+            value={eventData.price}
+            onChange={handleChange}
             placeholder="$    0.00"
           />
 
@@ -79,6 +133,9 @@ function CreateEventPage() {
             className="form-line"
             label="PARTICIPANTS LIMIT"
             type="text"
+            name="participantsLimit"
+            value={eventData.participantsLimit}
+            onChange={handleChange}
             placeholder="No limit"
           />
         </div>
@@ -86,17 +143,30 @@ function CreateEventPage() {
         <FormTextarea
           className="form-line full-width"
           label="SHORT DESCRIPTION"
+          name="description"
+          value={eventData.description}
+          onChange={handleChange}
           placeholder="Describe the vibe and what attendees should expect..."
         />
 
         <div className="event-switches">
           <label>
-            <input type="checkbox" />
+            <input
+              type="checkbox"
+              name="indoor"
+              checked={eventData.indoor}
+              onChange={handleChange}
+            />
             <span>Indoor Event</span>
           </label>
 
           <label>
-            <input type="checkbox" defaultChecked />
+            <input
+              type="checkbox"
+              name="publicVisibility"
+              checked={eventData.publicVisibility}
+              onChange={handleChange}
+            />
             <span>Public Visibility</span>
           </label>
         </div>

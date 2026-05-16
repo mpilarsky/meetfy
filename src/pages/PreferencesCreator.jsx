@@ -1,4 +1,5 @@
-import { Link } from "react-router-dom";
+import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 
 import Button from "../components/Form/Button";
 
@@ -7,10 +8,53 @@ import "./PreferencesCreator.css";
 import preferencesMoment from "../assets/preferences-moment.png";
 
 function PreferencesCreator() {
+  const navigate = useNavigate();
+
+  const [preferences, setPreferences] = useState({
+    interests: ["Culture", "Food", "Art"],
+    atmosphere: "Social",
+    groupSize: "Intimate Pair",
+    proximity: 15,
+    budget: "Cheap",
+    targetDate: "11/20/2024",
+    timeOfDay: "Evening",
+    environment: "Indoor",
+  });
+
+  const toggleInterest = (interest) => {
+    setPreferences((prevData) => {
+      const isSelected = prevData.interests.includes(interest);
+
+      return {
+        ...prevData,
+        interests: isSelected
+          ? prevData.interests.filter((item) => item !== interest)
+          : [...prevData.interests, interest],
+      };
+    });
+  };
+
+  const setPreferenceValue = (name, value) => {
+    setPreferences((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+  };
+
+  const handleDateChange = (event) => {
+    setPreferenceValue("targetDate", event.target.value);
+  };
+
+  const handleSavePreferences = () => {
+    console.log("Preferences:", preferences);
+
+    navigate("/dashboard");
+  };
+
   return (
     <div className="preferences-page">
       <header className="preferences-header">
-        <Link to="/" className="preferences-logo">
+        <Link to="/dashboard" className="preferences-logo">
           MEETFY
         </Link>
 
@@ -34,14 +78,79 @@ function PreferencesCreator() {
               <h2>⌘ Your Interests</h2>
 
               <div className="interest-grid">
-                <Button>♪ Music</Button>
-                <Button>⚒ Sport</Button>
-                <Button className="active">☞ Culture</Button>
-                <Button>♟ Networking</Button>
-                <Button className="active">♜ Food</Button>
-                <Button>⌘ Gaming</Button>
-                <Button className="active">☯ Art</Button>
-                <Button>✧ Education</Button>
+                <Button
+                  className={
+                    preferences.interests.includes("Music") ? "active" : ""
+                  }
+                  onClick={() => toggleInterest("Music")}
+                >
+                  ♪ Music
+                </Button>
+
+                <Button
+                  className={
+                    preferences.interests.includes("Sport") ? "active" : ""
+                  }
+                  onClick={() => toggleInterest("Sport")}
+                >
+                  ⚒ Sport
+                </Button>
+
+                <Button
+                  className={
+                    preferences.interests.includes("Culture") ? "active" : ""
+                  }
+                  onClick={() => toggleInterest("Culture")}
+                >
+                  ☞ Culture
+                </Button>
+
+                <Button
+                  className={
+                    preferences.interests.includes("Networking")
+                      ? "active"
+                      : ""
+                  }
+                  onClick={() => toggleInterest("Networking")}
+                >
+                  ♟ Networking
+                </Button>
+
+                <Button
+                  className={
+                    preferences.interests.includes("Food") ? "active" : ""
+                  }
+                  onClick={() => toggleInterest("Food")}
+                >
+                  ♜ Food
+                </Button>
+
+                <Button
+                  className={
+                    preferences.interests.includes("Gaming") ? "active" : ""
+                  }
+                  onClick={() => toggleInterest("Gaming")}
+                >
+                  ⌘ Gaming
+                </Button>
+
+                <Button
+                  className={
+                    preferences.interests.includes("Art") ? "active" : ""
+                  }
+                  onClick={() => toggleInterest("Art")}
+                >
+                  ☯ Art
+                </Button>
+
+                <Button
+                  className={
+                    preferences.interests.includes("Education") ? "active" : ""
+                  }
+                  onClick={() => toggleInterest("Education")}
+                >
+                  ✧ Education
+                </Button>
               </div>
             </section>
 
@@ -50,19 +159,43 @@ function PreferencesCreator() {
                 <h2>✦ Atmosphere</h2>
 
                 <div className="atmosphere-grid">
-                  <Button>
+                  <Button
+                    className={
+                      preferences.atmosphere === "Chill" ? "selected" : ""
+                    }
+                    onClick={() => setPreferenceValue("atmosphere", "Chill")}
+                  >
                     ◒<span>Chill</span>
                   </Button>
 
-                  <Button className="selected">
+                  <Button
+                    className={
+                      preferences.atmosphere === "Social" ? "selected" : ""
+                    }
+                    onClick={() => setPreferenceValue("atmosphere", "Social")}
+                  >
                     ◢<span>Social</span>
                   </Button>
 
-                  <Button>
+                  <Button
+                    className={
+                      preferences.atmosphere === "Energetic" ? "selected" : ""
+                    }
+                    onClick={() =>
+                      setPreferenceValue("atmosphere", "Energetic")
+                    }
+                  >
                     ϟ<span>Energetic</span>
                   </Button>
 
-                  <Button>
+                  <Button
+                    className={
+                      preferences.atmosphere === "Romantic" ? "selected" : ""
+                    }
+                    onClick={() =>
+                      setPreferenceValue("atmosphere", "Romantic")
+                    }
+                  >
                     ♡<span>Romantic</span>
                   </Button>
                 </div>
@@ -72,19 +205,54 @@ function PreferencesCreator() {
                 <h2>☻ Group Size</h2>
 
                 <div className="radio-list">
-                  <label>
+                  <label
+                    className={
+                      preferences.groupSize === "Solo" ? "selected" : ""
+                    }
+                  >
                     <span>♙ Solo</span>
-                    <input type="radio" name="group" />
+                    <input
+                      type="radio"
+                      name="groupSize"
+                      checked={preferences.groupSize === "Solo"}
+                      onChange={() => setPreferenceValue("groupSize", "Solo")}
+                    />
                   </label>
 
-                  <label className="selected">
+                  <label
+                    className={
+                      preferences.groupSize === "Intimate Pair"
+                        ? "selected"
+                        : ""
+                    }
+                  >
                     <span>▣ Intimate Pair</span>
-                    <input type="radio" name="group" defaultChecked />
+                    <input
+                      type="radio"
+                      name="groupSize"
+                      checked={preferences.groupSize === "Intimate Pair"}
+                      onChange={() =>
+                        setPreferenceValue("groupSize", "Intimate Pair")
+                      }
+                    />
                   </label>
 
-                  <label>
+                  <label
+                    className={
+                      preferences.groupSize === "Vibrant Group"
+                        ? "selected"
+                        : ""
+                    }
+                  >
                     <span>♟ Vibrant Group</span>
-                    <input type="radio" name="group" />
+                    <input
+                      type="radio"
+                      name="groupSize"
+                      checked={preferences.groupSize === "Vibrant Group"}
+                      onChange={() =>
+                        setPreferenceValue("groupSize", "Vibrant Group")
+                      }
+                    />
                   </label>
                 </div>
               </section>
@@ -93,12 +261,20 @@ function PreferencesCreator() {
             <section className="pref-card proximity-card">
               <div className="proximity-heading">
                 <h2>♙ Proximity</h2>
-                <span>15 km</span>
+                <span>{preferences.proximity} km</span>
               </div>
 
-              <div className="range-line">
-                <div className="range-fill" />
-                <div className="range-dot" />
+              <div className="range-control">
+                <input
+                  type="range"
+                  name="proximity"
+                  min="1"
+                  max="50"
+                  value={preferences.proximity}
+                  onChange={(event) =>
+                    setPreferenceValue("proximity", Number(event.target.value))
+                  }
+                />
               </div>
 
               <div className="range-labels">
@@ -107,7 +283,10 @@ function PreferencesCreator() {
               </div>
             </section>
 
-            <Button className="save-preferences-btn">
+            <Button
+              className="save-preferences-btn"
+              onClick={handleSavePreferences}
+            >
               Save preferences <span>→</span>
             </Button>
           </div>
@@ -117,9 +296,26 @@ function PreferencesCreator() {
               <h2>▣ Budget</h2>
 
               <div className="segmented-control">
-                <Button>Free</Button>
-                <Button className="active">Cheap</Button>
-                <Button>Premium</Button>
+                <Button
+                  className={preferences.budget === "Free" ? "active" : ""}
+                  onClick={() => setPreferenceValue("budget", "Free")}
+                >
+                  Free
+                </Button>
+
+                <Button
+                  className={preferences.budget === "Cheap" ? "active" : ""}
+                  onClick={() => setPreferenceValue("budget", "Cheap")}
+                >
+                  Cheap
+                </Button>
+
+                <Button
+                  className={preferences.budget === "Premium" ? "active" : ""}
+                  onClick={() => setPreferenceValue("budget", "Premium")}
+                >
+                  Premium
+                </Button>
               </div>
             </section>
 
@@ -128,12 +324,32 @@ function PreferencesCreator() {
 
               <label>
                 <span>TARGET DATE</span>
-                <input type="text" value="11/20/2024" readOnly />
+                <input
+                  type="text"
+                  name="targetDate"
+                  value={preferences.targetDate}
+                  onChange={handleDateChange}
+                />
               </label>
 
               <div className="time-buttons">
-                <Button>☼ Afternoon</Button>
-                <Button className="active">☾ Evening</Button>
+                <Button
+                  className={
+                    preferences.timeOfDay === "Afternoon" ? "active" : ""
+                  }
+                  onClick={() => setPreferenceValue("timeOfDay", "Afternoon")}
+                >
+                  ☼ Afternoon
+                </Button>
+
+                <Button
+                  className={
+                    preferences.timeOfDay === "Evening" ? "active" : ""
+                  }
+                  onClick={() => setPreferenceValue("timeOfDay", "Evening")}
+                >
+                  ☾ Evening
+                </Button>
               </div>
             </section>
 
@@ -141,8 +357,23 @@ function PreferencesCreator() {
               <h2>♙ Environment</h2>
 
               <div className="environment-buttons">
-                <Button className="active">⌂ Indoor</Button>
-                <Button>♤ Outdoor</Button>
+                <Button
+                  className={
+                    preferences.environment === "Indoor" ? "active" : ""
+                  }
+                  onClick={() => setPreferenceValue("environment", "Indoor")}
+                >
+                  ⌂ Indoor
+                </Button>
+
+                <Button
+                  className={
+                    preferences.environment === "Outdoor" ? "active" : ""
+                  }
+                  onClick={() => setPreferenceValue("environment", "Outdoor")}
+                >
+                  ♤ Outdoor
+                </Button>
               </div>
             </section>
 
