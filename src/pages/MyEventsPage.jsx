@@ -1,3 +1,9 @@
+import { useState } from "react";
+
+import EventDetailsModal from "../components/EventDetailsModal";
+import MyEventCard from "../components/EventCards/MyEventCard";
+import PastEventCard from "../components/EventCards/PastEventCard";
+
 import "./MyEventsPage.css";
 
 import neonImage from "../assets/my-event-neon.png";
@@ -7,6 +13,8 @@ import abstractImage from "../assets/my-event-abstract.png";
 import hearthImage from "../assets/my-event-hearth.png";
 
 function MyEventsPage() {
+  const [selectedEvent, setSelectedEvent] = useState(null);
+
   const upcomingEvents = [
     {
       image: neonImage,
@@ -38,12 +46,20 @@ function MyEventsPage() {
     {
       image: abstractImage,
       title: "Abstract Realities",
+      price: "Archive",
+      date: "Sept 12",
+      location: "MoMa East",
       meta: "Sept 12 • MoMa East",
+      text: "A past experience from your Meetfy history.",
     },
     {
       image: hearthImage,
       title: "The Hearth Dinner",
+      price: "Archive",
+      date: "Aug 28",
+      location: "Brooklyn Farms",
       meta: "Aug 28 • Brooklyn Farms",
+      text: "A past experience from your Meetfy history.",
     },
   ];
 
@@ -69,28 +85,23 @@ function MyEventsPage() {
 
         <div className="upcoming-grid">
           {upcomingEvents.map((event) => (
-            <article className="upcoming-card" key={event.title}>
-              <div className="upcoming-image">
-                <img src={event.image} alt={event.title} />
-                <span>CONFIRMED</span>
-                <button type="button" aria-label="Favorite event">
-                  ♥
-                </button>
-              </div>
-
-              <div className="upcoming-content">
-                <div className="upcoming-title-row">
-                  <h3>{event.title}</h3>
-                  <strong>{event.price}</strong>
-                </div>
-
-                <p className="event-date">▦ {event.date}</p>
-                <p className="event-location">♙ {event.location}</p>
-                <p className="upcoming-description">{event.text}</p>
-
-                <button type="button">View Details</button>
-              </div>
-            </article>
+            <MyEventCard
+              key={event.title}
+              image={event.image}
+              title={event.title}
+              price={event.price}
+              date={event.date}
+              location={event.location}
+              description={event.text}
+              status="CONFIRMED"
+              onViewDetails={() =>
+                setSelectedEvent({
+                  ...event,
+                  description: event.text,
+                })
+              }
+              onToggleFavorite={() => console.log("Toggle favorite:", event)}
+            />
           ))}
         </div>
       </section>
@@ -103,18 +114,28 @@ function MyEventsPage() {
 
         <div className="past-grid">
           {pastEvents.map((event) => (
-            <article className="past-card" key={event.title}>
-              <img src={event.image} alt={event.title} />
-
-              <div className="past-content">
-                <h3>{event.title}</h3>
-                <p>{event.meta}</p>
-                <button type="button">View Details</button>
-              </div>
-            </article>
+            <PastEventCard
+              key={event.title}
+              image={event.image}
+              title={event.title}
+              meta={event.meta}
+              onViewDetails={() =>
+                setSelectedEvent({
+                  ...event,
+                  description: event.text,
+                })
+              }
+            />
           ))}
         </div>
       </section>
+
+      {selectedEvent && (
+        <EventDetailsModal
+          event={selectedEvent}
+          onClose={() => setSelectedEvent(null)}
+        />
+      )}
     </>
   );
 }

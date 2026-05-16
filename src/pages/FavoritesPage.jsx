@@ -1,3 +1,8 @@
+import { useState } from "react";
+
+import EventDetailsModal from "../components/EventDetailsModal";
+import FavoriteEventCard from "../components/EventCards/FavoriteEventCard";
+
 import "./FavoritesPage.css";
 
 import spiritsImage from "../assets/favorite-spirits.png";
@@ -6,12 +11,16 @@ import chefImage from "../assets/favorite-chef.png";
 import modernismImage from "../assets/favorite-modernism.png";
 
 function FavoritesPage() {
+  const [selectedEvent, setSelectedEvent] = useState(null);
+
   const favoriteEvents = [
     {
       image: spiritsImage,
       tag: "MIXOLOGY",
       title: "Secret Garden Spirits",
       price: "$45",
+      date: "OCT 24",
+      location: "EAST VILLAGE",
       meta: "▧ OCT 24    ♙ EAST VILLAGE",
       text: "Discover the art of botanical infusions in a hidden rooftop...",
     },
@@ -20,6 +29,8 @@ function FavoritesPage() {
       tag: "MUSIC",
       title: "Underground Pulse",
       price: "FREE",
+      date: "OCT 28",
+      location: "BROOKLYN",
       meta: "▧ OCT 28    ♙ BROOKLYN",
       text: "A showcase of emerging indie electronic artists in an...",
     },
@@ -28,6 +39,8 @@ function FavoritesPage() {
       tag: "DINING",
       title: "The Chef's Table",
       price: "$120",
+      date: "NOV 02",
+      location: "CHELSEA",
       meta: "▧ NOV 02    ♙ CHELSEA",
       text: "An intimate 7-course tasting menu experience focused on",
     },
@@ -36,6 +49,8 @@ function FavoritesPage() {
       tag: "ART",
       title: "Modernism & The Soul",
       price: "$25",
+      date: "TONIGHT",
+      location: "DOWNTOWN",
       meta: "▧ TONIGHT    ♙ DOWNTOWN",
       text: "Join an exclusive evening tour of the city's newest...",
     },
@@ -50,29 +65,31 @@ function FavoritesPage() {
 
       <section className="favorites-grid">
         {favoriteEvents.map((event) => (
-          <article className="favorite-card" key={event.title}>
-            <div className="favorite-image">
-              <img src={event.image} alt={event.title} />
-              <span>{event.tag}</span>
-              <button type="button" aria-label="Remove from favorites">
-                ♥
-              </button>
-            </div>
-
-            <div className="favorite-content">
-              <div className="favorite-title-row">
-                <h2>{event.title}</h2>
-                <strong>{event.price}</strong>
-              </div>
-
-              <p className="favorite-meta">{event.meta}</p>
-              <p className="favorite-description">{event.text}</p>
-
-              <button type="button">View Details</button>
-            </div>
-          </article>
+          <FavoriteEventCard
+            key={event.title}
+            image={event.image}
+            tag={event.tag}
+            title={event.title}
+            price={event.price}
+            meta={event.meta}
+            description={event.text}
+            onViewDetails={() =>
+              setSelectedEvent({
+                ...event,
+                description: event.text,
+              })
+            }
+            onRemoveFavorite={() => console.log("Remove favorite:", event)}
+          />
         ))}
       </section>
+
+      {selectedEvent && (
+        <EventDetailsModal
+          event={selectedEvent}
+          onClose={() => setSelectedEvent(null)}
+        />
+      )}
     </>
   );
 }
