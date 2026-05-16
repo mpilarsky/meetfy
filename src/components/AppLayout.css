@@ -1,0 +1,27 @@
+.app-layout {
+  width: 1280px;
+  min-height: 100vh;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  background: #fbf4ec;
+  color: #2b2118;
+  font-family: Inter, Arial, sans-serif;
+}
+
+.app-layout-body {
+  flex: 1;
+  display: grid;
+  grid-template-columns: 248px 1fr;
+  min-height: 1450px;
+}
+
+.app-layout-main {
+  padding: 24px 32px 72px;
+}
+
+@media (max-width: 1280px) {
+  .app-layout {
+    width: 100%;
+  }
+}

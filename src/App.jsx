@@ -1,5 +1,7 @@
 import { Routes, Route } from "react-router-dom";
 
+import AppLayout from "./components/AppLayout";
+
 import HomePage from "./pages/HomePage";
 import LoginPage from "./pages/LoginPage";
 import RegisterPage from "./pages/RegisterPage";
@@ -16,18 +18,19 @@ function App() {
   return (
     <Routes>
       <Route path="/" element={<HomePage />} />
-
       <Route path="/login" element={<LoginPage />} />
       <Route path="/register" element={<RegisterPage />} />
       <Route path="/preferences" element={<PreferencesCreator />} />
       <Route path="/contact" element={<ContactPage />} />
 
-      <Route path="/dashboard" element={<UserDashboard />} />
-      <Route path="/favorites" element={<FavoritesPage />} />
-      <Route path="/events" element={<MyEventsPage />} />
-      <Route path="/search" element={<SearchPage />} />
-      <Route path="/account" element={<MyAccountPage />} />
-      <Route path="/create-event" element={<CreateEventPage />} />
+      <Route element={<AppLayout />}>
+        <Route path="/dashboard" element={<UserDashboard />} />
+        <Route path="/favorites" element={<FavoritesPage />} />
+        <Route path="/events" element={<MyEventsPage />} />
+        <Route path="/search" element={<SearchPage />} />
+        <Route path="/account" element={<MyAccountPage />} />
+        <Route path="/create-event" element={<CreateEventPage />} />
+      </Route>
     </Routes>
   );
 }

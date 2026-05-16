@@ -1,129 +1,3 @@
-.search-page {
-  width: 1280px;
-  min-height: 100vh;
-  margin: 0 auto;
-  background: #fbf4ec;
-  color: #2b2118;
-  font-family: Inter, Arial, sans-serif;
-}
-
-.search-header {
-  height: 76px;
-  padding: 0 32px;
-  display: grid;
-  grid-template-columns: 180px 1fr 112px;
-  align-items: center;
-  gap: 24px;
-  background: #fbf4ec;
-  border-bottom: 1px solid #d8c9be;
-}
-
-.search-logo {
-  color: #743642;
-  font-size: 22px;
-  font-weight: 900;
-  text-decoration: none;
-}
-
-.search-top-input {
-  width: 800px;
-  height: 42px;
-  justify-self: center;
-  padding: 0 18px;
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  background: #fffdf9;
-  border: 1px solid #d8c9be;
-  border-radius: 999px;
-  color: #83776e;
-}
-
-.search-top-input input {
-  width: 100%;
-  border: 0;
-  outline: 0;
-  background: transparent;
-  color: #5f534b;
-  font-size: 14px;
-}
-
-.search-logout {
-  width: 112px;
-  height: 36px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  background: #743642;
-  color: #fff;
-  border-radius: 999px;
-  font-size: 14px;
-  text-decoration: none;
-}
-
-.search-body {
-  display: grid;
-  grid-template-columns: 248px 1fr;
-  min-height: 1380px;
-}
-
-.search-sidebar {
-  position: relative;
-  padding: 32px 16px;
-  background: #fbf4ec;
-  border-right: 1px solid #d8c9be;
-}
-
-.search-sidebar-welcome span {
-  color: #9b6a63;
-  font-size: 11px;
-  font-weight: 900;
-  letter-spacing: 0.14em;
-}
-
-.search-sidebar-welcome h2 {
-  margin: 8px 0 42px;
-  color: #743642;
-  font-size: 28px;
-  line-height: 1.08;
-  font-weight: 900;
-}
-
-.search-sidebar-nav {
-  padding: 12px 0;
-  display: flex;
-  flex-direction: column;
-  background: #fffdf9;
-  border-radius: 18px;
-}
-
-.search-sidebar-nav a {
-  padding: 15px 14px;
-  color: #83776e;
-  font-size: 16px;
-  text-decoration: none;
-}
-
-.search-create-event {
-  position: absolute;
-  left: 32px;
-  bottom: 32px;
-  width: calc(100% - 64px);
-  height: 46px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: #743642;
-  color: #fff;
-  border-radius: 8px;
-  font-size: 15px;
-  text-decoration: none;
-}
-
-.search-main {
-  padding: 28px 36px 72px;
-}
-
 .search-title h1 {
   margin: 0 0 8px;
   color: #743642;
@@ -149,11 +23,13 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: 24px;
   border-bottom: 1px solid #e2d4ca;
 }
 
 .filter-buttons {
   display: flex;
+  flex-wrap: wrap;
   gap: 16px;
 }
 
@@ -165,12 +41,14 @@
   border-radius: 999px;
   color: #743642;
   font-size: 12px;
+  cursor: pointer;
 }
 
 .active-filter {
   display: flex;
   align-items: center;
   gap: 14px;
+  white-space: nowrap;
 }
 
 .active-filter span {
@@ -186,6 +64,7 @@
   background: transparent;
   color: #743642;
   font-size: 12px;
+  cursor: pointer;
 }
 
 .search-results-grid {
@@ -235,6 +114,7 @@
   background: #fffdf9;
   color: #743642;
   font-size: 25px;
+  cursor: pointer;
 }
 
 .search-result-content {
@@ -279,15 +159,16 @@
   align-items: center;
   justify-content: center;
   background: #743642;
-  color: #fff;
+  color: #ffffff;
   border-radius: 8px;
   font-size: 14px;
   text-decoration: none;
+  font-weight: 700;
 }
 
 .no-events-box {
   min-height: 480px;
-  margin-top: 14px;
+  margin-top: 48px;
   padding: 88px 24px;
   display: flex;
   flex-direction: column;
@@ -333,33 +214,35 @@
   background: #fff0d6;
   color: #743642;
   font-size: 15px;
+  cursor: pointer;
 }
 
-.search-footer {
-  height: 98px;
-  padding: 0 48px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  background: #fbf4ec;
-  border-top: 1px solid #d8c9be;
+@media (max-width: 1180px) {
+  .search-results-grid {
+    grid-template-columns: repeat(2, 286px);
+  }
+
+  .search-filters {
+    align-items: flex-start;
+    flex-direction: column;
+  }
 }
 
-.search-footer p,
-.search-footer a {
-  color: #9e8e87;
-  font-size: 12px;
-  letter-spacing: 0.13em;
-  text-decoration: none;
-}
+@media (max-width: 760px) {
+  .search-title h1 {
+    font-size: 34px;
+  }
 
-.search-footer div {
-  display: flex;
-  gap: 40px;
-}
+  .search-results-grid {
+    grid-template-columns: 1fr;
+  }
 
-@media (max-width: 1280px) {
-  .search-page {
-    width: 100%;
+  .search-result-card {
+    max-width: 360px;
+  }
+
+  .active-filter {
+    flex-wrap: wrap;
+    white-space: normal;
   }
 }
