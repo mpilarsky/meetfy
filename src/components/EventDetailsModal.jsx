@@ -7,7 +7,18 @@ import avatar2 from "../assets/event-details-avatar-2.png";
 import avatar3 from "../assets/event-details-avatar-3.png";
 import avatar4 from "../assets/event-details-avatar-4.png";
 
-function EventDetailsModal({ onClose }) {
+function EventDetailsModal({ event, onClose }) {
+  const title = event?.title || "The Velvet Jazz Collective: Midnight Session";
+  const image = event?.image || heroImage;
+  const date = event?.date || event?.meta || "Nov 14, 9:00 PM";
+  const location = event?.location || "Velvet Lounge, NY";
+  const organizer = event?.organizer || "Julian Vance";
+  const price = event?.price || "$45.00";
+  const description =
+    event?.description ||
+    event?.text ||
+    "Join us for an exclusive evening of improvisational jazz featuring local luminaries and international guests. Set within the iconic Velvet Lounge, this session promises a fusion of classic bebop and contemporary soul. Experience the warmth of live acoustics in an environment designed for true music enthusiasts and social connoisseurs.";
+
   return (
     <div className="event-modal-overlay" onClick={onClose}>
       <section
@@ -15,53 +26,37 @@ function EventDetailsModal({ onClose }) {
         onClick={(event) => event.stopPropagation()}
       >
         <button className="event-modal-close" type="button" onClick={onClose}>
-          ×
+          x
         </button>
 
-        <img
-          className="event-modal-hero"
-          src={heroImage}
-          alt="Velvet jazz lounge"
-        />
+        <img className="event-modal-hero" src={image} alt={title} />
 
         <div className="event-modal-content">
-          <h1>The Velvet Jazz Collective: Midnight Session</h1>
+          <h1>{title}</h1>
 
           <div className="event-modal-info-grid">
             <div>
               <span>▣</span>
               <p>DATE & TIME</p>
-              <strong>
-                Nov 14,
-                <br />
-                9:00 PM
-              </strong>
+              <strong>{date}</strong>
             </div>
 
             <div>
               <span>⌖</span>
               <p>LOCATION</p>
-              <strong>
-                Velvet
-                <br />
-                Lounge, NY
-              </strong>
+              <strong>{location}</strong>
             </div>
 
             <div>
               <span>☻</span>
               <p>ORGANIZER</p>
-              <strong>
-                Julian
-                <br />
-                Vance
-              </strong>
+              <strong>{organizer}</strong>
             </div>
 
             <div>
               <span>▤</span>
               <p>TICKET PRICE</p>
-              <strong>$45.00</strong>
+              <strong>{price}</strong>
             </div>
           </div>
 
@@ -69,14 +64,7 @@ function EventDetailsModal({ onClose }) {
 
           <section className="event-about">
             <h2>About the Event</h2>
-            <p>
-              Join us for an exclusive evening of improvisational jazz featuring
-              local luminaries and international guests. Set within the iconic
-              Velvet Lounge, this session promises a fusion of classic bebop and
-              contemporary soul. Experience the warmth of live acoustics in an
-              environment designed for true music enthusiasts and social
-              connoisseurs.
-            </p>
+            <p>{description}</p>
           </section>
 
           <section className="event-attending-row">
