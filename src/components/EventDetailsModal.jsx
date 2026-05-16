@@ -1,3 +1,5 @@
+import { useNavigate } from "react-router-dom";
+
 import "./EventDetailsModal.css";
 
 import heroImage from "../assets/event-details-hero.png";
@@ -8,6 +10,8 @@ import avatar3 from "../assets/event-details-avatar-3.png";
 import avatar4 from "../assets/event-details-avatar-4.png";
 
 function EventDetailsModal({ event, onClose }) {
+  const navigate = useNavigate();
+
   const title = event?.title || "The Velvet Jazz Collective: Midnight Session";
   const image = event?.image || heroImage;
   const date = event?.date || event?.meta || "Nov 14, 9:00 PM";
@@ -18,6 +22,31 @@ function EventDetailsModal({ event, onClose }) {
     event?.description ||
     event?.text ||
     "Join us for an exclusive evening of improvisational jazz featuring local luminaries and international guests. Set within the iconic Velvet Lounge, this session promises a fusion of classic bebop and contemporary soul. Experience the warmth of live acoustics in an environment designed for true music enthusiasts and social connoisseurs.";
+
+  const eventToSave = {
+    ...event,
+    title,
+    image,
+    date,
+    location,
+    organizer,
+    price,
+    description,
+  };
+
+  const handleJoinEvent = () => {
+    console.log("Join event:", eventToSave);
+
+    onClose();
+    navigate("/events");
+  };
+
+  const handleAddToFavorites = () => {
+    console.log("Add to favorites:", eventToSave);
+
+    onClose();
+    navigate("/favorites");
+  };
 
   return (
     <div className="event-modal-overlay" onClick={onClose}>
@@ -94,11 +123,19 @@ function EventDetailsModal({ event, onClose }) {
           </section>
 
           <div className="event-modal-actions">
-            <button type="button" className="join-event-btn">
+            <button
+              type="button"
+              className="join-event-btn"
+              onClick={handleJoinEvent}
+            >
               ▣ Join Event
             </button>
 
-            <button type="button" className="favorite-event-btn">
+            <button
+              type="button"
+              className="favorite-event-btn"
+              onClick={handleAddToFavorites}
+            >
               ♡ Add to Favorites
             </button>
           </div>

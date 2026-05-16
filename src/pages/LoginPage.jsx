@@ -1,4 +1,5 @@
-import { Link } from "react-router-dom";
+import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 
 import FormInput from "../components/Form/FormInput";
 import Button from "../components/Form/Button";
@@ -8,6 +9,31 @@ import "./LoginPage.css";
 import loginHero from "../assets/login-hero.png";
 
 function LoginPage() {
+  const navigate = useNavigate();
+
+  const [formData, setFormData] = useState({
+    email: "",
+    password: "",
+    rememberMe: false,
+  });
+
+  const handleChange = (event) => {
+    const { name, value, type, checked } = event.target;
+
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: type === "checkbox" ? checked : value,
+    }));
+  };
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+
+    console.log("Login data:", formData);
+
+    navigate("/dashboard");
+  };
+
   return (
     <div className="login-page">
       <main className="login-main">
@@ -34,7 +60,7 @@ function LoginPage() {
             </Link>
           </header>
 
-          <form className="login-form">
+          <form className="login-form" onSubmit={handleSubmit}>
             <div className="login-intro">
               <h1>Welcome back</h1>
               <p>Please enter your details to access your curated discovery.</p>
@@ -44,6 +70,9 @@ function LoginPage() {
               className="login-field"
               label="EMAIL ADDRESS"
               type="email"
+              name="email"
+              value={formData.email}
+              onChange={handleChange}
               placeholder="name@sophisticated.com"
             />
 
@@ -54,7 +83,13 @@ function LoginPage() {
               </div>
 
               <div className="login-password-wrap">
-                <input type="password" placeholder="••••••••" />
+                <input
+                  type="password"
+                  name="password"
+                  value={formData.password}
+                  onChange={handleChange}
+                  placeholder="••••••••"
+                />
 
                 <Button type="button" ariaLabel="Show password">
                   ◉
@@ -63,7 +98,12 @@ function LoginPage() {
             </label>
 
             <label className="login-checkbox">
-              <input type="checkbox" />
+              <input
+                type="checkbox"
+                name="rememberMe"
+                checked={formData.rememberMe}
+                onChange={handleChange}
+              />
               <span>Remember me for 30 days</span>
             </label>
 

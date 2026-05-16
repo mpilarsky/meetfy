@@ -402,6 +402,44 @@
   gap: 36px;
 }
 
+.range-control {
+  margin: 84px 10px 52px;
+}
+
+.range-control input {
+  width: 100%;
+  height: 4px;
+  appearance: none;
+  background: #eadbd0;
+  border-radius: 999px;
+  cursor: pointer;
+}
+
+.range-control input::-webkit-slider-thumb {
+  width: 20px;
+  height: 20px;
+  appearance: none;
+  background: #743642;
+  border: 3px solid #ffffff;
+  border-radius: 50%;
+  box-shadow: 0 3px 10px rgba(80, 49, 31, 0.18);
+}
+
+.range-control input::-moz-range-thumb {
+  width: 20px;
+  height: 20px;
+  background: #743642;
+  border: 3px solid #ffffff;
+  border-radius: 50%;
+  box-shadow: 0 3px 10px rgba(80, 49, 31, 0.18);
+}
+
+.range-control input::-moz-range-track {
+  height: 4px;
+  background: #eadbd0;
+  border-radius: 999px;
+}
+
 @media (max-width: 1280px) {
   .preferences-page {
     width: 100%;

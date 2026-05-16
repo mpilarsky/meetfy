@@ -1,4 +1,5 @@
-import { Link } from "react-router-dom";
+import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 
 import FormInput from "../components/Form/FormInput";
 import Button from "../components/Form/Button";
@@ -8,6 +9,39 @@ import "./MyAccountPage.css";
 import avatarImage from "../assets/account-avatar.png";
 
 function MyAccountPage() {
+  const navigate = useNavigate();
+
+  const [accountData, setAccountData] = useState({
+    firstName: "Julian",
+    lastName: "Vance",
+    email: "julian.vance@studio.com",
+    phone: "+1 (555) 012-3456",
+    city: "San Francisco, CA",
+    currentPassword: "",
+    newPassword: "",
+    confirmNewPassword: "",
+  });
+
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+
+    setAccountData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+  };
+
+  const handleSaveChanges = () => {
+    if (accountData.newPassword !== accountData.confirmNewPassword) {
+      console.log("New passwords do not match");
+      return;
+    }
+
+    console.log("Account data:", accountData);
+
+    navigate("/account");
+  };
+
   return (
     <>
       <section className="account-title">
@@ -39,37 +73,42 @@ function MyAccountPage() {
               <FormInput
                 label="FIRST NAME"
                 type="text"
-                value="Julian"
-                readOnly
+                name="firstName"
+                value={accountData.firstName}
+                onChange={handleChange}
               />
 
               <FormInput
                 label="LAST NAME"
                 type="text"
-                value="Vance"
-                readOnly
+                name="lastName"
+                value={accountData.lastName}
+                onChange={handleChange}
               />
 
               <FormInput
                 label="EMAIL ADDRESS"
                 type="email"
-                value="julian.vance@studio.com"
-                readOnly
+                name="email"
+                value={accountData.email}
+                onChange={handleChange}
               />
 
               <FormInput
                 label="PHONE NUMBER"
                 type="text"
-                value="+1 (555) 012-3456"
-                readOnly
+                name="phone"
+                value={accountData.phone}
+                onChange={handleChange}
               />
 
               <FormInput
                 className="full-width"
                 label="CITY / LOCATION"
                 type="text"
-                value="San Francisco, CA"
-                readOnly
+                name="city"
+                value={accountData.city}
+                onChange={handleChange}
               />
             </form>
           </section>
@@ -82,25 +121,37 @@ function MyAccountPage() {
                 className="full-width"
                 label="CURRENT PASSWORD"
                 type="password"
-                value="password123"
-                readOnly
+                name="currentPassword"
+                value={accountData.currentPassword}
+                onChange={handleChange}
+                placeholder="Enter current password"
               />
 
               <FormInput
                 label="NEW PASSWORD"
                 type="password"
+                name="newPassword"
+                value={accountData.newPassword}
+                onChange={handleChange}
                 placeholder="Enter new password"
               />
 
               <FormInput
                 label="CONFIRM NEW PASSWORD"
                 type="password"
+                name="confirmNewPassword"
+                value={accountData.confirmNewPassword}
+                onChange={handleChange}
                 placeholder="Confirm new password"
               />
             </form>
           </section>
 
-          <Button type="button" className="save-account-btn">
+          <Button
+            type="button"
+            className="save-account-btn"
+            onClick={handleSaveChanges}
+          >
             Save Changes
           </Button>
         </div>
