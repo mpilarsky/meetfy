@@ -59,7 +59,7 @@ function UserDashboard() {
               </p>
 
               <div className="featured-actions">
-                <a href="/event">View Details</a>
+                <button type="button">View Details</button>
                 <p>◷ Tonight, 7:00 PM</p>
               </div>
             </div>
@@ -73,7 +73,7 @@ function UserDashboard() {
                 A night of classic soul and jazz in a cozy studio setting with
                 vintage vibes.
               </p>
-              <a href="/event">View Details</a>
+              <button type="button">View Details</button>
             </article>
 
             <article className="small-recommendation pink">
@@ -83,7 +83,7 @@ function UserDashboard() {
                 Build your creative soul with manual hands-on pottery and
                 wheel-throwing.
               </p>
-              <a href="/event">View Details</a>
+              <button type="button">View Details</button>
             </article>
           </div>
         </div>
@@ -116,7 +116,7 @@ function UserDashboard() {
 
                 <p className="event-meta">▦ {event.meta}</p>
                 <p className="event-description">{event.text}</p>
-                <a href="/event">View Details</a>
+                <button type="button">View Details</button>
               </div>
             </article>
           ))}

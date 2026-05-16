@@ -9,13 +9,20 @@ import avatar4 from "../assets/event-details-avatar-4.png";
 
 function EventDetailsModal({ onClose }) {
   return (
-    <div className="event-modal-overlay">
-      <section className="event-modal">
+    <div className="event-modal-overlay" onClick={onClose}>
+      <section
+        className="event-modal"
+        onClick={(event) => event.stopPropagation()}
+      >
         <button className="event-modal-close" type="button" onClick={onClose}>
           ×
         </button>
 
-        <img className="event-modal-hero" src={heroImage} alt="Velvet jazz lounge" />
+        <img
+          className="event-modal-hero"
+          src={heroImage}
+          alt="Velvet jazz lounge"
+        />
 
         <div className="event-modal-content">
           <h1>The Velvet Jazz Collective: Midnight Session</h1>
@@ -24,19 +31,31 @@ function EventDetailsModal({ onClose }) {
             <div>
               <span>▣</span>
               <p>DATE & TIME</p>
-              <strong>Nov 14,<br />9:00 PM</strong>
+              <strong>
+                Nov 14,
+                <br />
+                9:00 PM
+              </strong>
             </div>
 
             <div>
               <span>⌖</span>
               <p>LOCATION</p>
-              <strong>Velvet<br />Lounge, NY</strong>
+              <strong>
+                Velvet
+                <br />
+                Lounge, NY
+              </strong>
             </div>
 
             <div>
               <span>☻</span>
               <p>ORGANIZER</p>
-              <strong>oulian<br />Vance</strong>
+              <strong>
+                Julian
+                <br />
+                Vance
+              </strong>
             </div>
 
             <div>
@@ -51,11 +70,12 @@ function EventDetailsModal({ onClose }) {
           <section className="event-about">
             <h2>About the Event</h2>
             <p>
-              Join us for an exclusive evening of improvisational jazz featuring local
-              luminaries and international guests. Set within the iconic Velvet Lounge,
-              this session promises a fusion of classic bebop and contemporary soul.
-              Experience the warmth of live acoustics in an environment designed for
-              true music enthusiasts and social connoisseurs.
+              Join us for an exclusive evening of improvisational jazz featuring
+              local luminaries and international guests. Set within the iconic
+              Velvet Lounge, this session promises a fusion of classic bebop and
+              contemporary soul. Experience the warmth of live acoustics in an
+              environment designed for true music enthusiasts and social
+              connoisseurs.
             </p>
           </section>
 
@@ -76,6 +96,7 @@ function EventDetailsModal({ onClose }) {
 
             <article className="venue-card">
               <img src={venueImage} alt="Venue map" />
+
               <div>
                 <h3>Velvet Lounge</h3>
                 <p>245 West 54th St,</p>

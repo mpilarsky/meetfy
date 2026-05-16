@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 import "./MyAccountPage.css";
 
 import avatarImage from "../assets/account-avatar.png";
@@ -118,9 +120,9 @@ function MyAccountPage() {
             <p>4 - 8 People</p>
           </div>
 
-          <a href="/preferences" className="edit-preferences-btn">
+          <Link to="/preferences" className="edit-preferences-btn">
             EDIT PREFERENCES
-          </a>
+          </Link>
         </aside>
       </section>
     </>

@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 import "./HomePage.css";
 
 import heroImage from "../assets/home-hero.png";
@@ -7,13 +9,15 @@ function HomePage() {
   return (
     <div className="home-page">
       <header className="home-header">
-        <div className="home-logo">MEETFY</div>
+        <Link to="/" className="home-logo">
+          MEETFY
+        </Link>
 
         <nav className="home-nav">
-          <a href="/login">Login</a>
-          <a href="/register" className="register-button">
+          <Link to="/login">Login</Link>
+          <Link to="/register" className="register-button">
             Register
-          </a>
+          </Link>
         </nav>
       </header>
 
@@ -151,8 +155,8 @@ function HomePage() {
         <p>© 2026 MEETFY. SOCIAL SOPHISTICATION.</p>
 
         <div>
-          <a href="/contact">CONTACT</a>
-          <a href="/terms">TERMS</a>
+          <Link to="/contact">CONTACT</Link>
+          <Link to="/terms">TERMS</Link>
         </div>
       </footer>
     </div>

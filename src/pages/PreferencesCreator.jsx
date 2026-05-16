@@ -1,20 +1,28 @@
+import { Link } from "react-router-dom";
+
 import "./PreferencesCreator.css";
+
 import preferencesMoment from "../assets/preferences-moment.png";
 
 function PreferencesCreator() {
   return (
     <div className="preferences-page">
       <header className="preferences-header">
-        <a href="/" className="preferences-logo">MEETFY</a>
-        <a href="/dashboard" className="preferences-dashboard-btn">Dashboard</a>
+        <Link to="/" className="preferences-logo">
+          MEETFY
+        </Link>
+
+        <Link to="/dashboard" className="preferences-dashboard-btn">
+          Dashboard
+        </Link>
       </header>
 
       <main className="preferences-main">
         <section className="preferences-title">
           <h1>Curate Your Experience</h1>
           <p>
-            Define your ideal social landscape. We'll tailor discovery to your mood, pace,
-            and lifestyle.
+            Define your ideal social landscape. We'll tailor discovery to your
+            mood, pace, and lifestyle.
           </p>
         </section>
 
@@ -24,14 +32,20 @@ function PreferencesCreator() {
               <h2>⌘ Your Interests</h2>
 
               <div className="interest-grid">
-                <button>♪ Music</button>
-                <button>⚒ Sport</button>
-                <button className="active">☞ Culture</button>
-                <button>♟ Networking</button>
-                <button className="active">♜ Food</button>
-                <button>⌘ Gaming</button>
-                <button className="active">☯ Art</button>
-                <button>✧ Education</button>
+                <button type="button">♪ Music</button>
+                <button type="button">⚒ Sport</button>
+                <button type="button" className="active">
+                  ☞ Culture
+                </button>
+                <button type="button">♟ Networking</button>
+                <button type="button" className="active">
+                  ♜ Food
+                </button>
+                <button type="button">⌘ Gaming</button>
+                <button type="button" className="active">
+                  ☯ Art
+                </button>
+                <button type="button">✧ Education</button>
               </div>
             </section>
 
@@ -40,10 +54,18 @@ function PreferencesCreator() {
                 <h2>✦ Atmosphere</h2>
 
                 <div className="atmosphere-grid">
-                  <button>◒<span>Chill</span></button>
-                  <button className="selected">◢<span>Social</span></button>
-                  <button>ϟ<span>Energetic</span></button>
-                  <button>♡<span>Romantic</span></button>
+                  <button type="button">
+                    ◒<span>Chill</span>
+                  </button>
+                  <button type="button" className="selected">
+                    ◢<span>Social</span>
+                  </button>
+                  <button type="button">
+                    ϟ<span>Energetic</span>
+                  </button>
+                  <button type="button">
+                    ♡<span>Romantic</span>
+                  </button>
                 </div>
               </section>
 
@@ -86,7 +108,7 @@ function PreferencesCreator() {
               </div>
             </section>
 
-            <button className="save-preferences-btn">
+            <button type="button" className="save-preferences-btn">
               Save preferences <span>→</span>
             </button>
           </div>
@@ -96,9 +118,11 @@ function PreferencesCreator() {
               <h2>▣ Budget</h2>
 
               <div className="segmented-control">
-                <button>Free</button>
-                <button className="active">Cheap</button>
-                <button>Premium</button>
+                <button type="button">Free</button>
+                <button type="button" className="active">
+                  Cheap
+                </button>
+                <button type="button">Premium</button>
               </div>
             </section>
 
@@ -111,8 +135,10 @@ function PreferencesCreator() {
               </label>
 
               <div className="time-buttons">
-                <button>☼ Afternoon</button>
-                <button className="active">☾ Evening</button>
+                <button type="button">☼ Afternoon</button>
+                <button type="button" className="active">
+                  ☾ Evening
+                </button>
               </div>
             </section>
 
@@ -120,8 +146,10 @@ function PreferencesCreator() {
               <h2>♙ Environment</h2>
 
               <div className="environment-buttons">
-                <button className="active">⌂ Indoor</button>
-                <button>♤ Outdoor</button>
+                <button type="button" className="active">
+                  ⌂ Indoor
+                </button>
+                <button type="button">♤ Outdoor</button>
               </div>
             </section>
 
@@ -137,8 +165,8 @@ function PreferencesCreator() {
         <p>© 2026 MEETFY. SOCIAL SOPHISTICATION.</p>
 
         <div>
-          <a href="/contact">Contact</a>
-          <a href="/terms">Terms</a>
+          <Link to="/contact">Contact</Link>
+          <Link to="/terms">Terms</Link>
         </div>
       </footer>
     </div>

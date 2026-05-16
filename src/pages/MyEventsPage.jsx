@@ -88,7 +88,7 @@ function MyEventsPage() {
                 <p className="event-location">♙ {event.location}</p>
                 <p className="upcoming-description">{event.text}</p>
 
-                <a href="/event">View Details</a>
+                <button type="button">View Details</button>
               </div>
             </article>
           ))}
@@ -109,7 +109,7 @@ function MyEventsPage() {
               <div className="past-content">
                 <h3>{event.title}</h3>
                 <p>{event.meta}</p>
-                <a href="/event">View Details</a>
+                <button type="button">View Details</button>
               </div>
             </article>
           ))}

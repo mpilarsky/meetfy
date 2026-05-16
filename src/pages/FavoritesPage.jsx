@@ -68,7 +68,7 @@ function FavoritesPage() {
               <p className="favorite-meta">{event.meta}</p>
               <p className="favorite-description">{event.text}</p>
 
-              <a href="/event">View Details</a>
+              <button type="button">View Details</button>
             </div>
           </article>
         ))}
