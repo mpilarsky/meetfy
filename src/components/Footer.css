@@ -1,0 +1,22 @@
+.app-footer {
+  height: 98px;
+  padding: 0 32px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #fbf4ec;
+  border-top: 1px solid #d8c9be;
+}
+
+.app-footer p,
+.app-footer a {
+  color: #9e8e87;
+  font-size: 12px;
+  letter-spacing: 0.13em;
+  text-decoration: none;
+}
+
+.app-footer div {
+  display: flex;
+  gap: 40px;
+}

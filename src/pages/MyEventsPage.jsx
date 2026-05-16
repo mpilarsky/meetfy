@@ -48,114 +48,74 @@ function MyEventsPage() {
   ];
 
   return (
-    <div className="my-events-page">
-      <header className="my-events-header">
-        <a href="/" className="my-events-logo">MEETFY</a>
-        <a href="/login" className="my-events-logout">Logout</a>
-      </header>
+    <>
+      <section className="my-events-title">
+        <h1>My Events</h1>
+        <p>Manage your upcoming journeys and revisit cherished memories.</p>
+      </section>
 
-      <div className="my-events-body">
-        <aside className="my-events-sidebar">
-          <div className="my-events-sidebar-welcome">
-            <span>WELCOME BACK</span>
-            <h2>Ready for discovery?</h2>
+      <section className="upcoming-section">
+        <div className="events-section-header">
+          <div>
+            <h2>Upcoming Events</h2>
+            <p>3 events confirmed</p>
           </div>
 
-          <nav className="my-events-sidebar-nav">
-            <a href="/dashboard">⌘ Dashboard</a>
-            <a href="/favorites">♡ Favourites</a>
-            <a href="/events">⇲ My Events</a>
-            <a href="/account">♟ My Account</a>
-          </nav>
-
-          <div className="my-events-sidebar-search">
-            <span>FIND EXPERIENCES</span>
-            <input type="text" placeholder="⌕  Search..." />
-            <button type="button">⌕ Search</button>
+          <div className="events-arrows">
+            <button type="button">‹</button>
+            <button type="button">›</button>
           </div>
-
-          <a href="/create-event" className="my-events-create-event">
-            ＋ Create Event
-          </a>
-        </aside>
-
-        <main className="my-events-main">
-          <section className="my-events-title">
-            <h1>My Events</h1>
-            <p>Manage your upcoming journeys and revisit cherished memories.</p>
-          </section>
-
-          <section className="upcoming-section">
-            <div className="events-section-header">
-              <div>
-                <h2>Upcoming Events</h2>
-                <p>3 events confirmed</p>
-              </div>
-
-              <div className="events-arrows">
-                <button type="button">‹</button>
-                <button type="button">›</button>
-              </div>
-            </div>
-
-            <div className="upcoming-grid">
-              {upcomingEvents.map((event) => (
-                <article className="upcoming-card" key={event.title}>
-                  <div className="upcoming-image">
-                    <img src={event.image} alt={event.title} />
-                    <span>CONFIRMED</span>
-                    <button type="button" aria-label="Favorite event">♥</button>
-                  </div>
-
-                  <div className="upcoming-content">
-                    <div className="upcoming-title-row">
-                      <h3>{event.title}</h3>
-                      <strong>{event.price}</strong>
-                    </div>
-
-                    <p className="event-date">▦ {event.date}</p>
-                    <p className="event-location">♙ {event.location}</p>
-                    <p className="upcoming-description">{event.text}</p>
-
-                    <a href="/event">View Details</a>
-                  </div>
-                </article>
-              ))}
-            </div>
-          </section>
-
-          <section className="past-section">
-            <div className="past-heading">
-              <h2>Past Events</h2>
-              <p>Review your previous experiences</p>
-            </div>
-
-            <div className="past-grid">
-              {pastEvents.map((event) => (
-                <article className="past-card" key={event.title}>
-                  <img src={event.image} alt={event.title} />
-
-                  <div className="past-content">
-                    <h3>{event.title}</h3>
-                    <p>{event.meta}</p>
-                    <a href="/event">View Details</a>
-                  </div>
-                </article>
-              ))}
-            </div>
-          </section>
-        </main>
-      </div>
-
-      <footer className="my-events-footer">
-        <p>© 2026 MEETFY. SOCIAL SOPHISTICATION.</p>
-
-        <div>
-          <a href="/contact">CONTACT</a>
-          <a href="/terms">TERMS</a>
         </div>
-      </footer>
-    </div>
+
+        <div className="upcoming-grid">
+          {upcomingEvents.map((event) => (
+            <article className="upcoming-card" key={event.title}>
+              <div className="upcoming-image">
+                <img src={event.image} alt={event.title} />
+                <span>CONFIRMED</span>
+                <button type="button" aria-label="Favorite event">
+                  ♥
+                </button>
+              </div>
+
+              <div className="upcoming-content">
+                <div className="upcoming-title-row">
+                  <h3>{event.title}</h3>
+                  <strong>{event.price}</strong>
+                </div>
+
+                <p className="event-date">▦ {event.date}</p>
+                <p className="event-location">♙ {event.location}</p>
+                <p className="upcoming-description">{event.text}</p>
+
+                <a href="/event">View Details</a>
+              </div>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <section className="past-section">
+        <div className="past-heading">
+          <h2>Past Events</h2>
+          <p>Review your previous experiences</p>
+        </div>
+
+        <div className="past-grid">
+          {pastEvents.map((event) => (
+            <article className="past-card" key={event.title}>
+              <img src={event.image} alt={event.title} />
+
+              <div className="past-content">
+                <h3>{event.title}</h3>
+                <p>{event.meta}</p>
+                <a href="/event">View Details</a>
+              </div>
+            </article>
+          ))}
+        </div>
+      </section>
+    </>
   );
 }
 

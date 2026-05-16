@@ -36,108 +36,66 @@ function SearchPage() {
   ];
 
   return (
-    <div className="search-page">
-      <header className="search-header">
-        <a href="/" className="search-logo">MEETFY</a>
+    <>
+      <section className="search-title">
+        <h1>Search Results</h1>
+        <p>
+          Showing results for <strong>"jazz"</strong> in New York
+        </p>
+      </section>
 
-        <div className="search-top-input">
-          <span>⌕</span>
-          <input type="text" value="jazz" readOnly />
+      <section className="search-filters">
+        <div className="filter-buttons">
+          <button type="button">Category: Music⌄</button>
+          <button type="button">Price: Any Range⌄</button>
+          <button type="button">Date: This Weekend⌄</button>
+          <button type="button">Location: Manhattan⌄</button>
         </div>
 
-        <a href="/login" className="search-logout">Logout</a>
-      </header>
-
-      <div className="search-body">
-        <aside className="search-sidebar">
-          <div className="search-sidebar-welcome">
-            <span>WELCOME BACK</span>
-            <h2>Ready for discovery?</h2>
-          </div>
-
-          <nav className="search-sidebar-nav">
-            <a href="/dashboard">⌘ Dashboard</a>
-            <a href="/favorites">♡ Favourites</a>
-            <a href="/events">⇲ My Events</a>
-            <a href="/account">♟ My Account</a>
-          </nav>
-
-          <a href="/create-event" className="search-create-event">
-            + Create Event
-          </a>
-        </aside>
-
-        <main className="search-main">
-          <section className="search-title">
-            <h1>Search Results</h1>
-            <p>
-              Showing results for <strong>"jazz"</strong> in New York
-            </p>
-          </section>
-
-          <section className="search-filters">
-            <div className="filter-buttons">
-              <button>Category: Music⌄</button>
-              <button>Price: Any Range⌄</button>
-              <button>Date: This Weekend⌄</button>
-              <button>Location: Manhattan⌄</button>
-            </div>
-
-            <div className="active-filter">
-              <span>Active: Live Music</span>
-              <button type="button">Reset All</button>
-            </div>
-          </section>
-
-          <section className="search-results-grid">
-            {results.map((event) => (
-              <article className="search-result-card" key={event.title}>
-                <div className="search-result-image">
-                  <img src={event.image} alt={event.title} />
-                  <span>{event.tag}</span>
-                  <button type="button" aria-label="Add to favourites">
-                    ♡
-                  </button>
-                </div>
-
-                <div className="search-result-content">
-                  <div className="search-result-title-row">
-                    <h2>{event.title}</h2>
-                    <strong>{event.price}</strong>
-                  </div>
-
-                  <p className="search-result-meta">▧ {event.date}</p>
-                  <p className="search-result-meta">♙ {event.location}</p>
-                  <p className="search-result-description">{event.text}</p>
-
-                  <a href="/event">View Details</a>
-                </div>
-              </article>
-            ))}
-          </section>
-
-          <section className="no-events-box">
-            <div className="no-events-icon">⌕</div>
-            <h2>No events found</h2>
-            <p>
-              We couldn't find any jazz events matching your specific filters for
-              Manhattan this weekend. Try broadening your search or resetting your
-              preferences.
-            </p>
-            <button type="button">Clear filters</button>
-          </section>
-        </main>
-      </div>
-
-      <footer className="search-footer">
-        <p>© 2026 MEETFY. SOCIAL SOPHISTICATION.</p>
-
-        <div>
-          <a href="/contact">CONTACT</a>
-          <a href="/terms">TERMS</a>
+        <div className="active-filter">
+          <span>Active: Live Music</span>
+          <button type="button">Reset All</button>
         </div>
-      </footer>
-    </div>
+      </section>
+
+      <section className="search-results-grid">
+        {results.map((event) => (
+          <article className="search-result-card" key={event.title}>
+            <div className="search-result-image">
+              <img src={event.image} alt={event.title} />
+              <span>{event.tag}</span>
+              <button type="button" aria-label="Add to favourites">
+                ♡
+              </button>
+            </div>
+
+            <div className="search-result-content">
+              <div className="search-result-title-row">
+                <h2>{event.title}</h2>
+                <strong>{event.price}</strong>
+              </div>
+
+              <p className="search-result-meta">▧ {event.date}</p>
+              <p className="search-result-meta">♙ {event.location}</p>
+              <p className="search-result-description">{event.text}</p>
+
+              <a href="/event">View Details</a>
+            </div>
+          </article>
+        ))}
+      </section>
+
+      <section className="no-events-box">
+        <div className="no-events-icon">⌕</div>
+        <h2>No events found</h2>
+        <p>
+          We couldn't find any jazz events matching your specific filters for
+          Manhattan this weekend. Try broadening your search or resetting your
+          preferences.
+        </p>
+        <button type="button">Clear filters</button>
+      </section>
+    </>
   );
 }
 
