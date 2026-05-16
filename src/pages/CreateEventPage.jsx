@@ -1,3 +1,7 @@
+import FormInput from "../components/Form/FormInput";
+import FormTextarea from "../components/Form/FormTextarea";
+import Button from "../components/Form/Button";
+
 import "./CreateEventPage.css";
 
 import tipImage from "../assets/create-event-tip.png";
@@ -21,14 +25,17 @@ function CreateEventPage() {
           </div>
         </label>
 
-        <label className="form-line full-width">
-          <span>EVENT TITLE</span>
-          <input type="text" placeholder="e.g. Minimalist Ceramic Workshop" />
-        </label>
+        <FormInput
+          className="form-line full-width"
+          label="EVENT TITLE"
+          type="text"
+          placeholder="e.g. Minimalist Ceramic Workshop"
+        />
 
         <div className="event-form-grid">
           <label className="form-line">
             <span>CATEGORY</span>
+
             <select defaultValue="">
               <option value="" disabled>
                 Select a category
@@ -40,36 +47,47 @@ function CreateEventPage() {
             </select>
           </label>
 
-          <label className="form-line">
-            <span>LOCATION</span>
-            <input type="text" placeholder="♙   Add a city or venue" />
-          </label>
+          <FormInput
+            className="form-line"
+            label="LOCATION"
+            type="text"
+            placeholder="♙   Add a city or venue"
+          />
 
-          <label className="form-line">
-            <span>DATE</span>
-            <input type="text" placeholder="mm/dd/yyyy" />
-          </label>
+          <FormInput
+            className="form-line"
+            label="DATE"
+            type="text"
+            placeholder="mm/dd/yyyy"
+          />
 
-          <label className="form-line">
-            <span>TIME</span>
-            <input type="text" placeholder="--:-- --" />
-          </label>
+          <FormInput
+            className="form-line"
+            label="TIME"
+            type="text"
+            placeholder="--:-- --"
+          />
 
-          <label className="form-line">
-            <span>PRICE (USD)</span>
-            <input type="text" placeholder="$    0.00" />
-          </label>
+          <FormInput
+            className="form-line"
+            label="PRICE (USD)"
+            type="text"
+            placeholder="$    0.00"
+          />
 
-          <label className="form-line">
-            <span>PARTICIPANTS LIMIT</span>
-            <input type="text" placeholder="No limit" />
-          </label>
+          <FormInput
+            className="form-line"
+            label="PARTICIPANTS LIMIT"
+            type="text"
+            placeholder="No limit"
+          />
         </div>
 
-        <label className="form-line full-width">
-          <span>SHORT DESCRIPTION</span>
-          <textarea placeholder="Describe the vibe and what attendees should expect..." />
-        </label>
+        <FormTextarea
+          className="form-line full-width"
+          label="SHORT DESCRIPTION"
+          placeholder="Describe the vibe and what attendees should expect..."
+        />
 
         <div className="event-switches">
           <label>
@@ -83,9 +101,9 @@ function CreateEventPage() {
           </label>
         </div>
 
-        <button type="submit" className="publish-event-btn">
+        <Button type="submit" className="publish-event-btn">
           Publish Event
-        </button>
+        </Button>
       </form>
 
       <section className="create-event-bottom">

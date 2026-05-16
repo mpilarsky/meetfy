@@ -1,5 +1,7 @@
 import { Link } from "react-router-dom";
 
+import Button from "../components/Form/Button";
+
 import "./PreferencesCreator.css";
 
 import preferencesMoment from "../assets/preferences-moment.png";
@@ -32,20 +34,14 @@ function PreferencesCreator() {
               <h2>⌘ Your Interests</h2>
 
               <div className="interest-grid">
-                <button type="button">♪ Music</button>
-                <button type="button">⚒ Sport</button>
-                <button type="button" className="active">
-                  ☞ Culture
-                </button>
-                <button type="button">♟ Networking</button>
-                <button type="button" className="active">
-                  ♜ Food
-                </button>
-                <button type="button">⌘ Gaming</button>
-                <button type="button" className="active">
-                  ☯ Art
-                </button>
-                <button type="button">✧ Education</button>
+                <Button>♪ Music</Button>
+                <Button>⚒ Sport</Button>
+                <Button className="active">☞ Culture</Button>
+                <Button>♟ Networking</Button>
+                <Button className="active">♜ Food</Button>
+                <Button>⌘ Gaming</Button>
+                <Button className="active">☯ Art</Button>
+                <Button>✧ Education</Button>
               </div>
             </section>
 
@@ -54,18 +50,21 @@ function PreferencesCreator() {
                 <h2>✦ Atmosphere</h2>
 
                 <div className="atmosphere-grid">
-                  <button type="button">
+                  <Button>
                     ◒<span>Chill</span>
-                  </button>
-                  <button type="button" className="selected">
+                  </Button>
+
+                  <Button className="selected">
                     ◢<span>Social</span>
-                  </button>
-                  <button type="button">
+                  </Button>
+
+                  <Button>
                     ϟ<span>Energetic</span>
-                  </button>
-                  <button type="button">
+                  </Button>
+
+                  <Button>
                     ♡<span>Romantic</span>
-                  </button>
+                  </Button>
                 </div>
               </section>
 
@@ -108,9 +107,9 @@ function PreferencesCreator() {
               </div>
             </section>
 
-            <button type="button" className="save-preferences-btn">
+            <Button className="save-preferences-btn">
               Save preferences <span>→</span>
-            </button>
+            </Button>
           </div>
 
           <aside className="preferences-right">
@@ -118,11 +117,9 @@ function PreferencesCreator() {
               <h2>▣ Budget</h2>
 
               <div className="segmented-control">
-                <button type="button">Free</button>
-                <button type="button" className="active">
-                  Cheap
-                </button>
-                <button type="button">Premium</button>
+                <Button>Free</Button>
+                <Button className="active">Cheap</Button>
+                <Button>Premium</Button>
               </div>
             </section>
 
@@ -135,10 +132,8 @@ function PreferencesCreator() {
               </label>
 
               <div className="time-buttons">
-                <button type="button">☼ Afternoon</button>
-                <button type="button" className="active">
-                  ☾ Evening
-                </button>
+                <Button>☼ Afternoon</Button>
+                <Button className="active">☾ Evening</Button>
               </div>
             </section>
 
@@ -146,10 +141,8 @@ function PreferencesCreator() {
               <h2>♙ Environment</h2>
 
               <div className="environment-buttons">
-                <button type="button" className="active">
-                  ⌂ Indoor
-                </button>
-                <button type="button">♤ Outdoor</button>
+                <Button className="active">⌂ Indoor</Button>
+                <Button>♤ Outdoor</Button>
               </div>
             </section>
 

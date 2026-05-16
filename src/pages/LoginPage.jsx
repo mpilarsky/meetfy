@@ -1,5 +1,8 @@
 import { Link } from "react-router-dom";
 
+import FormInput from "../components/Form/FormInput";
+import Button from "../components/Form/Button";
+
 import "./LoginPage.css";
 
 import loginHero from "../assets/login-hero.png";
@@ -37,10 +40,12 @@ function LoginPage() {
               <p>Please enter your details to access your curated discovery.</p>
             </div>
 
-            <label className="login-field">
-              <span>EMAIL ADDRESS</span>
-              <input type="email" placeholder="name@sophisticated.com" />
-            </label>
+            <FormInput
+              className="login-field"
+              label="EMAIL ADDRESS"
+              type="email"
+              placeholder="name@sophisticated.com"
+            />
 
             <label className="login-field">
               <div className="login-label-row">
@@ -50,9 +55,10 @@ function LoginPage() {
 
               <div className="login-password-wrap">
                 <input type="password" placeholder="••••••••" />
-                <button type="button" aria-label="Show password">
+
+                <Button type="button" ariaLabel="Show password">
                   ◉
-                </button>
+                </Button>
               </div>
             </label>
 
@@ -61,9 +67,9 @@ function LoginPage() {
               <span>Remember me for 30 days</span>
             </label>
 
-            <button type="submit" className="login-submit">
+            <Button type="submit" className="login-submit">
               LOGIN
-            </button>
+            </Button>
           </form>
         </section>
       </main>
