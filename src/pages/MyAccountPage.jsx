@@ -1,5 +1,8 @@
 import { Link } from "react-router-dom";
 
+import FormInput from "../components/Form/FormInput";
+import Button from "../components/Form/Button";
+
 import "./MyAccountPage.css";
 
 import avatarImage from "../assets/account-avatar.png";
@@ -33,30 +36,41 @@ function MyAccountPage() {
             </div>
 
             <form className="profile-form">
-              <label>
-                <span>FIRST NAME</span>
-                <input type="text" value="Julian" readOnly />
-              </label>
+              <FormInput
+                label="FIRST NAME"
+                type="text"
+                value="Julian"
+                readOnly
+              />
 
-              <label>
-                <span>LAST NAME</span>
-                <input type="text" value="Vance" readOnly />
-              </label>
+              <FormInput
+                label="LAST NAME"
+                type="text"
+                value="Vance"
+                readOnly
+              />
 
-              <label>
-                <span>EMAIL ADDRESS</span>
-                <input type="email" value="julian.vance@studio.com" readOnly />
-              </label>
+              <FormInput
+                label="EMAIL ADDRESS"
+                type="email"
+                value="julian.vance@studio.com"
+                readOnly
+              />
 
-              <label>
-                <span>PHONE NUMBER</span>
-                <input type="text" value="+1 (555) 012-3456" readOnly />
-              </label>
+              <FormInput
+                label="PHONE NUMBER"
+                type="text"
+                value="+1 (555) 012-3456"
+                readOnly
+              />
 
-              <label className="full-width">
-                <span>CITY / LOCATION</span>
-                <input type="text" value="San Francisco, CA" readOnly />
-              </label>
+              <FormInput
+                className="full-width"
+                label="CITY / LOCATION"
+                type="text"
+                value="San Francisco, CA"
+                readOnly
+              />
             </form>
           </section>
 
@@ -64,31 +78,37 @@ function MyAccountPage() {
             <h2>Security</h2>
 
             <form className="security-form">
-              <label className="full-width">
-                <span>CURRENT PASSWORD</span>
-                <input type="password" value="password123" readOnly />
-              </label>
+              <FormInput
+                className="full-width"
+                label="CURRENT PASSWORD"
+                type="password"
+                value="password123"
+                readOnly
+              />
 
-              <label>
-                <span>NEW PASSWORD</span>
-                <input type="password" placeholder="Enter new password" />
-              </label>
+              <FormInput
+                label="NEW PASSWORD"
+                type="password"
+                placeholder="Enter new password"
+              />
 
-              <label>
-                <span>CONFIRM NEW PASSWORD</span>
-                <input type="password" placeholder="Confirm new password" />
-              </label>
+              <FormInput
+                label="CONFIRM NEW PASSWORD"
+                type="password"
+                placeholder="Confirm new password"
+              />
             </form>
           </section>
 
-          <button type="button" className="save-account-btn">
+          <Button type="button" className="save-account-btn">
             Save Changes
-          </button>
+          </Button>
         </div>
 
         <aside className="account-card preferences-summary">
           <div className="preferences-summary-header">
             <h2>Preferences</h2>
+
             <button type="button" aria-label="Edit preferences">
               ✎
             </button>

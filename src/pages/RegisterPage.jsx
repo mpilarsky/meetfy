@@ -1,5 +1,8 @@
 import { Link } from "react-router-dom";
 
+import FormInput from "../components/Form/FormInput";
+import Button from "../components/Form/Button";
+
 import "./RegisterPage.css";
 
 function RegisterPage() {
@@ -23,43 +26,51 @@ function RegisterPage() {
           </div>
 
           <form className="register-form">
-            <label className="register-field">
-              <span>Name</span>
-              <input type="text" placeholder="Evelyn Harper" />
-            </label>
+            <FormInput
+              className="register-field"
+              label="Name"
+              type="text"
+              placeholder="Evelyn Harper"
+            />
 
-            <label className="register-field">
-              <span>Email</span>
-              <input type="email" placeholder="evelyn@example.com" />
-            </label>
+            <FormInput
+              className="register-field"
+              label="Email"
+              type="email"
+              placeholder="evelyn@example.com"
+            />
 
             <label className="register-field">
               <span>Password</span>
+
               <div className="register-password-wrap">
                 <input type="password" placeholder="••••••••" />
-                <button type="button" aria-label="Show password">
+
+                <Button type="button" ariaLabel="Show password">
                   ◉
-                </button>
+                </Button>
               </div>
             </label>
 
-            <label className="register-field">
-              <span>Confirm Password</span>
-              <input type="password" placeholder="••••••••" />
-            </label>
+            <FormInput
+              className="register-field"
+              label="Confirm Password"
+              type="password"
+              placeholder="••••••••"
+            />
 
             <label className="register-checkbox">
               <input type="checkbox" />
+
               <span>
-                I accept the{" "}
-                <Link to="/terms">Terms & Conditions</Link>
-                {" "}and Privacy Policy
+                I accept the <Link to="/terms">Terms & Conditions</Link> and
+                Privacy Policy
               </span>
             </label>
 
-            <button type="submit" className="register-submit">
+            <Button type="submit" className="register-submit">
               Register
-            </button>
+            </Button>
           </form>
 
           <div className="register-divider" />

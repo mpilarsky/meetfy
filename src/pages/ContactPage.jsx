@@ -1,5 +1,9 @@
 import { Link } from "react-router-dom";
 
+import FormInput from "../components/Form/FormInput";
+import FormTextarea from "../components/Form/FormTextarea";
+import Button from "../components/Form/Button";
+
 import "./ContactPage.css";
 
 import contactHero from "../assets/contact-hero.png";
@@ -29,40 +33,46 @@ function ContactPage() {
         <section className="contact-content">
           <form className="contact-form-card">
             <div className="contact-form-grid">
-              <label>
-                <span>Full Name</span>
-                <input type="text" placeholder="John Doe" />
-              </label>
+              <FormInput
+                label="Full Name"
+                type="text"
+                placeholder="John Doe"
+              />
 
-              <label>
-                <span>Email Address</span>
-                <input type="email" placeholder="john@example.com" />
-              </label>
+              <FormInput
+                label="Email Address"
+                type="email"
+                placeholder="john@example.com"
+              />
 
-              <label>
-                <span>Subject</span>
-                <input type="text" placeholder="How can we help?" />
-              </label>
+              <FormInput
+                label="Subject"
+                type="text"
+                placeholder="How can we help?"
+              />
 
-              <label>
-                <span>Phone Number (optional)</span>
-                <input type="tel" placeholder="+48 000 000 000" />
-              </label>
+              <FormInput
+                label="Phone Number (optional)"
+                type="tel"
+                placeholder="+48 000 000 000"
+              />
             </div>
 
-            <label className="contact-message-field">
-              <span>Message</span>
-              <textarea placeholder="Your message..." />
-            </label>
+            <FormTextarea
+              className="contact-message-field"
+              label="Message"
+              placeholder="Your message..."
+            />
 
-            <button type="submit" className="contact-submit">
+            <Button type="submit" className="contact-submit">
               Send Message <span>▷</span>
-            </button>
+            </Button>
           </form>
 
           <aside className="contact-info-list">
             <article className="contact-info-card">
               <div className="contact-info-icon">✉</div>
+
               <div>
                 <h2>Write to us</h2>
                 <p>hello@meetfy.com</p>
@@ -72,6 +82,7 @@ function ContactPage() {
 
             <article className="contact-info-card">
               <div className="contact-info-icon">♧</div>
+
               <div>
                 <h2>Call us</h2>
                 <p>+48 123 456 789</p>
@@ -81,6 +92,7 @@ function ContactPage() {
 
             <article className="contact-info-card">
               <div className="contact-info-icon">⌖</div>
+
               <div>
                 <h2>Office</h2>
                 <p>12 Marszałkowska St, 00-001</p>
