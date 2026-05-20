@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
+import { useAppData } from "../context/AppDataContext";
+
 import FormInput from "../components/Form/FormInput";
 import FormTextarea from "../components/Form/FormTextarea";
 import Button from "../components/Form/Button";
@@ -11,6 +13,7 @@ import tipImage from "../assets/create-event-tip.png";
 
 function CreateEventPage() {
   const navigate = useNavigate();
+  const { createEvent } = useAppData();
 
   const [eventData, setEventData] = useState({
     title: "",
@@ -25,6 +28,8 @@ function CreateEventPage() {
     publicVisibility: true,
   });
 
+  const [errorMessage, setErrorMessage] = useState("");
+
   const handleChange = (event) => {
     const { name, value, type, checked } = event.target;
 
@@ -37,7 +42,36 @@ function CreateEventPage() {
   const handleSubmit = (event) => {
     event.preventDefault();
 
-    console.log("Created event:", eventData);
+    setErrorMessage("");
+
+    if (!eventData.title.trim()) {
+      setErrorMessage("Event title is required.");
+      return;
+    }
+
+    if (!eventData.category.trim()) {
+      setErrorMessage("Please select a category.");
+      return;
+    }
+
+    if (!eventData.location.trim()) {
+      setErrorMessage("Location is required.");
+      return;
+    }
+
+    if (!eventData.date.trim()) {
+      setErrorMessage("Date is required.");
+      return;
+    }
+
+    if (!eventData.time.trim()) {
+      setErrorMessage("Time is required.");
+      return;
+    }
+
+    const createdEvent = createEvent(eventData);
+
+    console.log("Created event:", createdEvent);
 
     navigate("/events");
   };
@@ -68,6 +102,7 @@ function CreateEventPage() {
           value={eventData.title}
           onChange={handleChange}
           placeholder="e.g. Minimalist Ceramic Workshop"
+          required
         />
 
         <div className="event-form-grid">
@@ -78,6 +113,7 @@ function CreateEventPage() {
               name="category"
               value={eventData.category}
               onChange={handleChange}
+              required
             >
               <option value="" disabled>
                 Select a category
@@ -86,6 +122,10 @@ function CreateEventPage() {
               <option value="Culture">Culture</option>
               <option value="Food">Food</option>
               <option value="Art">Art</option>
+              <option value="Sport">Sport</option>
+              <option value="Networking">Networking</option>
+              <option value="Gaming">Gaming</option>
+              <option value="Education">Education</option>
             </select>
           </label>
 
@@ -97,6 +137,7 @@ function CreateEventPage() {
             value={eventData.location}
             onChange={handleChange}
             placeholder="♙   Add a city or venue"
+            required
           />
 
           <FormInput
@@ -107,6 +148,7 @@ function CreateEventPage() {
             value={eventData.date}
             onChange={handleChange}
             placeholder="mm/dd/yyyy"
+            required
           />
 
           <FormInput
@@ -117,6 +159,7 @@ function CreateEventPage() {
             value={eventData.time}
             onChange={handleChange}
             placeholder="--:-- --"
+            required
           />
 
           <FormInput
@@ -170,6 +213,10 @@ function CreateEventPage() {
             <span>Public Visibility</span>
           </label>
         </div>
+
+        {errorMessage && (
+          <p className="create-event-error-message">{errorMessage}</p>
+        )}
 
         <Button type="submit" className="publish-event-btn">
           Publish Event

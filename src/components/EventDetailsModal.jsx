@@ -1,5 +1,7 @@
 import { useNavigate } from "react-router-dom";
 
+import { useAppData } from "../context/AppDataContext";
+
 import "./EventDetailsModal.css";
 
 import heroImage from "../assets/event-details-hero.png";
@@ -11,13 +13,17 @@ import avatar4 from "../assets/event-details-avatar-4.png";
 
 function EventDetailsModal({ event, onClose }) {
   const navigate = useNavigate();
+  const { joinEvent, addToFavorites } = useAppData();
 
   const title = event?.title || "The Velvet Jazz Collective: Midnight Session";
   const image = event?.image || heroImage;
   const date = event?.date || event?.meta || "Nov 14, 9:00 PM";
+  const time = event?.time || "";
   const location = event?.location || "Velvet Lounge, NY";
   const organizer = event?.organizer || "Julian Vance";
   const price = event?.price || "$45.00";
+  const category = event?.category || event?.tag || "Music";
+  const tag = event?.tag || event?.category || "EVENT";
   const description =
     event?.description ||
     event?.text ||
@@ -25,24 +31,32 @@ function EventDetailsModal({ event, onClose }) {
 
   const eventToSave = {
     ...event,
+    id: event?.id || Date.now(),
     title,
     image,
     date,
+    time,
     location,
     organizer,
     price,
+    category,
+    tag,
     description,
   };
 
   const handleJoinEvent = () => {
-    console.log("Join event:", eventToSave);
+    joinEvent(eventToSave);
+
+    console.log("Joined event:", eventToSave);
 
     onClose();
     navigate("/events");
   };
 
   const handleAddToFavorites = () => {
-    console.log("Add to favorites:", eventToSave);
+    addToFavorites(eventToSave);
+
+    console.log("Added to favorites:", eventToSave);
 
     onClose();
     navigate("/favorites");
@@ -67,7 +81,7 @@ function EventDetailsModal({ event, onClose }) {
             <div>
               <span>▣</span>
               <p>DATE & TIME</p>
-              <strong>{date}</strong>
+              <strong>{time ? `${date} • ${time}` : date}</strong>
             </div>
 
             <div>

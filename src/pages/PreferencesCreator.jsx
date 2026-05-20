@@ -1,5 +1,7 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
+
+import { useAppData } from "../context/AppDataContext";
 
 import Button from "../components/Form/Button";
 
@@ -7,19 +9,61 @@ import "./PreferencesCreator.css";
 
 import preferencesMoment from "../assets/preferences-moment.png";
 
+const defaultPreferences = {
+  interests: ["Culture", "Food", "Art"],
+  atmosphere: "Social",
+  groupSize: "Intimate Pair",
+  proximity: 15,
+  budget: "Cheap",
+  targetDate: "11/20/2024",
+  timeOfDay: "Evening",
+  environment: "Indoor",
+};
+
+function mergePreferences(savedPreferences) {
+  if (!savedPreferences) {
+    return defaultPreferences;
+  }
+
+  return {
+    interests: savedPreferences.interests?.length
+      ? savedPreferences.interests
+      : defaultPreferences.interests,
+
+    atmosphere:
+      savedPreferences.atmosphere || defaultPreferences.atmosphere,
+
+    groupSize:
+      savedPreferences.groupSize || defaultPreferences.groupSize,
+
+    proximity:
+      savedPreferences.proximity || defaultPreferences.proximity,
+
+    budget:
+      savedPreferences.budget || defaultPreferences.budget,
+
+    targetDate:
+      savedPreferences.targetDate || defaultPreferences.targetDate,
+
+    timeOfDay:
+      savedPreferences.timeOfDay || defaultPreferences.timeOfDay,
+
+    environment:
+      savedPreferences.environment || defaultPreferences.environment,
+  };
+}
+
 function PreferencesCreator() {
   const navigate = useNavigate();
+  const { currentUserProfile, updateCurrentUserPreferences } = useAppData();
 
-  const [preferences, setPreferences] = useState({
-    interests: ["Culture", "Food", "Art"],
-    atmosphere: "Social",
-    groupSize: "Intimate Pair",
-    proximity: 15,
-    budget: "Cheap",
-    targetDate: "11/20/2024",
-    timeOfDay: "Evening",
-    environment: "Indoor",
-  });
+  const [preferences, setPreferences] = useState(() =>
+    mergePreferences(currentUserProfile?.preferences)
+  );
+
+  useEffect(() => {
+    setPreferences(mergePreferences(currentUserProfile?.preferences));
+  }, [currentUserProfile]);
 
   const toggleInterest = (interest) => {
     setPreferences((prevData) => {
@@ -41,12 +85,10 @@ function PreferencesCreator() {
     }));
   };
 
-  const handleDateChange = (event) => {
-    setPreferenceValue("targetDate", event.target.value);
-  };
-
   const handleSavePreferences = () => {
-    console.log("Preferences:", preferences);
+    updateCurrentUserPreferences(preferences);
+
+    console.log("Saved preferences:", preferences);
 
     navigate("/dashboard");
   };
@@ -54,7 +96,7 @@ function PreferencesCreator() {
   return (
     <div className="preferences-page">
       <header className="preferences-header">
-        <Link to="/dashboard" className="preferences-logo">
+        <Link to="/" className="preferences-logo">
           MEETFY
         </Link>
 
@@ -328,7 +370,9 @@ function PreferencesCreator() {
                   type="text"
                   name="targetDate"
                   value={preferences.targetDate}
-                  onChange={handleDateChange}
+                  onChange={(event) =>
+                    setPreferenceValue("targetDate", event.target.value)
+                  }
                 />
               </label>
 

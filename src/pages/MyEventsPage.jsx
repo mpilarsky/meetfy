@@ -1,49 +1,23 @@
 import { useState } from "react";
 
+import { useAppData } from "../context/AppDataContext";
+
 import EventDetailsModal from "../components/EventDetailsModal";
 import MyEventCard from "../components/EventCards/MyEventCard";
 import PastEventCard from "../components/EventCards/PastEventCard";
 
 import "./MyEventsPage.css";
 
-import neonImage from "../assets/my-event-neon.png";
-import gourmetImage from "../assets/my-event-gourmet.png";
-import mixerImage from "../assets/my-event-mixer.png";
 import abstractImage from "../assets/my-event-abstract.png";
 import hearthImage from "../assets/my-event-hearth.png";
 
 function MyEventsPage() {
+  const { myEvents, addToFavorites } = useAppData();
   const [selectedEvent, setSelectedEvent] = useState(null);
-
-  const upcomingEvents = [
-    {
-      image: neonImage,
-      title: "Neon Rhythm Live",
-      price: "$65",
-      date: "Oct 24 • 8:30 PM",
-      location: "Qelvet Underground, Soho",
-      text: "An exclusive performance by Echo Theory, blending synth-pop with organic orchestral arrangements.",
-    },
-    {
-      image: gourmetImage,
-      title: "Gourmet Mastery",
-      price: "$120",
-      date: "Oct 30 • 6:00 PM",
-      location: "Culinary Atelier, Chelsea",
-      text: "Master the art of French-Asian fusion under the guidance of Michelin-starred chef David Roux.",
-    },
-    {
-      image: mixerImage,
-      title: "Founders Mixer",
-      price: "Free",
-      date: "Nov 05 • 7:00 PM",
-      location: "The Cloud Lounge, Midtown",
-      text: "Connect with the city's brightest entrepreneurs over curated cocktails and panoramic views.",
-    },
-  ];
 
   const pastEvents = [
     {
+      id: "past-1",
       image: abstractImage,
       title: "Abstract Realities",
       price: "Archive",
@@ -53,6 +27,7 @@ function MyEventsPage() {
       text: "A past experience from your Meetfy history.",
     },
     {
+      id: "past-2",
       image: hearthImage,
       title: "The Hearth Dinner",
       price: "Archive",
@@ -62,6 +37,14 @@ function MyEventsPage() {
       text: "A past experience from your Meetfy history.",
     },
   ];
+
+  const getEventDate = (event) => {
+    if (event.date && event.time) {
+      return `${event.date} • ${event.time}`;
+    }
+
+    return event.date || event.meta || "";
+  };
 
   return (
     <>
@@ -74,7 +57,10 @@ function MyEventsPage() {
         <div className="events-section-header">
           <div>
             <h2>Upcoming Events</h2>
-            <p>3 events confirmed</p>
+            <p>
+              {myEvents.length}{" "}
+              {myEvents.length === 1 ? "event confirmed" : "events confirmed"}
+            </p>
           </div>
 
           <div className="events-arrows">
@@ -83,27 +69,36 @@ function MyEventsPage() {
           </div>
         </div>
 
-        <div className="upcoming-grid">
-          {upcomingEvents.map((event) => (
-            <MyEventCard
-              key={event.title}
-              image={event.image}
-              title={event.title}
-              price={event.price}
-              date={event.date}
-              location={event.location}
-              description={event.text}
-              status="CONFIRMED"
-              onViewDetails={() =>
-                setSelectedEvent({
-                  ...event,
-                  description: event.text,
-                })
-              }
-              onToggleFavorite={() => console.log("Toggle favorite:", event)}
-            />
-          ))}
-        </div>
+        {myEvents.length > 0 ? (
+          <div className="upcoming-grid">
+            {myEvents.map((event) => (
+              <MyEventCard
+                key={event.id || event.title}
+                image={event.image}
+                title={event.title}
+                price={event.price}
+                date={getEventDate(event)}
+                location={event.location}
+                description={event.description || event.text}
+                status="CONFIRMED"
+                onViewDetails={() =>
+                  setSelectedEvent({
+                    ...event,
+                    description: event.description || event.text,
+                  })
+                }
+                onToggleFavorite={() => addToFavorites(event)}
+              />
+            ))}
+          </div>
+        ) : (
+          <section className="my-events-empty">
+            <h3>No upcoming events yet</h3>
+            <p>
+              Join an event from Search or Dashboard and it will appear here.
+            </p>
+          </section>
+        )}
       </section>
 
       <section className="past-section">
@@ -115,7 +110,7 @@ function MyEventsPage() {
         <div className="past-grid">
           {pastEvents.map((event) => (
             <PastEventCard
-              key={event.title}
+              key={event.id}
               image={event.image}
               title={event.title}
               meta={event.meta}

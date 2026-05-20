@@ -23,6 +23,14 @@
   justify-content: center;
   background: #743642;
   color: #ffffff;
+  border: none;
   border-radius: 999px;
+  font: inherit;
+  font-weight: 700;
   text-decoration: none;
+  cursor: pointer;
+}
+
+.app-header-logout:hover {
+  opacity: 0.9;
 }

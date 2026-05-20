@@ -1,5 +1,7 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+
+import { useAppData } from "../context/AppDataContext";
 
 import FormInput from "../components/Form/FormInput";
 import Button from "../components/Form/Button";
@@ -8,19 +10,36 @@ import "./MyAccountPage.css";
 
 import avatarImage from "../assets/account-avatar.png";
 
+const defaultAccountData = {
+  name: "",
+  surname: "",
+  email: "",
+  phone: "",
+  city: "",
+  currentPassword: "",
+  newPassword: "",
+  confirmNewPassword: "",
+};
+
 function MyAccountPage() {
   const navigate = useNavigate();
+  const { currentUserProfile, updateCurrentUser } = useAppData();
 
-  const [accountData, setAccountData] = useState({
-    firstName: "Julian",
-    lastName: "Vance",
-    email: "julian.vance@studio.com",
-    phone: "+1 (555) 012-3456",
-    city: "San Francisco, CA",
-    currentPassword: "",
-    newPassword: "",
-    confirmNewPassword: "",
-  });
+  const [accountData, setAccountData] = useState(defaultAccountData);
+  const [message, setMessage] = useState("");
+
+  useEffect(() => {
+    if (currentUserProfile) {
+      setAccountData((prevData) => ({
+        ...prevData,
+        name: currentUserProfile.name || "",
+        surname: currentUserProfile.surname || "",
+        email: currentUserProfile.email || "",
+        phone: currentUserProfile.phone || "",
+        city: currentUserProfile.city || "",
+      }));
+    }
+  }, [currentUserProfile]);
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -32,15 +51,42 @@ function MyAccountPage() {
   };
 
   const handleSaveChanges = () => {
-    if (accountData.newPassword !== accountData.confirmNewPassword) {
-      console.log("New passwords do not match");
-      return;
+    setMessage("");
+
+    if (
+      accountData.newPassword ||
+      accountData.confirmNewPassword ||
+      accountData.currentPassword
+    ) {
+      if (accountData.newPassword !== accountData.confirmNewPassword) {
+        setMessage("New passwords do not match.");
+        return;
+      }
+
+      console.log(
+        "Password change is not implemented yet. Firebase password update can be added later."
+      );
     }
 
-    console.log("Account data:", accountData);
+    updateCurrentUser({
+      name: accountData.name,
+      surname: accountData.surname,
+      phone: accountData.phone,
+      city: accountData.city,
+    });
 
+    setAccountData((prevData) => ({
+      ...prevData,
+      currentPassword: "",
+      newPassword: "",
+      confirmNewPassword: "",
+    }));
+
+    setMessage("Account data saved.");
     navigate("/account");
   };
+
+  const preferences = currentUserProfile?.preferences;
 
   return (
     <>
@@ -73,16 +119,16 @@ function MyAccountPage() {
               <FormInput
                 label="FIRST NAME"
                 type="text"
-                name="firstName"
-                value={accountData.firstName}
+                name="name"
+                value={accountData.name}
                 onChange={handleChange}
               />
 
               <FormInput
                 label="LAST NAME"
                 type="text"
-                name="lastName"
-                value={accountData.lastName}
+                name="surname"
+                value={accountData.surname}
                 onChange={handleChange}
               />
 
@@ -92,6 +138,7 @@ function MyAccountPage() {
                 name="email"
                 value={accountData.email}
                 onChange={handleChange}
+                readOnly
               />
 
               <FormInput
@@ -100,6 +147,7 @@ function MyAccountPage() {
                 name="phone"
                 value={accountData.phone}
                 onChange={handleChange}
+                placeholder="+48 000 000 000"
               />
 
               <FormInput
@@ -109,6 +157,7 @@ function MyAccountPage() {
                 name="city"
                 value={accountData.city}
                 onChange={handleChange}
+                placeholder="Krakow, Poland"
               />
             </form>
           </section>
@@ -145,7 +194,13 @@ function MyAccountPage() {
                 placeholder="Confirm new password"
               />
             </form>
+
+            <p className="security-note">
+              Password update can be connected to Firebase later.
+            </p>
           </section>
+
+          {message && <p className="account-message">{message}</p>}
 
           <Button
             type="button"
@@ -160,35 +215,38 @@ function MyAccountPage() {
           <div className="preferences-summary-header">
             <h2>Preferences</h2>
 
-            <button type="button" aria-label="Edit preferences">
+            <Link to="/preferences" aria-label="Edit preferences">
               ✎
-            </button>
+            </Link>
           </div>
 
           <div className="summary-block">
             <h3>FAVORITE CATEGORIES</h3>
 
             <div className="category-tags">
-              <span>Jazz Night</span>
-              <span>Art Gallery</span>
-              <span>Architecture</span>
-              <span>Wine Tasting</span>
+              {preferences?.interests?.length ? (
+                preferences.interests.map((interest) => (
+                  <span key={interest}>{interest}</span>
+                ))
+              ) : (
+                <span>No preferences yet</span>
+              )}
             </div>
           </div>
 
           <div className="summary-block">
             <h3>PREFERRED BUDGET</h3>
-            <p>Mid-Range to Premium ($$-$$$)</p>
+            <p>{preferences?.budget || "Not selected"}</p>
           </div>
 
           <div className="summary-block">
-            <h3>EVENT TYPE</h3>
-            <p>Intimate Gatherings, Party</p>
+            <h3>ATMOSPHERE</h3>
+            <p>{preferences?.atmosphere || "Not selected"}</p>
           </div>
 
           <div className="summary-block">
             <h3>GROUP SIZE</h3>
-            <p>4 - 8 People</p>
+            <p>{preferences?.groupSize || "Not selected"}</p>
           </div>
 
           <Link to="/preferences" className="edit-preferences-btn">

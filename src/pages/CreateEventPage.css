@@ -223,6 +223,13 @@
   line-height: 1.35;
 }
 
+.create-event-error-message {
+  margin: 0 0 18px;
+  color: #9f1d35;
+  font-size: 14px;
+  font-weight: 700;
+}
+
 @media (max-width: 1100px) {
   .create-event-bottom {
     grid-template-columns: 1fr;

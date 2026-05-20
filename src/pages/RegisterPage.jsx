@@ -1,13 +1,13 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
-import FormInput from "../components/Form/FormInput";
-import Button from "../components/Form/Button";
+import { useAppData } from "../context/AppDataContext";
 
 import "./RegisterPage.css";
 
 function RegisterPage() {
   const navigate = useNavigate();
+  const { registerUser } = useAppData();
 
   const [formData, setFormData] = useState({
     name: "",
@@ -16,6 +16,10 @@ function RegisterPage() {
     confirmPassword: "",
     acceptedTerms: false,
   });
+
+  const [showPassword, setShowPassword] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleChange = (event) => {
     const { name, value, type, checked } = event.target;
@@ -26,15 +30,20 @@ function RegisterPage() {
     }));
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
 
-    if (formData.password !== formData.confirmPassword) {
-      console.log("Passwords do not match");
+    setErrorMessage("");
+    setIsSubmitting(true);
+
+    const result = await registerUser(formData);
+
+    setIsSubmitting(false);
+
+    if (!result.success) {
+      setErrorMessage(result.message);
       return;
     }
-
-    console.log("Register data:", formData);
 
     navigate("/preferences");
   };
@@ -59,53 +68,68 @@ function RegisterPage() {
           </div>
 
           <form className="register-form" onSubmit={handleSubmit}>
-            <FormInput
-              className="register-field"
-              label="Name"
-              type="text"
-              name="name"
-              value={formData.name}
-              onChange={handleChange}
-              placeholder="Evelyn Harper"
-            />
+            <label className="register-field">
+              <span>Name</span>
+              <input
+                type="text"
+                name="name"
+                value={formData.name}
+                onChange={handleChange}
+                placeholder="Evelyn Harper"
+                autoComplete="name"
+                required
+              />
+            </label>
 
-            <FormInput
-              className="register-field"
-              label="Email"
-              type="email"
-              name="email"
-              value={formData.email}
-              onChange={handleChange}
-              placeholder="evelyn@example.com"
-            />
+            <label className="register-field">
+              <span>Email</span>
+              <input
+                type="email"
+                name="email"
+                value={formData.email}
+                onChange={handleChange}
+                placeholder="evelyn@example.com"
+                autoComplete="email"
+                required
+              />
+            </label>
 
             <label className="register-field">
               <span>Password</span>
 
               <div className="register-password-wrap">
                 <input
-                  type="password"
+                  type={showPassword ? "text" : "password"}
                   name="password"
                   value={formData.password}
                   onChange={handleChange}
                   placeholder="••••••••"
+                  autoComplete="new-password"
+                  required
                 />
 
-                <Button type="button" ariaLabel="Show password">
+                <button
+                  type="button"
+                  aria-label="Show password"
+                  onClick={() => setShowPassword((prevValue) => !prevValue)}
+                >
                   ◉
-                </Button>
+                </button>
               </div>
             </label>
 
-            <FormInput
-              className="register-field"
-              label="Confirm Password"
-              type="password"
-              name="confirmPassword"
-              value={formData.confirmPassword}
-              onChange={handleChange}
-              placeholder="••••••••"
-            />
+            <label className="register-field">
+              <span>Confirm Password</span>
+              <input
+                type={showPassword ? "text" : "password"}
+                name="confirmPassword"
+                value={formData.confirmPassword}
+                onChange={handleChange}
+                placeholder="••••••••"
+                autoComplete="new-password"
+                required
+              />
+            </label>
 
             <label className="register-checkbox">
               <input
@@ -121,9 +145,17 @@ function RegisterPage() {
               </span>
             </label>
 
-            <Button type="submit" className="register-submit">
-              Register
-            </Button>
+            {errorMessage && (
+              <p className="register-error-message">{errorMessage}</p>
+            )}
+
+            <button
+              type="submit"
+              className="register-submit"
+              disabled={isSubmitting}
+            >
+              {isSubmitting ? "Creating account..." : "Register"}
+            </button>
           </form>
 
           <div className="register-divider" />

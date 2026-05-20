@@ -1,106 +1,122 @@
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { useSearchParams } from "react-router-dom";
+
+import { useAppData } from "../context/AppDataContext";
 
 import EventDetailsModal from "../components/EventDetailsModal";
 import SearchEventCard from "../components/EventCards/SearchEventCard";
 
 import "./SearchPage.css";
 
-import jazzImage from "../assets/search-jazz.png";
-import loftImage from "../assets/search-loft.png";
-import rooftopImage from "../assets/search-rooftop.png";
-
 function SearchPage() {
+  const { events, addToFavorites } = useAppData();
+
   const [selectedEvent, setSelectedEvent] = useState(null);
-  const [searchParams] = useSearchParams();
+  const [searchParams, setSearchParams] = useSearchParams();
 
-  const query = searchParams.get("q") || "jazz";
+  const query = searchParams.get("q") || "";
 
-  const results = [
-    {
-      image: jazzImage,
-      tag: "Music",
-      title: "Jazz Sessions",
-      price: "$45",
-      date: "Fri, Oct 24 • 9:00 PM",
-      location: "The Blue Velvet, Manhattan",
-      text: "Experience an intimate evening of classic Bebop and avant-garde jazz with the Elias",
-    },
-    {
-      image: loftImage,
-      tag: "Social",
-      title: "Loft Jazz & Wine",
-      price: "$60",
-      date: "Sat, Oct 25 • 7:30 PM",
-      location: "Skyline Lofts, Brooklyn",
-      text: "A curated evening pairing organic wines with acoustic jazz sets. Perfect for those...",
-    },
-    {
-      image: rooftopImage,
-      tag: "Rooftop",
-      title: "Sunset Jazz Terrace",
-      price: "$35",
-      date: "Sun, Oct 26 • 5:00 PM",
-      location: "Alta Rooftop, Soho",
-      text: "Witness the New York sunset while local legends play smooth soul-jazz standards....",
-    },
-  ];
+  const filteredEvents = useMemo(() => {
+    const normalizedQuery = query.trim().toLowerCase();
+
+    if (!normalizedQuery) {
+      return events;
+    }
+
+    return events.filter((event) => {
+      const searchableText = [
+        event.title,
+        event.category,
+        event.tag,
+        event.location,
+        event.description,
+        event.text,
+        event.organizer,
+      ]
+        .filter(Boolean)
+        .join(" ")
+        .toLowerCase();
+
+      return searchableText.includes(normalizedQuery);
+    });
+  }, [events, query]);
+
+  const handleResetSearch = () => {
+    setSearchParams({});
+  };
 
   return (
     <>
       <section className="search-title">
         <h1>Search Results</h1>
+
         <p>
-          Showing results for <strong>"{query}"</strong> in New York
+          {query ? (
+            <>
+              Showing results for <strong>"{query}"</strong>
+            </>
+          ) : (
+            <>Showing all available experiences</>
+          )}
         </p>
       </section>
 
       <section className="search-filters">
         <div className="filter-buttons">
-          <button type="button">Category: Music⌄</button>
+          <button type="button">Category: Any⌄</button>
           <button type="button">Price: Any Range⌄</button>
-          <button type="button">Date: This Weekend⌄</button>
-          <button type="button">Location: Manhattan⌄</button>
+          <button type="button">Date: Any Date⌄</button>
+          <button type="button">Location: Anywhere⌄</button>
         </div>
 
         <div className="active-filter">
-          <span>Active: Live Music</span>
-          <button type="button">Reset All</button>
+          <span>Active: {query || "All Events"}</span>
+
+          <button type="button" onClick={handleResetSearch}>
+            Reset All
+          </button>
         </div>
       </section>
 
-      <section className="search-results-grid">
-        {results.map((event) => (
-          <SearchEventCard
-            key={event.title}
-            image={event.image}
-            tag={event.tag}
-            title={event.title}
-            price={event.price}
-            date={event.date}
-            location={event.location}
-            description={event.text}
-            onViewDetails={() =>
-              setSelectedEvent({
-                ...event,
-                description: event.text,
-              })
-            }
-            onToggleFavorite={() => console.log("Toggle favorite:", event)}
-          />
-        ))}
-      </section>
+      {filteredEvents.length > 0 ? (
+        <section className="search-results-grid">
+          {filteredEvents.map((event) => (
+            <SearchEventCard
+              key={event.id || event.title}
+              image={event.image}
+              tag={event.tag || event.category || "EVENT"}
+              title={event.title}
+              price={event.price}
+              date={event.date}
+              location={event.location}
+              description={event.description || event.text}
+              onViewDetails={() =>
+                setSelectedEvent({
+                  ...event,
+                  description: event.description || event.text,
+                })
+              }
+              onToggleFavorite={() => addToFavorites(event)}
+            />
+          ))}
+        </section>
+      ) : (
+        <section className="no-events-box">
+          <div className="no-events-icon">⌕</div>
 
-      <section className="no-events-box">
-        <div className="no-events-icon">⌕</div>
-        <h2>No events found</h2>
-        <p>
-          We couldn't find any events matching your search for "{query}" with
-          the current filters. Try broadening your search or resetting your
-          preferences.
-        </p>
-        <button type="button">Clear filters</button>
-      </section>
+          <h2>No events found</h2>
+
+          <p>
+            We couldn't find any events matching your search
+            {query ? ` for "${query}"` : ""}. Try broadening your search or
+            resetting your preferences.
+          </p>
+
+          <button type="button" onClick={handleResetSearch}>
+            Clear filters
+          </button>
+        </section>
+      )}
 
       {selectedEvent && (
         <EventDetailsModal

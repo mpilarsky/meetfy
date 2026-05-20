@@ -256,6 +256,18 @@
   gap: 40px;
 }
 
+.register-error-message {
+  margin: -8px 0 20px;
+  color: #9f1d35;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.register-submit:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
 @media (max-width: 1280px) {
   .register-page {
     width: 100%;

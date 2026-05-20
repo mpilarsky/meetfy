@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
+import { useAppData } from "../context/AppDataContext";
+
 import FormInput from "../components/Form/FormInput";
 import Button from "../components/Form/Button";
 
@@ -10,12 +12,17 @@ import loginHero from "../assets/login-hero.png";
 
 function LoginPage() {
   const navigate = useNavigate();
+  const { loginUser } = useAppData();
 
   const [formData, setFormData] = useState({
     email: "",
     password: "",
     rememberMe: false,
   });
+
+  const [showPassword, setShowPassword] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleChange = (event) => {
     const { name, value, type, checked } = event.target;
@@ -26,10 +33,23 @@ function LoginPage() {
     }));
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
 
-    console.log("Login data:", formData);
+    setErrorMessage("");
+    setIsSubmitting(true);
+
+    const result = await loginUser({
+      email: formData.email,
+      password: formData.password,
+    });
+
+    setIsSubmitting(false);
+
+    if (!result.success) {
+      setErrorMessage(result.message);
+      return;
+    }
 
     navigate("/dashboard");
   };
@@ -74,6 +94,8 @@ function LoginPage() {
               value={formData.email}
               onChange={handleChange}
               placeholder="name@sophisticated.com"
+              autoComplete="email"
+              required
             />
 
             <label className="login-field">
@@ -84,14 +106,20 @@ function LoginPage() {
 
               <div className="login-password-wrap">
                 <input
-                  type="password"
+                  type={showPassword ? "text" : "password"}
                   name="password"
                   value={formData.password}
                   onChange={handleChange}
                   placeholder="••••••••"
+                  autoComplete="current-password"
+                  required
                 />
 
-                <Button type="button" ariaLabel="Show password">
+                <Button
+                  type="button"
+                  ariaLabel="Show password"
+                  onClick={() => setShowPassword((prevValue) => !prevValue)}
+                >
                   ◉
                 </Button>
               </div>
@@ -104,11 +132,20 @@ function LoginPage() {
                 checked={formData.rememberMe}
                 onChange={handleChange}
               />
+
               <span>Remember me for 30 days</span>
             </label>
 
-            <Button type="submit" className="login-submit">
-              LOGIN
+            {errorMessage && (
+              <p className="login-error-message">{errorMessage}</p>
+            )}
+
+            <Button
+              type="submit"
+              className="login-submit"
+              disabled={isSubmitting}
+            >
+              {isSubmitting ? "LOGGING IN..." : "LOGIN"}
             </Button>
           </form>
         </section>
