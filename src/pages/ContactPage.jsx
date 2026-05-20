@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 
+import { useAppData } from "../context/AppDataContext";
+
 import FormInput from "../components/Form/FormInput";
 import FormTextarea from "../components/Form/FormTextarea";
 import Button from "../components/Form/Button";
@@ -10,6 +12,8 @@ import "./ContactPage.css";
 import contactHero from "../assets/contact-hero.png";
 
 function ContactPage() {
+  const { authUser } = useAppData();
+
   const [contactData, setContactData] = useState({
     fullName: "",
     email: "",
@@ -17,6 +21,8 @@ function ContactPage() {
     phone: "",
     message: "",
   });
+
+  const homeLink = authUser ? "/dashboard" : "/";
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -44,7 +50,7 @@ function ContactPage() {
   return (
     <div className="contact-page">
       <header className="contact-header">
-        <Link to="/contact" className="contact-logo">
+        <Link to={homeLink} className="contact-logo">
           MEETFY
         </Link>
       </header>
@@ -154,15 +160,15 @@ function ContactPage() {
                 <h2>Find us online</h2>
 
                 <div className="contact-socials">
-                  <Link to="/" aria-label="Website">
+                  <Link to={homeLink} aria-label="Website">
                     ◎
                   </Link>
 
-                  <Link to="/" aria-label="Global">
+                  <Link to={homeLink} aria-label="Global">
                     ◉
                   </Link>
 
-                  <Link to="/" aria-label="Community">
+                  <Link to={homeLink} aria-label="Community">
                     ♟
                   </Link>
                 </div>

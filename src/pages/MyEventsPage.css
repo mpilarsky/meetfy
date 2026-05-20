@@ -93,6 +93,11 @@
   font-size: 16px;
 }
 
+.events-arrows button:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+
 @media (max-width: 1100px) {
   .upcoming-grid {
     grid-template-columns: repeat(2, 1fr);

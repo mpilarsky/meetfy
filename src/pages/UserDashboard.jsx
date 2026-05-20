@@ -9,9 +9,13 @@ import "./UserDashboard.css";
 
 import featuredImage from "../assets/dashboard-featured.png";
 
+const VISIBLE_DISCOVER_EVENTS = 3;
+
 function UserDashboard() {
   const { events, currentUserProfile, addToFavorites } = useAppData();
+
   const [selectedEvent, setSelectedEvent] = useState(null);
+  const [discoverStartIndex, setDiscoverStartIndex] = useState(0);
 
   const userName = currentUserProfile?.name || "Julian";
 
@@ -29,14 +33,43 @@ function UserDashboard() {
     };
 
   const smallEvents = useMemo(() => {
-    const filteredEvents = events.filter((event) => event.id !== featuredEvent.id);
+    const filteredEvents = events.filter(
+      (event) => event.id !== featuredEvent.id
+    );
 
     return filteredEvents.slice(0, 2);
   }, [events, featuredEvent]);
 
   const discoverEvents = useMemo(() => {
-    return events.slice(0, 3);
-  }, [events]);
+    return events.filter((event) => event.id !== featuredEvent.id);
+  }, [events, featuredEvent]);
+
+  const visibleDiscoverEvents = useMemo(() => {
+    return discoverEvents.slice(
+      discoverStartIndex,
+      discoverStartIndex + VISIBLE_DISCOVER_EVENTS
+    );
+  }, [discoverEvents, discoverStartIndex]);
+
+  const canGoPrevious = discoverStartIndex > 0;
+
+  const canGoNext =
+    discoverStartIndex + VISIBLE_DISCOVER_EVENTS < discoverEvents.length;
+
+  const handlePreviousDiscover = () => {
+    setDiscoverStartIndex((prevIndex) => Math.max(prevIndex - 1, 0));
+  };
+
+  const handleNextDiscover = () => {
+    setDiscoverStartIndex((prevIndex) => {
+      const maxIndex = Math.max(
+        discoverEvents.length - VISIBLE_DISCOVER_EVENTS,
+        0
+      );
+
+      return Math.min(prevIndex + 1, maxIndex);
+    });
+  };
 
   const preferencesText = useMemo(() => {
     const interests = currentUserProfile?.preferences?.interests;
@@ -76,7 +109,9 @@ function UserDashboard() {
     <>
       <section className="dashboard-intro">
         <h1>Welcome back, {userName}!</h1>
-        <p>Your next experience awaits. Discover hand-picked events just for you.</p>
+        <p>
+          Your next experience awaits. Discover hand-picked events just for you.
+        </p>
       </section>
 
       <section className="personalized-section">
@@ -139,13 +174,26 @@ function UserDashboard() {
           <h2>Discover Near You</h2>
 
           <div>
-            <button type="button">‹</button>
-            <button type="button">›</button>
+            <button
+              type="button"
+              onClick={handlePreviousDiscover}
+              disabled={!canGoPrevious}
+            >
+              ‹
+            </button>
+
+            <button
+              type="button"
+              onClick={handleNextDiscover}
+              disabled={!canGoNext}
+            >
+              ›
+            </button>
           </div>
         </div>
 
         <div className="event-grid">
-          {discoverEvents.map((event) => (
+          {visibleDiscoverEvents.map((event) => (
             <DashboardEventCard
               key={event.id || event.title}
               image={event.image}

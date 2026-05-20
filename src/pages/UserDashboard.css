@@ -207,6 +207,11 @@
   gap: 28px;
 }
 
+.discover-header button:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+
 @media (max-width: 1100px) {
   .personalized-grid {
     grid-template-columns: 1fr;

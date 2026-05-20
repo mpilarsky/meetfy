@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import { useAppData } from "../context/AppDataContext";
 
@@ -11,9 +11,13 @@ import "./MyEventsPage.css";
 import abstractImage from "../assets/my-event-abstract.png";
 import hearthImage from "../assets/my-event-hearth.png";
 
+const VISIBLE_UPCOMING_EVENTS = 3;
+
 function MyEventsPage() {
-  const { myEvents, addToFavorites } = useAppData();
+  const { myEvents, removeFromMyEvents } = useAppData();
+
   const [selectedEvent, setSelectedEvent] = useState(null);
+  const [upcomingStartIndex, setUpcomingStartIndex] = useState(0);
 
   const pastEvents = [
     {
@@ -37,6 +41,36 @@ function MyEventsPage() {
       text: "A past experience from your Meetfy history.",
     },
   ];
+
+  const maxUpcomingIndex = Math.max(
+    myEvents.length - VISIBLE_UPCOMING_EVENTS,
+    0
+  );
+
+  const visibleMyEvents = myEvents.slice(
+    upcomingStartIndex,
+    upcomingStartIndex + VISIBLE_UPCOMING_EVENTS
+  );
+
+  const canGoPrevious = upcomingStartIndex > 0;
+  const canGoNext =
+    upcomingStartIndex + VISIBLE_UPCOMING_EVENTS < myEvents.length;
+
+  useEffect(() => {
+    if (upcomingStartIndex > maxUpcomingIndex) {
+      setUpcomingStartIndex(maxUpcomingIndex);
+    }
+  }, [upcomingStartIndex, maxUpcomingIndex]);
+
+  const handlePreviousUpcoming = () => {
+    setUpcomingStartIndex((prevIndex) => Math.max(prevIndex - 1, 0));
+  };
+
+  const handleNextUpcoming = () => {
+    setUpcomingStartIndex((prevIndex) =>
+      Math.min(prevIndex + 1, maxUpcomingIndex)
+    );
+  };
 
   const getEventDate = (event) => {
     if (event.date && event.time) {
@@ -64,14 +98,27 @@ function MyEventsPage() {
           </div>
 
           <div className="events-arrows">
-            <button type="button">‹</button>
-            <button type="button">›</button>
+            <button
+              type="button"
+              onClick={handlePreviousUpcoming}
+              disabled={!canGoPrevious}
+            >
+              ‹
+            </button>
+
+            <button
+              type="button"
+              onClick={handleNextUpcoming}
+              disabled={!canGoNext}
+            >
+              ›
+            </button>
           </div>
         </div>
 
         {myEvents.length > 0 ? (
           <div className="upcoming-grid">
-            {myEvents.map((event) => (
+            {visibleMyEvents.map((event) => (
               <MyEventCard
                 key={event.id || event.title}
                 image={event.image}
@@ -87,7 +134,7 @@ function MyEventsPage() {
                     description: event.description || event.text,
                   })
                 }
-                onToggleFavorite={() => addToFavorites(event)}
+                onToggleFavorite={() => removeFromMyEvents(event.id)}
               />
             ))}
           </div>

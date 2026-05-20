@@ -18,6 +18,16 @@ import { auth } from "../firebase/firebase";
 
 import { initialEvents } from "../data/initialEvents";
 import { initialUsers } from "../data/initialUsers";
+
+import spiritsImage from "../assets/favorite-spirits.png";
+import musicImage from "../assets/favorite-music.png";
+import chefImage from "../assets/favorite-chef.png";
+import modernismImage from "../assets/favorite-modernism.png";
+import jazzImage from "../assets/search-jazz.png";
+import loftImage from "../assets/search-loft.png";
+import rooftopImage from "../assets/search-rooftop.png";
+import dashboardFeaturedImage from "../assets/dashboard-featured.png";
+
 import {
   loadFromStorage,
   removeFromStorage,
@@ -44,6 +54,23 @@ const emptyPreferences = {
   environment: "",
 };
 
+const eventStockImages = [
+  spiritsImage,
+  musicImage,
+  chefImage,
+  modernismImage,
+  jazzImage,
+  loftImage,
+  rooftopImage,
+  dashboardFeaturedImage,
+];
+
+function getRandomEventImage() {
+  const randomIndex = Math.floor(Math.random() * eventStockImages.length);
+
+  return eventStockImages[randomIndex];
+}
+
 function createProfileFromFirebaseUser(firebaseUser, displayName = "") {
   const [firstName, ...restNameParts] = displayName.trim().split(" ");
 
@@ -61,7 +88,7 @@ function createProfileFromFirebaseUser(firebaseUser, displayName = "") {
 function normalizeEvent(event) {
   return {
     id: event.id || Date.now(),
-    image: event.image,
+    image: event.image || getRandomEventImage(),
     tag: event.tag || event.category || "EVENT",
     title: event.title || "Untitled Event",
     price: event.price || "Free",
@@ -326,12 +353,15 @@ export function AppDataProvider({ children }) {
   };
 
   const createEvent = (eventData) => {
+    const randomImage = getRandomEventImage();
+
     const createdEvent = normalizeEvent({
-      ...eventData,
-      id: Date.now(),
-      tag: eventData.category || "EVENT",
-      price: eventData.price ? `$${eventData.price}` : "Free",
-      organizer: currentUserProfile
+        ...eventData,
+        id: Date.now(),
+        image: eventData.image || randomImage,
+        tag: eventData.category || "EVENT",
+        price: eventData.price ? `$${eventData.price}` : "Free",
+        organizer: currentUserProfile
         ? `${currentUserProfile.name} ${currentUserProfile.surname}`.trim()
         : "Meetfy User",
     });
@@ -380,6 +410,12 @@ export function AppDataProvider({ children }) {
     );
   };
 
+  const removeFromMyEvents = (eventId) => {
+    setMyEvents((prevEvents) =>
+        prevEvents.filter((event) => event.id !== eventId)
+    );
+  };
+
   const resetLocalDemoData = () => {
     setUserProfiles(initialUsers);
     setEvents(initialEvents);
@@ -414,6 +450,7 @@ export function AppDataProvider({ children }) {
       joinEvent,
       addToFavorites,
       removeFromFavorites,
+      removeFromMyEvents,
 
       resetLocalDemoData,
     }),
