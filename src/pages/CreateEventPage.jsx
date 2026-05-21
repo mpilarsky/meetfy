@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import { useAppData } from "../context/AppDataContext";
@@ -11,9 +11,13 @@ import "./CreateEventPage.css";
 
 import tipImage from "../assets/create-event-tip.png";
 
+const MAX_IMAGE_SIZE = 2 * 1024 * 1024;
+
 function CreateEventPage() {
   const navigate = useNavigate();
   const { createEvent } = useAppData();
+
+  const fileInputRef = useRef(null);
 
   const [eventData, setEventData] = useState({
     title: "",
@@ -26,9 +30,11 @@ function CreateEventPage() {
     description: "",
     indoor: false,
     publicVisibility: true,
+    image: "",
   });
 
   const [errorMessage, setErrorMessage] = useState("");
+  const [imageFileName, setImageFileName] = useState("");
 
   const handleChange = (event) => {
     const { name, value, type, checked } = event.target;
@@ -37,6 +43,61 @@ function CreateEventPage() {
       ...prevData,
       [name]: type === "checkbox" ? checked : value,
     }));
+  };
+
+  const handleCoverClick = () => {
+    fileInputRef.current?.click();
+  };
+
+  const handleImageChange = (event) => {
+    const file = event.target.files?.[0];
+
+    if (!file) {
+      return;
+    }
+
+    const allowedTypes = ["image/jpeg", "image/png"];
+
+    if (!allowedTypes.includes(file.type)) {
+      setErrorMessage("Please upload JPG or PNG image.");
+      return;
+    }
+
+    if (file.size > MAX_IMAGE_SIZE) {
+      setErrorMessage("Image is too large. Maximum size is 2 MB.");
+      return;
+    }
+
+    const reader = new FileReader();
+
+    reader.onload = () => {
+      setEventData((prevData) => ({
+        ...prevData,
+        image: reader.result,
+      }));
+
+      setImageFileName(file.name);
+      setErrorMessage("");
+    };
+
+    reader.onerror = () => {
+      setErrorMessage("Could not read selected image.");
+    };
+
+    reader.readAsDataURL(file);
+  };
+
+  const handleRemoveImage = () => {
+    setEventData((prevData) => ({
+      ...prevData,
+      image: "",
+    }));
+
+    setImageFileName("");
+
+    if (fileInputRef.current) {
+      fileInputRef.current.value = "";
+    }
   };
 
   const handleSubmit = (event) => {
@@ -87,11 +148,46 @@ function CreateEventPage() {
         <label className="cover-field">
           <span>EVENT COVER IMAGE</span>
 
-          <div className="cover-upload">
-            <div className="upload-icon">☁</div>
-            <p>Click or drag to upload high-resolution image</p>
-            <small>Recommended: 1600x900px, PNG or JPG</small>
-          </div>
+          <input
+            ref={fileInputRef}
+            className="cover-file-input"
+            type="file"
+            accept="image/png, image/jpeg"
+            onChange={handleImageChange}
+          />
+
+          <button
+            type="button"
+            className={`cover-upload ${eventData.image ? "has-image" : ""}`}
+            onClick={handleCoverClick}
+          >
+            {eventData.image ? (
+              <>
+                <img src={eventData.image} alt="Selected event cover" />
+
+                <div className="cover-preview-overlay">
+                  <strong>Change cover image</strong>
+                  <small>{imageFileName}</small>
+                </div>
+              </>
+            ) : (
+              <>
+                <div className="upload-icon">☁</div>
+                <p>Click or drag to upload high-resolution image</p>
+                <small>Recommended: 1600x900px, PNG or JPG</small>
+              </>
+            )}
+          </button>
+
+          {eventData.image && (
+            <button
+              type="button"
+              className="remove-cover-btn"
+              onClick={handleRemoveImage}
+            >
+              Remove selected image
+            </button>
+          )}
         </label>
 
         <FormInput

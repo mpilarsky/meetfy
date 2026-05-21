@@ -11,6 +11,8 @@ import "./ContactPage.css";
 
 import contactHero from "../assets/contact-hero.png";
 
+const CONTACT_EMAIL = "meetfy8@gmail.com";
+
 function ContactPage() {
   const { authUser } = useAppData();
 
@@ -21,6 +23,8 @@ function ContactPage() {
     phone: "",
     message: "",
   });
+
+  const [messageInfo, setMessageInfo] = useState("");
 
   const homeLink = authUser ? "/dashboard" : "/";
 
@@ -36,7 +40,30 @@ function ContactPage() {
   const handleSubmit = (event) => {
     event.preventDefault();
 
+    const mailSubject = contactData.subject.trim()
+      ? `Meetfy contact: ${contactData.subject}`
+      : "Meetfy contact form";
+
+    const mailBody = `
+Full name: ${contactData.fullName}
+Email: ${contactData.email}
+Phone: ${contactData.phone || "Not provided"}
+
+Message:
+${contactData.message}
+`;
+
+    const mailtoLink = `mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent(
+      mailSubject
+    )}&body=${encodeURIComponent(mailBody)}`;
+
+    window.location.href = mailtoLink;
+
     console.log("Contact data:", contactData);
+
+    setMessageInfo(
+      "Your email client has been opened with a prepared message."
+    );
 
     setContactData({
       fullName: "",
@@ -78,6 +105,7 @@ function ContactPage() {
                 value={contactData.fullName}
                 onChange={handleChange}
                 placeholder="John Doe"
+                required
               />
 
               <FormInput
@@ -87,6 +115,7 @@ function ContactPage() {
                 value={contactData.email}
                 onChange={handleChange}
                 placeholder="john@example.com"
+                required
               />
 
               <FormInput
@@ -96,6 +125,7 @@ function ContactPage() {
                 value={contactData.subject}
                 onChange={handleChange}
                 placeholder="How can we help?"
+                required
               />
 
               <FormInput
@@ -115,7 +145,10 @@ function ContactPage() {
               value={contactData.message}
               onChange={handleChange}
               placeholder="Your message..."
+              required
             />
+
+            {messageInfo && <p className="contact-message-info">{messageInfo}</p>}
 
             <Button type="submit" className="contact-submit">
               Send Message <span>▷</span>
@@ -128,7 +161,7 @@ function ContactPage() {
 
               <div>
                 <h2>Write to us</h2>
-                <p>hello@meetfy.com</p>
+                <p>{CONTACT_EMAIL}</p>
                 <span>We reply within 24h</span>
               </div>
             </article>

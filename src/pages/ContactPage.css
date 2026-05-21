@@ -233,6 +233,13 @@
   gap: 40px;
 }
 
+.contact-message-info {
+  margin: 0 0 18px;
+  color: #2f7d4f;
+  font-size: 14px;
+  font-weight: 700;
+}
+
 @media (max-width: 1280px) {
   .contact-page {
     width: 100%;

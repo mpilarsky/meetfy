@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
 import { useAppData } from "../context/AppDataContext";
@@ -10,12 +10,15 @@ import "./MyAccountPage.css";
 
 import avatarImage from "../assets/account-avatar.png";
 
+const MAX_AVATAR_SIZE = 1 * 1024 * 1024;
+
 const defaultAccountData = {
   name: "",
   surname: "",
   email: "",
   phone: "",
   city: "",
+  avatar: "",
   currentPassword: "",
   newPassword: "",
   confirmNewPassword: "",
@@ -25,8 +28,11 @@ function MyAccountPage() {
   const navigate = useNavigate();
   const { currentUserProfile, updateCurrentUser } = useAppData();
 
+  const avatarInputRef = useRef(null);
+
   const [accountData, setAccountData] = useState(defaultAccountData);
   const [message, setMessage] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
 
   useEffect(() => {
     if (currentUserProfile) {
@@ -37,6 +43,7 @@ function MyAccountPage() {
         email: currentUserProfile.email || "",
         phone: currentUserProfile.phone || "",
         city: currentUserProfile.city || "",
+        avatar: currentUserProfile.avatar || "",
       }));
     }
   }, [currentUserProfile]);
@@ -50,8 +57,75 @@ function MyAccountPage() {
     }));
   };
 
+  const handleAvatarButtonClick = () => {
+    avatarInputRef.current?.click();
+  };
+
+  const handleAvatarChange = (event) => {
+    const file = event.target.files?.[0];
+
+    if (!file) {
+      return;
+    }
+
+    const allowedTypes = ["image/jpeg", "image/png"];
+
+    if (!allowedTypes.includes(file.type)) {
+      setErrorMessage("Please upload JPG or PNG image.");
+      return;
+    }
+
+    if (file.size > MAX_AVATAR_SIZE) {
+      setErrorMessage("Avatar image is too large. Maximum size is 1 MB.");
+      return;
+    }
+
+    const reader = new FileReader();
+
+    reader.onload = () => {
+      const avatarDataUrl = reader.result;
+
+      setAccountData((prevData) => ({
+        ...prevData,
+        avatar: avatarDataUrl,
+      }));
+
+      updateCurrentUser({
+        avatar: avatarDataUrl,
+      });
+
+      setMessage("Avatar updated.");
+      setErrorMessage("");
+    };
+
+    reader.onerror = () => {
+      setErrorMessage("Could not read selected image.");
+    };
+
+    reader.readAsDataURL(file);
+  };
+
+  const handleRemoveAvatar = () => {
+    setAccountData((prevData) => ({
+      ...prevData,
+      avatar: "",
+    }));
+
+    updateCurrentUser({
+      avatar: "",
+    });
+
+    if (avatarInputRef.current) {
+      avatarInputRef.current.value = "";
+    }
+
+    setMessage("Avatar removed.");
+    setErrorMessage("");
+  };
+
   const handleSaveChanges = () => {
     setMessage("");
+    setErrorMessage("");
 
     if (
       accountData.newPassword ||
@@ -59,7 +133,7 @@ function MyAccountPage() {
       accountData.currentPassword
     ) {
       if (accountData.newPassword !== accountData.confirmNewPassword) {
-        setMessage("New passwords do not match.");
+        setErrorMessage("New passwords do not match.");
         return;
       }
 
@@ -73,6 +147,7 @@ function MyAccountPage() {
       surname: accountData.surname,
       phone: accountData.phone,
       city: accountData.city,
+      avatar: accountData.avatar,
     });
 
     setAccountData((prevData) => ({
@@ -87,6 +162,7 @@ function MyAccountPage() {
   };
 
   const preferences = currentUserProfile?.preferences;
+  const avatarSource = accountData.avatar || avatarImage;
 
   return (
     <>
@@ -101,12 +177,27 @@ function MyAccountPage() {
             <h2>Profile Information</h2>
 
             <div className="avatar-row">
-              <img src={avatarImage} alt="User avatar" />
+              <img src={avatarSource} alt="User avatar" />
 
               <div className="avatar-actions">
+                <input
+                  ref={avatarInputRef}
+                  className="avatar-file-input"
+                  type="file"
+                  accept="image/png, image/jpeg"
+                  onChange={handleAvatarChange}
+                />
+
                 <div>
-                  <button type="button">Change Avatar</button>
-                  <button type="button" className="remove-avatar">
+                  <button type="button" onClick={handleAvatarButtonClick}>
+                    Change Avatar
+                  </button>
+
+                  <button
+                    type="button"
+                    className="remove-avatar"
+                    onClick={handleRemoveAvatar}
+                  >
                     Remove
                   </button>
                 </div>
@@ -200,6 +291,7 @@ function MyAccountPage() {
             </p>
           </section>
 
+          {errorMessage && <p className="account-error">{errorMessage}</p>}
           {message && <p className="account-message">{message}</p>}
 
           <Button

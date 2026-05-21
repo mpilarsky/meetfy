@@ -81,6 +81,7 @@ function createProfileFromFirebaseUser(firebaseUser, displayName = "") {
     email: firebaseUser.email || "",
     phone: "",
     city: "",
+    avatar: "",
     preferences: emptyPreferences,
   };
 }
