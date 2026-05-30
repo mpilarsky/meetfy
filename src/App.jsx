@@ -1,5 +1,6 @@
+import { useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
-
+import ReactGA from "react-ga4";
 import AppLayout from "./components/AppLayout";
 
 import HomePage from "./pages/HomePage";
@@ -13,9 +14,14 @@ import MyEventsPage from "./pages/MyEventsPage";
 import SearchPage from "./pages/SearchPage";
 import MyAccountPage from "./pages/MyAccountPage";
 import CreateEventPage from "./pages/CreateEventPage";
-
+import AnalyticsListener from "./components/AnalyticsListener";
 function App() {
+  useEffect(() => {
+    ReactGA.initialize("G-YCTK06G289"); 
+  }, []);         
   return (
+    <>
+      <AnalyticsListener />
     <Routes>
       <Route path="/" element={<HomePage />} />
       <Route path="/login" element={<LoginPage />} />
@@ -32,6 +38,7 @@ function App() {
         <Route path="/create-event" element={<CreateEventPage />} />
       </Route>
     </Routes>
+    </>
   );
 }
 
