@@ -390,7 +390,6 @@ function PreferencesCreator() {
                 `}
                 </style>
 
-                {/* TUTAJ: Otwarty div obejmuje ikone i input */}
                 <div style={{ display: "flex", alignItems: "center", gap: "8px", background: "#f5f5f5", padding: "8px 12px", borderRadius: "8px", marginTop: "4px" }}>
                   <CalendarDays 
                     size={18} 
