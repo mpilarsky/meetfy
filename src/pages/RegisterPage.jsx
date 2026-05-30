@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { Eye, EyeOff, Compass, ShieldCheck } from "lucide-react";
 
 import { useAppData } from "../context/AppDataContext";
 
@@ -112,8 +113,9 @@ function RegisterPage() {
                   type="button"
                   aria-label="Show password"
                   onClick={() => setShowPassword((prevValue) => !prevValue)}
+                  style={{ background: 'none', border: 'none', cursor: 'pointer', display: 'flex', alignItems: 'center' }}
                 >
-                  ◉
+                  {showPassword ? <EyeOff size={20} color="#666" /> : <Eye size={20} color="#666" />}
                 </button>
               </div>
             </label>
@@ -167,7 +169,9 @@ function RegisterPage() {
 
         <section className="register-benefits">
           <article className="register-benefit-card">
-            <div className="register-benefit-icon">⊙</div>
+            <div className="register-benefit-icon">
+              <Compass size={28} strokeWidth={1.5} />
+            </div>
 
             <div>
               <strong>Discover</strong>
@@ -176,7 +180,9 @@ function RegisterPage() {
           </article>
 
           <article className="register-benefit-card">
-            <div className="register-benefit-icon">♢</div>
+            <div className="register-benefit-icon">
+              <ShieldCheck size={28} strokeWidth={1.5} />
+            </div>
 
             <div>
               <strong>Secure</strong>

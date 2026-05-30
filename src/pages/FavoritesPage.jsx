@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-
+import { ChevronLeft, ChevronRight, CalendarDays, MapPin } from "lucide-react";
 import { useAppData } from "../context/AppDataContext";
 
 import EventDetailsModal from "../components/EventDetailsModal";
@@ -54,7 +54,16 @@ function FavoritesPage() {
     const date = event.date || "";
     const location = event.location || "";
 
-    return `▧ ${date}    ♙ ${location}`;
+    return (
+      <span style={{ display: "inline-flex", alignItems: "center", gap: "12px" }}>
+        <span style={{ display: "inline-flex", alignItems: "center", gap: "4px" }}>
+          <CalendarDays size={14} /> {date}
+        </span>
+        <span style={{ display: "inline-flex", alignItems: "center", gap: "4px" }}>
+          <MapPin size={14} /> {location}
+        </span>
+      </span>
+    );
   };
 
   return (
@@ -79,7 +88,7 @@ function FavoritesPage() {
             onClick={handlePreviousFavorites}
             disabled={!canGoPrevious}
           >
-            ‹
+            <ChevronLeft size={20} />
           </button>
 
           <button
@@ -87,7 +96,7 @@ function FavoritesPage() {
             onClick={handleNextFavorites}
             disabled={!canGoNext}
           >
-            ›
+            <ChevronRight size={20} />
           </button>
         </div>
       </section>

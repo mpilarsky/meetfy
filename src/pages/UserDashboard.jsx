@@ -1,5 +1,5 @@
 import { useMemo, useState } from "react";
-
+import { Clock, ChevronLeft, ChevronRight } from "lucide-react";
 import { useAppData } from "../context/AppDataContext";
 
 import EventDetailsModal from "../components/EventDetailsModal";
@@ -141,7 +141,7 @@ function UserDashboard() {
                 </button>
 
                 <p>
-                  ◷ {featuredEvent.date}
+                  <Clock size={16} strokeWidth={2} /> {featuredEvent.date}
                   {featuredEvent.time ? `, ${featuredEvent.time}` : ""}
                 </p>
               </div>
@@ -179,7 +179,7 @@ function UserDashboard() {
               onClick={handlePreviousDiscover}
               disabled={!canGoPrevious}
             >
-              ‹
+              <ChevronLeft size={20} />
             </button>
 
             <button
@@ -187,7 +187,7 @@ function UserDashboard() {
               onClick={handleNextDiscover}
               disabled={!canGoNext}
             >
-              ›
+              <ChevronRight size={20} />
             </button>
           </div>
         </div>
