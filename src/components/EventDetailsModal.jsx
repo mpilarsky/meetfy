@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-
+import { X, CalendarDays, MapPin, User, Ticket, CheckCircle, Heart } from "lucide-react";
 import { useAppData } from "../context/AppDataContext";
 
 import "./EventDetailsModal.css";
@@ -61,7 +61,8 @@ function EventDetailsModal({ event, onClose }) {
     onClose();
     navigate("/favorites");
   };
-
+  const iconStyle = { marginBottom: "8px", color: "#666" };
+  const btnIconStyle = { marginRight: "8px", verticalAlign: "middle" };
   return (
     <div className="event-modal-overlay" onClick={onClose}>
       <section
@@ -69,7 +70,7 @@ function EventDetailsModal({ event, onClose }) {
         onClick={(event) => event.stopPropagation()}
       >
         <button className="event-modal-close" type="button" onClick={onClose}>
-          x
+          <X size={24} color="#333" />
         </button>
 
         <img className="event-modal-hero" src={image} alt={title} />
@@ -79,25 +80,25 @@ function EventDetailsModal({ event, onClose }) {
 
           <div className="event-modal-info-grid">
             <div>
-              <span>▣</span>
+              <CalendarDays size={24} style={iconStyle} />
               <p>DATE & TIME</p>
               <strong>{time ? `${date} • ${time}` : date}</strong>
             </div>
 
             <div>
-              <span>⌖</span>
+              <MapPin size={24} style={iconStyle} />
               <p>LOCATION</p>
               <strong>{location}</strong>
             </div>
 
             <div>
-              <span>☻</span>
+              <User size={24} style={iconStyle} />
               <p>ORGANIZER</p>
               <strong>{organizer}</strong>
             </div>
 
             <div>
-              <span>▤</span>
+              <Ticket size={24} style={iconStyle} />
               <p>TICKET PRICE</p>
               <strong>{price}</strong>
             </div>
@@ -142,7 +143,7 @@ function EventDetailsModal({ event, onClose }) {
               className="join-event-btn"
               onClick={handleJoinEvent}
             >
-              ▣ Join Event
+              <CheckCircle size={18} style={btnIconStyle} /> Join Event
             </button>
 
             <button
@@ -150,7 +151,7 @@ function EventDetailsModal({ event, onClose }) {
               className="favorite-event-btn"
               onClick={handleAddToFavorites}
             >
-              ♡ Add to Favorites
+              <Heart size={18} style={btnIconStyle} /> Add to Favorites
             </button>
           </div>
         </div>

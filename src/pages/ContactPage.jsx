@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 
+import { Send, Mail, Phone, MapPin, Globe } from "lucide-react";
+import { FaInstagram, FaXTwitter, FaLinkedin } from "react-icons/fa6";
 import { useAppData } from "../context/AppDataContext";
 
 import FormInput from "../components/Form/FormInput";
@@ -157,7 +159,9 @@ ${contactData.message}
 
           <aside className="contact-info-list">
             <article className="contact-info-card">
-              <div className="contact-info-icon">✉</div>
+              <div className="contact-info-icon">
+                <Mail size={28} strokeWidth={1.5} />
+              </div>
 
               <div>
                 <h2>Write to us</h2>
@@ -167,7 +171,9 @@ ${contactData.message}
             </article>
 
             <article className="contact-info-card">
-              <div className="contact-info-icon">♧</div>
+              <div className="contact-info-icon">
+                <Phone size={28} strokeWidth={1.5} />
+              </div>
 
               <div>
                 <h2>Call us</h2>
@@ -177,7 +183,9 @@ ${contactData.message}
             </article>
 
             <article className="contact-info-card">
-              <div className="contact-info-icon">⌖</div>
+              <div className="contact-info-icon">
+                <MapPin size={28} strokeWidth={1.5} />
+              </div>
 
               <div>
                 <h2>Office</h2>
@@ -187,22 +195,24 @@ ${contactData.message}
             </article>
 
             <article className="contact-info-card online-card">
-              <div className="contact-info-icon">⌯</div>
+              <div className="contact-info-icon">
+                <Globe size={28} strokeWidth={1.5} />
+              </div>
 
               <div>
                 <h2>Find us online</h2>
 
                 <div className="contact-socials">
-                  <Link to={homeLink} aria-label="Website">
-                    ◎
+                  <Link to={homeLink} aria-label="Instagram">
+                    <FaInstagram size={20} />
                   </Link>
 
-                  <Link to={homeLink} aria-label="Global">
-                    ◉
+                  <Link to={homeLink} aria-label="Twitter">
+                    <FaXTwitter size={20} />
                   </Link>
 
-                  <Link to={homeLink} aria-label="Community">
-                    ♟
+                  <Link to={homeLink} aria-label="LinkedIn">
+                    <FaLinkedin size={20} />
                   </Link>
                 </div>
               </div>

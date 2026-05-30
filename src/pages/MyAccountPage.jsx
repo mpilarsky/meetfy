@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-
+import { Pencil } from "lucide-react";
 import { useAppData } from "../context/AppDataContext";
 
 import FormInput from "../components/Form/FormInput";
@@ -308,7 +308,7 @@ function MyAccountPage() {
             <h2>Preferences</h2>
 
             <Link to="/preferences" aria-label="Edit preferences">
-              ✎
+              <Pencil size={18} color="#666" />
             </Link>
           </div>
 

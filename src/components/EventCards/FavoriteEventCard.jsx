@@ -1,3 +1,4 @@
+import { Heart} from "lucide-react";
 import "./FavoriteEventCard.css";
 
 function FavoriteEventCard({
@@ -21,7 +22,7 @@ function FavoriteEventCard({
           aria-label="Remove from favorites"
           onClick={onRemoveFavorite}
         >
-          ♥
+          <Heart size={18} fill="currentColor" />
         </button>
       </div>
 

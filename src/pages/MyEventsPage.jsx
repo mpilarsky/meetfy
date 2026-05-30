@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-
+import { ChevronLeft, ChevronRight } from "lucide-react";
 import { useAppData } from "../context/AppDataContext";
 
 import EventDetailsModal from "../components/EventDetailsModal";
@@ -103,7 +103,7 @@ function MyEventsPage() {
               onClick={handlePreviousUpcoming}
               disabled={!canGoPrevious}
             >
-              ‹
+              <ChevronLeft size={20} />
             </button>
 
             <button
@@ -111,7 +111,7 @@ function MyEventsPage() {
               onClick={handleNextUpcoming}
               disabled={!canGoNext}
             >
-              ›
+              <ChevronRight size={20} />
             </button>
           </div>
         </div>
