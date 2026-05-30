@@ -1,4 +1,6 @@
 .favorite-card {
+  display: flex;
+  flex-direction: column; 
   min-height: 574px;
   overflow: hidden;
   background: #fffdf9;
@@ -9,13 +11,14 @@
 
 .favorite-image {
   position: relative;
-  height: 255px;
+  height: 255px; 
+  flex-shrink: 0; 
 }
 
 .favorite-image img {
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: cover; 
 }
 
 .favorite-image span {
@@ -41,12 +44,17 @@
   border-radius: 50%;
   background: #fffdf9;
   color: #743642;
-  font-size: 24px;
   cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .favorite-content {
   padding: 32px;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1; 
 }
 
 .favorite-title-row {
@@ -71,20 +79,21 @@
 
 .favorite-meta {
   margin: 12px 0 20px;
-  color: #a2a9b4;
+  color: #83776e; 
   font-size: 12px;
   font-weight: 800;
 }
 
 .favorite-description {
-  min-height: 48px;
   margin: 0 0 34px;
   color: #7c8797;
   font-size: 15px;
   line-height: 1.45;
+  flex-grow: 1; 
 }
 
 .favorite-content button {
+  margin-top: auto; 
   width: 100%;
   height: 52px;
   display: flex;

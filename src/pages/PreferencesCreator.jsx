@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
 import { useAppData } from "../context/AppDataContext";
@@ -8,6 +8,13 @@ import Button from "../components/Form/Button";
 import "./PreferencesCreator.css";
 
 import preferencesMoment from "../assets/preferences-moment.png";
+
+import { 
+  Music, Activity, Landmark, Network, Utensils, Gamepad2, Palette, BookOpen, 
+  Wind, MessageCircle, Zap, Heart, User, Users, UsersRound, MapPin, 
+  Wallet, CalendarDays, Sun, Moon, Compass, Home, TreePine, Star, Sparkles 
+} from "lucide-react";
+
 
 const defaultPreferences = {
   interests: ["Culture", "Food", "Art"],
@@ -57,6 +64,13 @@ function PreferencesCreator() {
   const navigate = useNavigate();
   const { currentUserProfile, updateCurrentUserPreferences } = useAppData();
 
+  const dateInputRef = useRef(null);
+  const openDatePicker = () => {
+    if (dateInputRef.current && dateInputRef.current.showPicker) {
+      dateInputRef.current.showPicker();
+    }
+  };
+
   const [preferences, setPreferences] = useState(() =>
     mergePreferences(currentUserProfile?.preferences)
   );
@@ -92,6 +106,8 @@ function PreferencesCreator() {
 
     navigate("/dashboard");
   };
+  
+  const iconStyle = { marginRight: '6px', verticalAlign: 'middle' };
 
   return (
     <div className="preferences-page">
@@ -117,7 +133,7 @@ function PreferencesCreator() {
         <section className="preferences-layout">
           <div className="preferences-left">
             <section className="pref-card interests-card">
-              <h2>⌘ Your Interests</h2>
+              <h2><Star size={20} style={iconStyle} /> Your Interests</h2>
 
               <div className="interest-grid">
                 <Button
@@ -126,7 +142,7 @@ function PreferencesCreator() {
                   }
                   onClick={() => toggleInterest("Music")}
                 >
-                  ♪ Music
+                  <Music size={16} style={iconStyle} /> Music
                 </Button>
 
                 <Button
@@ -135,7 +151,7 @@ function PreferencesCreator() {
                   }
                   onClick={() => toggleInterest("Sport")}
                 >
-                  ⚒ Sport
+                  <Activity size={16} style={iconStyle} /> Sport
                 </Button>
 
                 <Button
@@ -144,7 +160,7 @@ function PreferencesCreator() {
                   }
                   onClick={() => toggleInterest("Culture")}
                 >
-                  ☞ Culture
+                  <Landmark size={16} style={iconStyle} /> Culture
                 </Button>
 
                 <Button
@@ -155,7 +171,7 @@ function PreferencesCreator() {
                   }
                   onClick={() => toggleInterest("Networking")}
                 >
-                  ♟ Networking
+                  <Network size={16} style={iconStyle} /> Networking
                 </Button>
 
                 <Button
@@ -164,7 +180,7 @@ function PreferencesCreator() {
                   }
                   onClick={() => toggleInterest("Food")}
                 >
-                  ♜ Food
+                  <Utensils size={16} style={iconStyle} /> Food
                 </Button>
 
                 <Button
@@ -173,7 +189,7 @@ function PreferencesCreator() {
                   }
                   onClick={() => toggleInterest("Gaming")}
                 >
-                  ⌘ Gaming
+                  <Gamepad2 size={16} style={iconStyle} /> Gaming
                 </Button>
 
                 <Button
@@ -182,7 +198,7 @@ function PreferencesCreator() {
                   }
                   onClick={() => toggleInterest("Art")}
                 >
-                  ☯ Art
+                  <Palette size={16} style={iconStyle} /> Art
                 </Button>
 
                 <Button
@@ -191,14 +207,14 @@ function PreferencesCreator() {
                   }
                   onClick={() => toggleInterest("Education")}
                 >
-                  ✧ Education
+                  <BookOpen size={16} style={iconStyle} /> Education
                 </Button>
               </div>
             </section>
 
             <div className="preferences-two-columns">
               <section className="pref-card atmosphere-card">
-                <h2>✦ Atmosphere</h2>
+                <h2><Sparkles size={20} style={iconStyle} /> Atmosphere</h2>
 
                 <div className="atmosphere-grid">
                   <Button
@@ -207,7 +223,7 @@ function PreferencesCreator() {
                     }
                     onClick={() => setPreferenceValue("atmosphere", "Chill")}
                   >
-                    ◒<span>Chill</span>
+                    <Wind size={16} style={iconStyle} /> <span>Chill</span>
                   </Button>
 
                   <Button
@@ -216,7 +232,7 @@ function PreferencesCreator() {
                     }
                     onClick={() => setPreferenceValue("atmosphere", "Social")}
                   >
-                    ◢<span>Social</span>
+                    <MessageCircle size={16} style={iconStyle} /> <span>Social</span>
                   </Button>
 
                   <Button
@@ -227,7 +243,7 @@ function PreferencesCreator() {
                       setPreferenceValue("atmosphere", "Energetic")
                     }
                   >
-                    ϟ<span>Energetic</span>
+                    <Zap size={16} style={iconStyle} /> <span>Energetic</span>
                   </Button>
 
                   <Button
@@ -238,13 +254,13 @@ function PreferencesCreator() {
                       setPreferenceValue("atmosphere", "Romantic")
                     }
                   >
-                    ♡<span>Romantic</span>
+                    <Heart size={16} style={iconStyle} /> <span>Romantic</span>
                   </Button>
                 </div>
               </section>
 
               <section className="pref-card group-card">
-                <h2>☻ Group Size</h2>
+                <h2><Users size={20} style={iconStyle} /> Group Size</h2>
 
                 <div className="radio-list">
                   <label
@@ -252,7 +268,7 @@ function PreferencesCreator() {
                       preferences.groupSize === "Solo" ? "selected" : ""
                     }
                   >
-                    <span>♙ Solo</span>
+                    <span><User size={16} style={iconStyle} /> Solo</span>
                     <input
                       type="radio"
                       name="groupSize"
@@ -268,7 +284,7 @@ function PreferencesCreator() {
                         : ""
                     }
                   >
-                    <span>▣ Intimate Pair</span>
+                    <span><Users size={16} style={iconStyle} /> Intimate Pair</span>
                     <input
                       type="radio"
                       name="groupSize"
@@ -286,7 +302,7 @@ function PreferencesCreator() {
                         : ""
                     }
                   >
-                    <span>♟ Vibrant Group</span>
+                    <span><UsersRound size={16} style={iconStyle} /> Vibrant Group</span>
                     <input
                       type="radio"
                       name="groupSize"
@@ -302,7 +318,7 @@ function PreferencesCreator() {
 
             <section className="pref-card proximity-card">
               <div className="proximity-heading">
-                <h2>♙ Proximity</h2>
+                <h2><MapPin size={20} style={iconStyle} /> Proximity</h2>
                 <span>{preferences.proximity} km</span>
               </div>
 
@@ -335,7 +351,7 @@ function PreferencesCreator() {
 
           <aside className="preferences-right">
             <section className="pref-card budget-card">
-              <h2>▣ Budget</h2>
+              <h2><Wallet size={20} style={iconStyle} /> Budget</h2>
 
               <div className="segmented-control">
                 <Button
@@ -362,18 +378,49 @@ function PreferencesCreator() {
             </section>
 
             <section className="pref-card schedule-card">
-              <h2>▦ Schedule</h2>
+              <h2><CalendarDays size={20} style={iconStyle} /> Schedule</h2>
 
               <label>
                 <span>TARGET DATE</span>
-                <input
-                  type="text"
-                  name="targetDate"
-                  value={preferences.targetDate}
-                  onChange={(event) =>
-                    setPreferenceValue("targetDate", event.target.value)
-                  }
-                />
+                <style>
+                {` .hide-calendar-icon::-webkit-calendar-picker-indicator {
+                    display: none !important;
+                    -webkit-appearance: none !important;
+                  } 
+                `}
+                </style>
+
+                {/* TUTAJ: Otwarty div obejmuje ikone i input */}
+                <div style={{ display: "flex", alignItems: "center", gap: "8px", background: "#f5f5f5", padding: "8px 12px", borderRadius: "8px", marginTop: "4px" }}>
+                  <CalendarDays 
+                    size={18} 
+                    color="#666" 
+                    onClick={openDatePicker} 
+                    style={{ cursor: "pointer", flexShrink: 0 }} 
+                  />
+
+                  <input
+                    ref={dateInputRef}
+                    type="date"
+                    name="targetDate"
+                    className="hide-calendar-icon"
+                    value={
+                      preferences.targetDate?.includes("/") 
+                        ? `${preferences.targetDate.split("/")[2]}-${preferences.targetDate.split("/")[0].padStart(2, '0')}-${preferences.targetDate.split("/")[1].padStart(2, '0')}`
+                        : preferences.targetDate
+                    }
+                    onChange={(event) => {
+                      const rawValue = event.target.value; 
+                      if (rawValue) {
+                        const [year, month, day] = rawValue.split("-");
+                        setPreferenceValue("targetDate", `${month}/${day}/${year}`);
+                      } else {
+                        setPreferenceValue("targetDate", "");
+                      }
+                    }}
+                    style={{ border: "none", outline: "none", background: "transparent", width: "100%", cursor: "text", fontFamily: "inherit" }}
+                  />
+                </div>
               </label>
 
               <div className="time-buttons">
@@ -383,7 +430,8 @@ function PreferencesCreator() {
                   }
                   onClick={() => setPreferenceValue("timeOfDay", "Afternoon")}
                 >
-                  ☼ Afternoon
+                  {/* TUTAJ: Ikona zamiast krzaczka */}
+                  <Sun size={16} style={iconStyle} /> Afternoon
                 </Button>
 
                 <Button
@@ -392,13 +440,14 @@ function PreferencesCreator() {
                   }
                   onClick={() => setPreferenceValue("timeOfDay", "Evening")}
                 >
-                  ☾ Evening
+                  {/* TUTAJ: Ikona zamiast krzaczka */}
+                  <Moon size={16} style={iconStyle} /> Evening
                 </Button>
               </div>
             </section>
 
             <section className="pref-card environment-card">
-              <h2>♙ Environment</h2>
+              <h2><Compass size={20} style={iconStyle} /> Environment</h2>
 
               <div className="environment-buttons">
                 <Button
@@ -407,7 +456,7 @@ function PreferencesCreator() {
                   }
                   onClick={() => setPreferenceValue("environment", "Indoor")}
                 >
-                  ⌂ Indoor
+                  <Home size={16} style={iconStyle} /> Indoor
                 </Button>
 
                 <Button
@@ -416,7 +465,7 @@ function PreferencesCreator() {
                   }
                   onClick={() => setPreferenceValue("environment", "Outdoor")}
                 >
-                  ♤ Outdoor
+                  <TreePine size={16} style={iconStyle} /> Outdoor
                 </Button>
               </div>
             </section>

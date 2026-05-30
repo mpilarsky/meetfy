@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-
+import { Eye, EyeOff } from "lucide-react";
 import { useAppData } from "../context/AppDataContext";
 
 import FormInput from "../components/Form/FormInput";
@@ -120,7 +120,7 @@ function LoginPage() {
                   ariaLabel="Show password"
                   onClick={() => setShowPassword((prevValue) => !prevValue)}
                 >
-                  ◉
+                  {showPassword ? <EyeOff size={20} color="#666" /> : <Eye size={20} color="#666" />}
                 </Button>
               </div>
             </label>

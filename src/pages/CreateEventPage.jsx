@@ -1,6 +1,6 @@
 import { useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
-
+import { UploadCloud, Lightbulb } from "lucide-react";
 import { useAppData } from "../context/AppDataContext";
 
 import FormInput from "../components/Form/FormInput";
@@ -172,7 +172,9 @@ function CreateEventPage() {
               </>
             ) : (
               <>
-                <div className="upload-icon">☁</div>
+                <div className="upload-icon">
+                  <UploadCloud size={32} color="#666" strokeWidth={1.5} />
+                </div>
                 <p>Click or drag to upload high-resolution image</p>
                 <small>Recommended: 1600x900px, PNG or JPG</small>
               </>
@@ -321,7 +323,9 @@ function CreateEventPage() {
 
       <section className="create-event-bottom">
         <article className="pro-tip-card">
-          <div className="tip-icon">☼</div>
+          <div className="tip-icon">
+            <Lightbulb size={24} color="#666" />
+          </div>
 
           <div>
             <h2>Pro Tip</h2>

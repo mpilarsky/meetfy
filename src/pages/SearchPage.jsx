@@ -1,6 +1,6 @@
 import { useMemo, useState } from "react";
 import { useSearchParams } from "react-router-dom";
-
+import { Search, ChevronDown } from "lucide-react";
 import { useAppData } from "../context/AppDataContext";
 
 import EventDetailsModal from "../components/EventDetailsModal";
@@ -147,6 +147,7 @@ function SearchPage() {
     .filter(Boolean)
     .join(" | ");
 
+  const iconStyle = { marginLeft: "4px", verticalAlign: "middle" };  
   return (
     <>
       <section className="search-title">
@@ -166,19 +167,19 @@ function SearchPage() {
       <section className="search-filters">
         <div className="filter-buttons">
           <button type="button" onClick={() => changeFilter("category")}>
-            Category: {filters.category}⌄
+            Category: {filters.category} <ChevronDown size={16} style={iconStyle} />
           </button>
 
           <button type="button" onClick={() => changeFilter("price")}>
-            Price: {filters.price}⌄
+            Price: {filters.price} <ChevronDown size={16} style={iconStyle} />
           </button>
 
           <button type="button" onClick={() => changeFilter("date")}>
-            Date: {filters.date}⌄
+            Date: {filters.date} <ChevronDown size={16} style={iconStyle} />
           </button>
 
           <button type="button" onClick={() => changeFilter("location")}>
-            Location: {filters.location}⌄
+            Location: {filters.location} <ChevronDown size={16} style={iconStyle} />
           </button>
         </div>
 

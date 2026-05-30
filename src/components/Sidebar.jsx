@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { NavLink, Link, useNavigate } from "react-router-dom";
-
+import { LayoutDashboard, Heart, CalendarCheck, User, Search, Plus } from "lucide-react";
 import "./Sidebar.css";
 
 function Sidebar() {
@@ -19,6 +19,8 @@ function Sidebar() {
 
     navigate(`/search?q=${encodeURIComponent(trimmedValue)}`);
   };
+  const navIconStyle = { marginRight: "10px", verticalAlign: "middle", marginBottom: "2px" };
+  const btnIconStyle = { marginRight: "6px", verticalAlign: "middle" };
 
   return (
     <aside className="app-sidebar">
@@ -28,10 +30,18 @@ function Sidebar() {
       </div>
 
       <nav className="sidebar-nav">
-        <NavLink to="/dashboard">⌘ Dashboard</NavLink>
-        <NavLink to="/favorites">♡ Favourites</NavLink>
-        <NavLink to="/events">⇲ My Events</NavLink>
-        <NavLink to="/account">♟ My Account</NavLink>
+        <NavLink to="/dashboard" style={{ display: "flex", alignItems: "center" }}>
+          <LayoutDashboard size={20} style={navIconStyle} /> Dashboard
+        </NavLink>
+        <NavLink to="/favorites" style={{ display: "flex", alignItems: "center" }}>
+          <Heart size={20} style={navIconStyle} /> Favourites
+        </NavLink>
+        <NavLink to="/events" style={{ display: "flex", alignItems: "center" }}>
+          <CalendarCheck size={20} style={navIconStyle} /> My Events
+        </NavLink>
+        <NavLink to="/account" style={{ display: "flex", alignItems: "center" }}>
+          <User size={20} style={navIconStyle} /> My Account
+        </NavLink>
       </nav>
 
       <form className="sidebar-search" onSubmit={handleSearchSubmit}>
@@ -41,14 +51,17 @@ function Sidebar() {
           type="text"
           value={searchValue}
           onChange={(event) => setSearchValue(event.target.value)}
-          placeholder="⌕ Search..."
+          placeholder="Search..."
         />
 
-        <button type="submit">⌕ Search</button>
+        <button type="submit" style={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
+          {/* TUTAJ: Zmieniony rozmiar na 20 */}
+          <Search size={16} style={btnIconStyle} /> Search
+        </button>
       </form>
 
-      <Link to="/create-event" className="create-event-btn">
-        ＋ Create Event
+      <Link to="/create-event" className="create-event-btn" style={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
+        <Plus size={18} style={btnIconStyle} /> Create Event
       </Link>
     </aside>
   );

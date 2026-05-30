@@ -1,5 +1,14 @@
 import { Link } from "react-router-dom";
 
+import { 
+  CalendarCheck, 
+  Globe, 
+  Gem, 
+  Settings, 
+  Compass, 
+  HeartHandshake 
+} from "lucide-react";
+
 import "./HomePage.css";
 
 import heroImage from "../assets/home-hero.png";
@@ -64,19 +73,25 @@ function HomePage() {
 
           <div className="stats-list">
             <div className="stat-card">
-              <span className="stat-icon">♙</span>
+              <span className="stat-icon">
+                <CalendarCheck size={32} strokeWidth={1.5} />
+              </span>
               <strong>5+</strong>
               <p>YEARS OF CURATION</p>
             </div>
 
             <div className="stat-card">
-              <span className="stat-icon">♟</span>
+              <span className="stat-icon">
+                <Globe size={32} strokeWidth={1.5} />
+              </span>
               <strong>10k+</strong>
               <p>MEMBERS GLOBALLY</p>
             </div>
 
             <div className="stat-card">
-              <span className="stat-icon">✦</span>
+              <span className="stat-icon">
+                <Gem size={32} strokeWidth={1.5} />
+              </span>
               <strong>500+</strong>
               <p>EXCLUSIVE EVENTS</p>
             </div>
@@ -120,7 +135,9 @@ function HomePage() {
 
           <div className="process-grid">
             <article className="process-card">
-              <div className="process-icon">⚙</div>
+              <div className="process-icon">
+                <Settings size={40} strokeWidth={1.5} />
+              </div>
               <h3>Curation</h3>
               <p>
                 Every space and experience is hand-selected by our global team of
@@ -130,7 +147,9 @@ function HomePage() {
             </article>
 
             <article className="process-card">
-              <div className="process-icon">⊙</div>
+              <div className="process-icon">
+                <Compass size={40} strokeWidth={1.5} />
+              </div>
               <h3>Discovery</h3>
               <p>
                 Venture beyond your comfort zone. Our platform connects you with
@@ -140,7 +159,9 @@ function HomePage() {
             </article>
 
             <article className="process-card">
-              <div className="process-icon">♣</div>
+              <div className="process-icon">
+                <HeartHandshake size={40} strokeWidth={1.5} />
+              </div>
               <h3>Connection</h3>
               <p>
                 Experience the magic of intentional interaction. We facilitate the

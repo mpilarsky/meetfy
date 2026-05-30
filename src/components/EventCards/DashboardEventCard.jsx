@@ -1,3 +1,4 @@
+import { Heart, CalendarDays, MapPin } from "lucide-react";
 import "./DashboardEventCard.css";
 
 function DashboardEventCard({
@@ -21,7 +22,7 @@ function DashboardEventCard({
           aria-label="Add to favourites"
           onClick={onToggleFavorite}
         >
-          ♡
+          <Heart size={18} />
         </button>
       </div>
 
@@ -31,7 +32,9 @@ function DashboardEventCard({
           <strong>{price}</strong>
         </div>
 
-        <p className="event-meta">▦ {meta}</p>
+        <p className="event-meta">
+          <CalendarDays size={14} /> {meta}
+        </p>
         <p className="event-description">{description}</p>
 
         <button type="button" onClick={onViewDetails}>
