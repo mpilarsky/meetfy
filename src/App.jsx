@@ -17,7 +17,7 @@ import CreateEventPage from "./pages/CreateEventPage";
 import AnalyticsListener from "./components/AnalyticsListener";
 function App() {
   useEffect(() => {
-    ReactGA.initialize("G-YCTK06G289"); 
+    ReactGA.initialize(import.meta.env.VITE_FIREBASE_MEASUREMENT_ID); 
   }, []);         
   return (
     <>
