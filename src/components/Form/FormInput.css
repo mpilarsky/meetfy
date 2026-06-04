@@ -1,0 +1,9 @@
+label.meetfy-wrapper input.meetfy-field {
+  border-radius: 9px;
+  transition: border-color 0.2s ease;
+}
+
+label.meetfy-wrapper input.meetfy-field:focus {
+  border-color: #743642; 
+  outline: none;
+}

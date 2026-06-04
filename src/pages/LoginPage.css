@@ -211,33 +211,7 @@
   cursor: pointer;
 }
 
-.login-footer {
-  height: 98px;
-  padding: 0 24px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  background: #fbf4ec;
-  border-top: 1px solid #e5d7ce;
-}
 
-.login-footer p {
-  margin: 0;
-  color: #5f534b;
-  font-size: 16px;
-  letter-spacing: 0.12em;
-}
-
-.login-footer div {
-  display: flex;
-  gap: 38px;
-}
-
-.login-footer a {
-  color: #5f534b;
-  font-size: 16px;
-  text-decoration: none;
-}
 
 .login-error-message {
   margin: -10px 0 18px;

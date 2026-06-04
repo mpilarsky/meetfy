@@ -191,15 +191,6 @@ function RegisterPage() {
           </article>
         </section>
       </main>
-
-      <footer className="register-footer">
-        <p>© 2026 MEETFY. SOCIAL SOPHISTICATION.</p>
-
-        <div>
-          <Link to="/contact">CONTACT</Link>
-          <Link to="/terms">TERMS</Link>
-        </div>
-      </footer>
     </div>
   );
 }

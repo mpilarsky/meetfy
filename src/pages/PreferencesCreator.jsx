@@ -476,15 +476,6 @@ function PreferencesCreator() {
           </aside>
         </section>
       </main>
-
-      <footer className="preferences-footer">
-        <p>© 2026 MEETFY. SOCIAL SOPHISTICATION.</p>
-
-        <div>
-          <Link to="/contact">Contact</Link>
-          <Link to="/terms">Terms</Link>
-        </div>
-      </footer>
     </div>
   );
 }
