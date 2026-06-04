@@ -29,7 +29,7 @@
 .account-card {
   background: #fffdf9;
   border: 1px solid #d8c9be;
-  border-radius: 20px;
+  border-radius: 18px;
 }
 
 .profile-card {
@@ -134,7 +134,7 @@
   width: 100%;
   height: 44px;
   border: 0;
-  border-radius: 7px;
+  border-radius: 9px;
   background: #743642;
   color: #ffffff;
   box-shadow: 0 12px 22px rgba(116, 54, 66, 0.18);
@@ -191,7 +191,7 @@
   padding: 6px 13px;
   background: #f2e5e1;
   color: #743642;
-  border-radius: 999px;
+  border-radius: 9px;
   font-size: 12px;
   font-weight: 800;
 }

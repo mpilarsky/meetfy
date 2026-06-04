@@ -32,7 +32,7 @@
   justify-content: center;
   background: #6d2937;
   color: #fff;
-  border-radius: 7px;
+  border-radius: 9px;
   box-shadow: 0 8px 16px rgba(116, 54, 66, 0.18);
   text-decoration: none;
 }
@@ -58,7 +58,7 @@
   max-width: 580px;
   margin: 0 auto;
   color: #9b6a63;
-  font-size: 17px;
+  font-size: 19px;
   line-height: 1.5;
 }
 
@@ -113,7 +113,7 @@
   border: 1px solid #dcc8bf;
   background: #fbf4ec;
   color: #5f534b;
-  border-radius: 7px;
+  border-radius: 9px;
   cursor: pointer;
 }
 
@@ -183,7 +183,7 @@
   justify-content: space-between;
   background: #fbf4ec;
   border: 1px solid #dcc8bf;
-  border-radius: 7px;
+  border-radius: 9px;
   font-size: 15px;
 }
 
@@ -213,7 +213,7 @@
   padding: 9px 16px;
   background: #5a1f2b;
   color: #fff;
-  border-radius: 999px;
+  border-radius: 9px;
   font-size: 15px;
 }
 
@@ -255,7 +255,7 @@
   height: 64px;
   margin: 42px auto 0;
   border: 0;
-  border-radius: 999px;
+  border-radius: 9px;
   background: #743642;
   color: #fff;
   box-shadow: 0 16px 28px rgba(116, 54, 66, 0.22);
@@ -275,7 +275,7 @@
 }
 
 .budget-card {
-  height: 198px;
+  height: 204px;
 }
 
 .segmented-control {
@@ -285,7 +285,7 @@
   grid-template-columns: repeat(3, 1fr);
   background: #fbf4ec;
   border: 1px solid #dcc8bf;
-  border-radius: 7px;
+  border-radius: 9px;
   overflow: hidden;
 }
 
@@ -326,7 +326,7 @@
   padding: 0 16px;
   background: #fbf4ec;
   border: 1px solid #dcc8bf;
-  border-radius: 7px;
+  border-radius: 9px;
   color: #2b2118;
   font-size: 15px;
 }
@@ -346,7 +346,7 @@
 }
 
 .environment-card {
-  height: 200px;
+  height: 204px;
 }
 
 .environment-buttons {
@@ -375,32 +375,6 @@
   font-size: 14px;
 }
 
-.preferences-footer {
-  height: 98px;
-  padding: 0 42px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  background: #fbf4ec;
-  border-top: 1px solid #eadbd0;
-}
-
-.preferences-footer p,
-.preferences-footer a {
-  margin: 0;
-  color: #5f534b;
-  font-size: 14px;
-  text-decoration: none;
-}
-
-.preferences-footer p {
-  letter-spacing: 0.14em;
-}
-
-.preferences-footer div {
-  display: flex;
-  gap: 36px;
-}
 
 .range-control {
   margin: 84px 10px 52px;

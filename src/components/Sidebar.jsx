@@ -44,6 +44,7 @@ function Sidebar() {
         </NavLink>
       </nav>
 
+
       <form className="sidebar-search" onSubmit={handleSearchSubmit}>
         <span>FIND EXPERIENCES</span>
 
@@ -55,14 +56,13 @@ function Sidebar() {
         />
 
         <button type="submit" style={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
-          {/* TUTAJ: Zmieniony rozmiar na 20 */}
           <Search size={16} style={btnIconStyle} /> Search
         </button>
       </form>
-
       <Link to="/create-event" className="create-event-btn" style={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
         <Plus size={18} style={btnIconStyle} /> Create Event
       </Link>
+     
     </aside>
   );
 }

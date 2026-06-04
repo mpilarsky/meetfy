@@ -72,7 +72,7 @@
   left: 0;
   padding: 8px 18px;
   background: rgba(255, 255, 255, 0.32);
-  border-radius: 999px;
+  border-radius: 9px;
   font-size: 12px;
 }
 
@@ -104,7 +104,7 @@
   background: #ffffff;
   color: #743642;
   border: 0;
-  border-radius: 999px;
+  border-radius: 9px;
   font-weight: 700;
   cursor: pointer;
 }
@@ -150,10 +150,14 @@
 }
 
 .small-recommendation p {
-  margin: 0 0 24px;
-  color: #6f6258;
+  margin: 0 0 16px; 
   font-size: 14px;
   line-height: 1.4;
+  
+  display: -webkit-box;
+  -webkit-line-clamp: 3; 
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 
 .small-recommendation button {

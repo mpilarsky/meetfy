@@ -15,11 +15,11 @@ function FormInput({
   autoComplete,
 }) {
   return (
-    <label className={className}>
+    <label className={`meetfy-wrapper ${className}`.trim()}>
       {label && <span>{label}</span>}
 
       <input
-        className={inputClassName}
+        className={`meetfy-field ${inputClassName}`.trim()}
         type={type}
         name={name}
         value={value}

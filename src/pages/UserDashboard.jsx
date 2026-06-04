@@ -128,7 +128,6 @@ function UserDashboard() {
             />
 
             <div className="featured-overlay">
-              <span>Featured Selection</span>
               <h3>{featuredEvent.title}</h3>
               <p>{getEventDescription(featuredEvent)}</p>
 

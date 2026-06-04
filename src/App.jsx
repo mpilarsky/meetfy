@@ -15,6 +15,8 @@ import SearchPage from "./pages/SearchPage";
 import MyAccountPage from "./pages/MyAccountPage";
 import CreateEventPage from "./pages/CreateEventPage";
 import AnalyticsListener from "./components/AnalyticsListener";
+import PublicLayout from "./components/PublicLayout"; 
+
 function App() {
   useEffect(() => {
     ReactGA.initialize(import.meta.env.VITE_FIREBASE_MEASUREMENT_ID); 
@@ -23,11 +25,13 @@ function App() {
     <>
       <AnalyticsListener />
     <Routes>
-      <Route path="/" element={<HomePage />} />
-      <Route path="/login" element={<LoginPage />} />
-      <Route path="/register" element={<RegisterPage />} />
-      <Route path="/preferences" element={<PreferencesCreator />} />
-      <Route path="/contact" element={<ContactPage />} />
+      <Route element={<PublicLayout />}>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/register" element={<RegisterPage />} />
+        <Route path="/preferences" element={<PreferencesCreator />} />
+        <Route path="/contact" element={<ContactPage />} />
+      </Route>
 
       <Route element={<AppLayout />}>
         <Route path="/dashboard" element={<UserDashboard />} />

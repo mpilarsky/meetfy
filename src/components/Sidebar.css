@@ -44,6 +44,10 @@
   margin-top: 18px;
   padding-top: 28px;
   border-top: 1px solid #d8c9be;
+
+  padding-bottom: 28px;             
+  border-bottom: 1px solid #d8c9be; 
+  margin-bottom: 28px;
 }
 
 .sidebar-search input {
@@ -75,10 +79,9 @@
 }
 
 .create-event-btn {
-  position: absolute;
-  left: 16px;
-  bottom: 24px;
-  width: calc(100% - 32px);
+  width: 100%;
+  margin-top: 24px; 
+  
   display: flex;
   align-items: center;
   justify-content: center;

@@ -150,15 +150,6 @@ function LoginPage() {
           </form>
         </section>
       </main>
-
-      <footer className="login-footer">
-        <p>© 2026 MEETFY. SOCIAL SOPHISTICATION.</p>
-
-        <div>
-          <Link to="/contact">Contact</Link>
-          <Link to="/terms">Terms</Link>
-        </div>
-      </footer>
     </div>
   );
 }

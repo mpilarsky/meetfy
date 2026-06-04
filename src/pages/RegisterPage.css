@@ -231,30 +231,7 @@
   font-size: 11px;
 }
 
-.register-footer {
-  height: 98px;
-  padding: 0 32px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  background: #fbf4ec;
-  border-top: 1px solid #e5d7ce;
-}
 
-.register-footer p,
-.register-footer a {
-  margin: 0;
-  color: #9e8e87;
-  font-size: 12px;
-  font-weight: 700;
-  letter-spacing: 0.14em;
-  text-decoration: none;
-}
-
-.register-footer div {
-  display: flex;
-  gap: 40px;
-}
 
 .register-error-message {
   margin: -8px 0 20px;
