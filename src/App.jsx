@@ -17,6 +17,7 @@ import CreateEventPage from "./pages/CreateEventPage";
 import AnalyticsListener from "./components/AnalyticsListener";
 import PublicLayout from "./components/PublicLayout"; 
 import ProtectedRoute from "./components/ProtectedRoute";
+import TermsPage from "./pages/TermsPage";
 
 function App() {
   useEffect(() => {
@@ -31,6 +32,7 @@ function App() {
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />
         <Route path="/contact" element={<ContactPage />} />
+        <Route path="/terms" element={<TermsPage />} />
       <Route 
       path="/preferences" 
       element={
