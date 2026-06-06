@@ -112,7 +112,7 @@ function PreferencesCreator() {
   return (
     <div className="preferences-page">
       <header className="preferences-header">
-        <Link to="/" className="preferences-logo">
+        <Link to="/dashboard" className="preferences-logo">
           MEETFY
         </Link>
 
