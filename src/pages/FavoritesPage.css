@@ -1,9 +1,9 @@
 .favorites-title h1 {
   margin: 0 0 18px;
   color: #743642;
-  font-size: 54px;
-  line-height: 1.08;
-  font-weight: 900;
+  font-size: 52px;
+  line-height: 1.1;
+
 }
 
 .favorites-title p {
@@ -110,7 +110,7 @@
 
 @media (max-width: 1180px) {
   .favorites-grid {
-    grid-template-columns: repeat(2, 286px);
+    grid-template-columns: repeat(2, 1fr);
   }
 }
 

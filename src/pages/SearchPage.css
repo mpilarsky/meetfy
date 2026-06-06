@@ -1,9 +1,8 @@
 .search-title h1 {
-  margin: 0 0 8px;
+  margin: 0 0 12px;
   color: #743642;
-  font-size: 48px;
+  font-size: 52px;
   line-height: 1.1;
-  font-weight: 900;
 }
 
 .search-title p {
@@ -33,6 +32,11 @@
   gap: 16px;
 }
 
+.filter-wrapper {
+  position: relative;
+  display: inline-block;
+}
+
 .filter-buttons button {
   height: 34px;
   padding: 0 18px;
@@ -42,6 +46,40 @@
   color: #743642;
   font-size: 12px;
   cursor: pointer;
+  display: flex;
+  align-items: center;
+}
+
+.filter-dropdown-list {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background: #ffffff;
+  border: 1px solid #d8c9be;
+  border-radius: 8px;
+  padding: 8px 0;
+  margin: 4px 0 0 0;
+  list-style: none;
+  min-width: 160px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  z-index: 10;
+}
+
+.filter-dropdown-list li {
+  padding: 8px 16px;
+  cursor: pointer;
+  font-size: 14px;
+  color: #2b2118;
+  transition: background 0.2s;
+}
+
+.filter-dropdown-list li:hover {
+  background: #fbf4ec;
+}
+
+.filter-dropdown-list li.active {
+  font-weight: 700;
+  color: #743642;
 }
 
 .active-filter {
@@ -127,7 +165,7 @@
 
 @media (max-width: 1180px) {
   .search-results-grid {
-    grid-template-columns: repeat(2, 286px);
+    grid-template-columns: repeat(2, 1fr);
   }
 
   .search-filters {
@@ -143,10 +181,19 @@
 
   .search-results-grid {
     grid-template-columns: 1fr;
+    gap: 24px; 
+    width: 100%; 
   }
 
   .active-filter {
     flex-wrap: wrap;
     white-space: normal;
+    width: 100%;
+  }
+
+  .active-filter span {
+    white-space: normal;
+    word-break: break-word; 
+    max-width: 100%;
   }
 }

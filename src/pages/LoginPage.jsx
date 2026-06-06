@@ -161,7 +161,7 @@ function LoginPage() {
 
             <form className="login-form" onSubmit={handleSubmit}>
               <div className="login-intro">
-                <h1>Welcome back</h1>
+                <h1>Welcome back!</h1>
                 <p>Please enter your details to access your curated discovery.</p>
               </div>
 

@@ -15,13 +15,6 @@ const filterOptions = {
   location: ["Any", "Downtown", "Brooklyn", "Manhattan", "East Village", "Chelsea", "Soho"],
 };
 
-function getNextFilterValue(options, currentValue) {
-  const currentIndex = options.indexOf(currentValue);
-  const nextIndex = currentIndex === options.length - 1 ? 0 : currentIndex + 1;
-
-  return options[nextIndex];
-}
-
 function getNumericPrice(price) {
   if (!price || price === "Free") {
     return 0;
@@ -39,6 +32,8 @@ function SearchPage() {
   const [selectedEvent, setSelectedEvent] = useState(null);
   const [searchParams, setSearchParams] = useSearchParams();
 
+  const [openDropdown, setOpenDropdown] = useState(null);
+
   const [filters, setFilters] = useState({
     category: "Any",
     price: "Any",
@@ -48,25 +43,23 @@ function SearchPage() {
 
   const query = searchParams.get("q") || "";
 
-  const changeFilter = (filterName) => {
-    setFilters((prevFilters) => ({
-      ...prevFilters,
-      [filterName]: getNextFilterValue(
-        filterOptions[filterName],
-        prevFilters[filterName]
-      ),
-    }));
+  const toggleDropdown = (filterName) => {
+    setOpenDropdown(openDropdown === filterName ? null : filterName);
+  };
+
+  const handleSelectFilter = (filterName, value) => {
+    setFilters((prev) => ({ ...prev, [filterName]: value }));
+    setOpenDropdown(null);
   };
 
   const handleResetSearch = () => {
-    //setSearchParams({});
-
     setFilters({
       category: "Any",
       price: "Any",
       date: "Any",
       location: "Any",
     });
+    setOpenDropdown(null);
   };
 
   const filteredEvents = useMemo(() => {
@@ -86,15 +79,13 @@ function SearchPage() {
         .join(" ")
         .toLowerCase();
 
-      const matchesQuery =
-        !normalizedQuery || searchableText.includes(normalizedQuery);
+      const matchesQuery = !normalizedQuery || searchableText.includes(normalizedQuery);
 
       const matchesCategory =
         filters.category === "Any" ||
         event.category === filters.category ||
         event.tag === filters.category ||
-        String(event.category).toLowerCase() ===
-          filters.category.toLowerCase() ||
+        String(event.category).toLowerCase() === filters.category.toLowerCase() ||
         String(event.tag).toLowerCase() === filters.category.toLowerCase();
 
       const numericPrice = getNumericPrice(event.price);
@@ -110,30 +101,18 @@ function SearchPage() {
       const matchesDate =
         filters.date === "Any" ||
         (filters.date === "Today" &&
-          (eventDateText.includes("today") ||
-            eventDateText.includes("tonight"))) ||
+          (eventDateText.includes("today") || eventDateText.includes("tonight"))) ||
         (filters.date === "Weekend" &&
-          (eventDateText.includes("fri") ||
-            eventDateText.includes("sat") ||
-            eventDateText.includes("sun"))) ||
+          (eventDateText.includes("fri") || eventDateText.includes("sat") || eventDateText.includes("sun"))) ||
         (filters.date === "This Month" &&
-          (eventDateText.includes("oct") ||
-            eventDateText.includes("nov") ||
-            eventDateText.includes("dec")));
+          (eventDateText.includes("oct") || eventDateText.includes("nov") || eventDateText.includes("dec")));
 
       const eventLocation = String(event.location || "").toLowerCase();
 
       const matchesLocation =
-        filters.location === "Any" ||
-        eventLocation.includes(filters.location.toLowerCase());
+        filters.location === "Any" || eventLocation.includes(filters.location.toLowerCase());
 
-      return (
-        matchesQuery &&
-        matchesCategory &&
-        matchesPrice &&
-        matchesDate &&
-        matchesLocation
-      );
+      return matchesQuery && matchesCategory && matchesPrice && matchesDate && matchesLocation;
     });
   }, [events, query, filters]);
 
@@ -147,7 +126,8 @@ function SearchPage() {
     .filter(Boolean)
     .join(" | ");
 
-  const iconStyle = { marginLeft: "4px", verticalAlign: "middle" };  
+  const iconStyle = { marginLeft: "4px", verticalAlign: "middle" };
+
   return (
     <>
       <section className="search-title">
@@ -166,21 +146,28 @@ function SearchPage() {
 
       <section className="search-filters">
         <div className="filter-buttons">
-          <button type="button" onClick={() => changeFilter("category")}>
-            Category: {filters.category} <ChevronDown size={16} style={iconStyle} />
-          </button>
+          {Object.entries(filterOptions).map(([filterName, options]) => (
+            <div className="filter-wrapper" key={filterName}>
+              <button type="button" onClick={() => toggleDropdown(filterName)}>
+                {filterName.charAt(0).toUpperCase() + filterName.slice(1)}: {filters[filterName]}
+                <ChevronDown size={16} style={iconStyle} />
+              </button>
 
-          <button type="button" onClick={() => changeFilter("price")}>
-            Price: {filters.price} <ChevronDown size={16} style={iconStyle} />
-          </button>
-
-          <button type="button" onClick={() => changeFilter("date")}>
-            Date: {filters.date} <ChevronDown size={16} style={iconStyle} />
-          </button>
-
-          <button type="button" onClick={() => changeFilter("location")}>
-            Location: {filters.location} <ChevronDown size={16} style={iconStyle} />
-          </button>
+              {openDropdown === filterName && (
+                <ul className="filter-dropdown-list">
+                  {options.map((option) => (
+                    <li
+                      key={option}
+                      className={filters[filterName] === option ? "active" : ""}
+                      onClick={() => handleSelectFilter(filterName, option)}
+                    >
+                      {option}
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </div>
+          ))}
         </div>
 
         <div className="active-filter">

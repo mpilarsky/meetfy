@@ -2,7 +2,9 @@
   overflow: hidden;
   background: #fffdf9;
   border: 1px solid #d8c9be;
-  border-radius: 22px;
+  border-radius: 18px;
+  width: 100%;
+  max-width: 100%;
 }
 
 .search-result-image {
@@ -49,6 +51,7 @@
   display: flex;
   justify-content: space-between;
   gap: 14px;
+  flex-wrap: wrap;
 }
 
 .search-result-title-row h2 {
@@ -56,6 +59,8 @@
   color: #743642;
   font-size: 22px;
   line-height: 1.2;
+  flex: 1; 
+  word-break: break-word;
 }
 
 .search-result-title-row strong {
@@ -75,6 +80,7 @@
   color: #6f6258;
   font-size: 16px;
   line-height: 1.35;
+  word-break: break-word;
 }
 
 .search-result-content > button {
