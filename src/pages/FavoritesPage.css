@@ -110,7 +110,7 @@
 
 @media (max-width: 1180px) {
   .favorites-grid {
-    grid-template-columns: repeat(2, 286px);
+    grid-template-columns: repeat(2, 1fr);
   }
 }
 

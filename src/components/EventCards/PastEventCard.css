@@ -3,6 +3,8 @@
   background: #fffdf9;
   border: 1px solid #eadbd0;
   border-radius: 18px;
+  width: 100%;
+  max-width: 100%;
 }
 
 .past-card img {
