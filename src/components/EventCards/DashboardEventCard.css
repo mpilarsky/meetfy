@@ -1,13 +1,20 @@
 .event-card {
+  display: flex;
+  flex-direction: column;
   overflow: hidden;
   background: #fffdf9;
   border: 1px solid #d8c9be;
   border-radius: 18px;
+  width: 100%;
+  max-width: 100%;
+  height: 100%; 
+  min-height: 480px;
 }
 
 .event-image {
   position: relative;
-  height: 215px;
+  height: 220px;
+  flex-shrink: 0;
 }
 
 .event-image img {
@@ -18,76 +25,90 @@
 
 .event-image span {
   position: absolute;
-  left: 16px;
-  bottom: 12px;
-  padding: 6px 14px;
-  background: #fffdf9;
+  top: 18px;  
+  left: 18px;
+  padding: 7px 14px;
+  background: rgba(255, 253, 249, 0.7);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
   color: #743642;
   border-radius: 9px;
   font-size: 12px;
-  font-weight: 800;
+  font-weight: 700;
 }
 
 .event-image button {
   position: absolute;
-  right: 14px;
-  top: 14px;
-  width: 38px;
-  height: 38px;
-  border: 1px solid #d8c9be;
+  right: 16px;
+  top: 16px;
+  z-index: 10; 
+  width: 42px;
+  height: 42px;
+  border: 0;
   border-radius: 50%;
   background: #fffdf9;
   color: #743642;
-  font-size: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   cursor: pointer;
 }
 
 .event-content {
-  padding: 24px;
+  padding: 26px;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
 }
 
 .event-title-row {
   display: flex;
   justify-content: space-between;
-  gap: 16px;
+  gap: 14px;
+  flex-wrap: wrap;
 }
 
 .event-title-row h3 {
   margin: 0;
   color: #743642;
-  font-size: 24px;
+  font-size: 22px;
   line-height: 1.2;
+  flex: 1;
+  word-break: break-word;
 }
 
 .event-title-row strong {
   color: #743642;
-  font-size: 24px;
+  font-size: 22px;
 }
 
 .event-meta {
-  margin: 12px 0 18px;
-  color: #9e8e87;
-  font-size: 12px;
+  margin: 12px 0 0;
+  color: #6f6258;
+  font-size: 13px;
 }
 
 .event-description {
-  min-height: 50px;
-  margin: 0 0 22px;
-  color: #83776e;
-  font-size: 15px;
-  line-height: 1.45;
+  margin: 22px 0 24px;
+  color: #6f6258;
+  font-size: 16px;
+  line-height: 1.35;
+  flex-grow: 1;
+  min-height: 78px;
 }
 
 .event-content > button {
+  margin-top: auto;
   width: 100%;
-  height: 54px;
+  height: 44px;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: #fff0d6;
-  color: #743642;
+  background: #743642;
+  color: #ffffff;
   border: 0;
-  border-radius: 9px;
+  border-radius: 8px;
+  font-size: 14px;
   font-weight: 700;
   cursor: pointer;
 }
