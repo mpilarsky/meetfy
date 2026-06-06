@@ -8,6 +8,21 @@
   border-bottom: 1px solid #d8c9be;
 }
 
+.app-header-left {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.header-hamburger {
+  display: none;
+  background: transparent;
+  border: none;
+  color: #743642;
+  cursor: pointer;
+  padding: 0;
+}
+
 .app-header-logo {
   color: #743642;
   font-size: 22px;
@@ -33,4 +48,15 @@
 
 .app-header-logout:hover {
   opacity: 0.9;
+}
+
+@media (max-width: 760px) {
+  .app-header {
+    padding: 0 24px;
+  }
+
+  .header-hamburger {
+    display: flex;
+    align-items: center;
+  }
 }
