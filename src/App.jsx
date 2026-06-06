@@ -16,6 +16,8 @@ import MyAccountPage from "./pages/MyAccountPage";
 import CreateEventPage from "./pages/CreateEventPage";
 import AnalyticsListener from "./components/AnalyticsListener";
 import PublicLayout from "./components/PublicLayout"; 
+import ProtectedRoute from "./components/ProtectedRoute";
+import TermsPage from "./pages/TermsPage";
 
 function App() {
   useEffect(() => {
@@ -29,11 +31,24 @@ function App() {
         <Route path="/" element={<HomePage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />
-        <Route path="/preferences" element={<PreferencesCreator />} />
         <Route path="/contact" element={<ContactPage />} />
+        <Route path="/terms" element={<TermsPage />} />
+      <Route 
+      path="/preferences" 
+      element={
+        <ProtectedRoute>
+          <PreferencesCreator />
+        </ProtectedRoute>
+      } 
+      />
       </Route>
-
-      <Route element={<AppLayout />}>
+      <Route 
+          element={
+            <ProtectedRoute>
+              <AppLayout />
+            </ProtectedRoute>
+          }
+        >
         <Route path="/dashboard" element={<UserDashboard />} />
         <Route path="/favorites" element={<FavoritesPage />} />
         <Route path="/events" element={<MyEventsPage />} />
