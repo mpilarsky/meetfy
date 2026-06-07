@@ -102,3 +102,30 @@
     transform: translateX(0);
   }
 }
+
+.sidebar-suggestions {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background: #fffdf9;
+  border: 1px solid #d8c9be;
+  border-radius: 8px;
+  list-style: none;
+  margin: 5px 0 0 0;
+  padding: 0;
+  z-index: 1000;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.sidebar-suggestions li {
+  padding: 10px 15px;
+  cursor: pointer;
+  font-size: 14px;
+  color: #743642;
+  border-bottom: 1px solid #f0ece9;
+}
+
+.sidebar-suggestions li:hover {
+  background: #f8f1ea;
+}
