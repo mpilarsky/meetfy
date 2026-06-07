@@ -391,12 +391,23 @@ function PreferencesCreator() {
                 </style>
 
                 <div style={{ display: "flex", alignItems: "center", gap: "8px", background: "#f5f5f5", padding: "8px 12px", borderRadius: "8px", marginTop: "4px" }}>
-                  <CalendarDays 
-                    size={18} 
-                    color="#666" 
-                    onClick={openDatePicker} 
-                    style={{ cursor: "pointer", flexShrink: 0 }} 
-                  />
+
+                  <button 
+                    type="button"
+                    onClick={openDatePicker}
+                    tabIndex={0}
+                    aria-label="Open date picker"
+                    style={{ 
+                      border: "none", 
+                      background: "transparent", 
+                      padding: 0, 
+                      cursor: "pointer", 
+                      display: "flex", 
+                      alignItems: "center" 
+                    }}
+                  >
+                    <CalendarDays size={18} color="#666" />
+                  </button>
 
                   <input
                     ref={dateInputRef}
@@ -417,7 +428,15 @@ function PreferencesCreator() {
                         setPreferenceValue("targetDate", "");
                       }
                     }}
-                    style={{ border: "none", outline: "none", background: "transparent", width: "100%", cursor: "text", fontFamily: "inherit" }}
+                    tabIndex={-1}
+                    style={{ 
+                      border: "none", 
+                      outline: "none", 
+                      background: "transparent", 
+                      width: "100%", 
+                      cursor: "pointer", 
+                      fontFamily: "inherit" 
+                    }}
                   />
                 </div>
               </label>
@@ -429,7 +448,6 @@ function PreferencesCreator() {
                   }
                   onClick={() => setPreferenceValue("timeOfDay", "Afternoon")}
                 >
-                  {/* TUTAJ: Ikona zamiast krzaczka */}
                   <Sun size={16} style={iconStyle} /> Afternoon
                 </Button>
 
@@ -439,7 +457,7 @@ function PreferencesCreator() {
                   }
                   onClick={() => setPreferenceValue("timeOfDay", "Evening")}
                 >
-                  {/* TUTAJ: Ikona zamiast krzaczka */}
+
                   <Moon size={16} style={iconStyle} /> Evening
                 </Button>
               </div>

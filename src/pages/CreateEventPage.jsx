@@ -234,14 +234,14 @@ function CreateEventPage() {
               className="category-select"
             >
               <option value="" disabled>Select a category</option>
-              <option value="Music">Music</option>
-              <option value="Culture">Culture</option>
-              <option value="Food">Food</option>
-              <option value="Art">Art</option>
-              <option value="Sport">Sport</option>
-              <option value="Networking">Networking</option>
-              <option value="Gaming">Gaming</option>
-              <option value="Education">Education</option>
+              <option value="Music">MUSIC</option>
+              <option value="Culture">CULTURE</option>
+              <option value="Food">FOOD</option>
+              <option value="Art">ART</option>
+              <option value="Sport">SPORT</option>
+              <option value="Networking">NETWORKING</option>
+              <option value="Gaming">GAMING</option>
+              <option value="Education">EDUCATION</option>
             </select>
           </div>
 
