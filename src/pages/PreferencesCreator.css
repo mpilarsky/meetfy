@@ -415,9 +415,26 @@
 }
 
 @media (max-width: 1280px) {
-  .preferences-page {
-    width: 100%;
+  .preferences-page { width: 100%; }
+  .preferences-layout {
+    grid-template-columns: 1fr;
+    padding: 0 20px;
   }
+  .preferences-two-columns {
+    grid-template-columns: 1fr;
+  }
+  .interest-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .preferences-title h1 { font-size: 28px; }
+  .pref-card { padding: 20px; }
+  .atmosphere-grid { grid-template-columns: 1fr; }
+}
 
 
+img, input, select, textarea {
+  max-width: 100%;
 }
