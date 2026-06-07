@@ -1,7 +1,5 @@
 # Meetfy - dokumentacja projektu frontendowego
 
-> Screeny do dokumentacji powinny znajdowac sie w folderze `screenshots/` zgodnie z nazwami podanymi w tej dokumentacji. GitHub automatycznie wyswietli obrazy osadzone skladnia Markdown.
-
 ## 1. Informacje ogólne o projekcie
 
 Meetfy to aplikacja internetowa przygotowana w ramach przedmiotu Techniki Projektowania Frontendowego. Celem projektu było stworzenie nowoczesnego interfejsu użytkownika dla platformy służącej do odkrywania, tworzenia i zapisywania wydarzeń społecznych. Aplikacja została zaprojektowana jako frontendowa aplikacja SPA, czyli Single Page Application, oparta o React, Vite oraz React Router.
