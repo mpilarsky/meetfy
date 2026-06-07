@@ -328,3 +328,19 @@
     gap: 18px;
   }
 }
+
+.category-select {
+  width: 100%;
+  height: 46px;
+  padding: 0 14px;
+  border-radius: 8px;
+  border: 1px solid #d8c9be;
+  background: #fffdf9;
+  transition: all 0.2s ease;
+}
+
+.category-select:focus-visible {
+  border-color: #9b6a63;
+  box-shadow: 0 0 0 3px rgba(155, 106, 99, 0.2);
+  outline: none;
+}

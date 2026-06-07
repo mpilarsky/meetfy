@@ -14,7 +14,7 @@ function DashboardEventCard({
   return (
     <article className="event-card">
       <div className="event-image">
-        <img src={image} alt={title} />
+        {image && <img src={image} alt={title} />}
         <span>{tag}</span>
 
         <button
@@ -29,12 +29,14 @@ function DashboardEventCard({
       <div className="event-content">
         <div className="event-title-row">
           <h3>{title}</h3>
-          <strong>{price}</strong>
+          {price && <strong>{price}</strong>}
         </div>
 
         <p className="event-meta">
-          <CalendarDays size={14} /> {meta}
+          <CalendarDays size={14} /> 
+          <span>{meta}</span>
         </p>
+        
         <p className="event-description">{description}</p>
 
         <button type="button" onClick={onViewDetails}>
