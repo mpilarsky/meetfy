@@ -1,6 +1,6 @@
 import { useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { UploadCloud, Lightbulb } from "lucide-react";
+import { UploadCloud, Lightbulb, CalendarDays, MapPin } from "lucide-react"; 
 import { useAppData } from "../context/AppDataContext";
 
 import FormInput from "../components/Form/FormInput";
@@ -18,6 +18,7 @@ function CreateEventPage() {
   const { createEvent } = useAppData();
 
   const fileInputRef = useRef(null);
+  const dateInputRef = useRef(null);
 
   const [eventData, setEventData] = useState({
     title: "",
@@ -47,6 +48,12 @@ function CreateEventPage() {
 
   const handleCoverClick = () => {
     fileInputRef.current?.click();
+  };
+
+  const openDatePicker = () => {
+    if (dateInputRef.current && dateInputRef.current.showPicker) {
+      dateInputRef.current.showPicker();
+    }
   };
 
   const handleImageChange = (event) => {
@@ -109,29 +116,40 @@ function CreateEventPage() {
       setErrorMessage("Event title is required.");
       return;
     }
-
     if (!eventData.category.trim()) {
       setErrorMessage("Please select a category.");
       return;
     }
-
     if (!eventData.location.trim()) {
       setErrorMessage("Location is required.");
       return;
     }
-
     if (!eventData.date.trim()) {
       setErrorMessage("Date is required.");
       return;
     }
-
     if (!eventData.time.trim()) {
       setErrorMessage("Time is required.");
       return;
     }
 
-    const createdEvent = createEvent(eventData);
+    const dateObj = new Date(eventData.date);
+    const currentYear = new Date().getFullYear();
+    const eventYear = dateObj.getFullYear();
+    
+    const options = { month: 'short', day: 'numeric' };
+    if (currentYear !== eventYear) {
+      options.year = 'numeric';
+    }
+    
+    const formattedDate = dateObj.toLocaleDateString('en-US', options);
 
+    const eventToCreate = {
+      ...eventData,
+      date: formattedDate
+    };
+
+    const createdEvent = createEvent(eventToCreate);
     console.log("Created event:", createdEvent);
 
     navigate("/events");
@@ -164,7 +182,6 @@ function CreateEventPage() {
             {eventData.image ? (
               <>
                 <img src={eventData.image} alt="Selected event cover" />
-
                 <div className="cover-preview-overlay">
                   <strong>Change cover image</strong>
                   <small>{imageFileName}</small>
@@ -204,18 +221,19 @@ function CreateEventPage() {
         />
 
         <div className="event-form-grid">
-          <label className="form-line">
-            <span>CATEGORY</span>
-
+          <div className="form-line">
+            <label htmlFor="category" style={{ display: "block", marginBottom: "8px", fontSize: "12px", fontWeight: "700", color: "#9b6a63", letterSpacing: "0.08em" }}>
+              CATEGORY
+            </label>
             <select
+              id="category"
               name="category"
               value={eventData.category}
               onChange={handleChange}
               required
+              className="category-select"
             >
-              <option value="" disabled>
-                Select a category
-              </option>
+              <option value="" disabled>Select a category</option>
               <option value="Music">Music</option>
               <option value="Culture">Culture</option>
               <option value="Food">Food</option>
@@ -225,29 +243,72 @@ function CreateEventPage() {
               <option value="Gaming">Gaming</option>
               <option value="Education">Education</option>
             </select>
-          </label>
+          </div>
 
-          <FormInput
-            className="form-line"
-            label="LOCATION"
-            type="text"
-            name="location"
-            value={eventData.location}
-            onChange={handleChange}
-            placeholder="♙   Add a city or venue"
-            required
-          />
+          <div className="form-line">
+            <label htmlFor="location" style={{ display: "block", marginBottom: "8px", fontSize: "12px", fontWeight: "700", color: "#9b6a63", letterSpacing: "0.08em" }}>
+              LOCATION
+            </label>
+            <div style={{ display: "flex", alignItems: "center", gap: "8px", background: "#fffdf9", padding: "0 14px", height: "46px", borderRadius: "8px", border: "1px solid #d8c9be", transition: "border-color 0.2s ease" }}>
+              <MapPin 
+                size={18} 
+                color="#cdcdcd"
+                style={{ flexShrink: 0 }} 
+              />
+              <input
+                id="location"
+                type="text"
+                name="location"
+                value={eventData.location}
+                onChange={handleChange}
+                placeholder="Add a city or venue" 
+                required
+                tabIndex={0}
+                style={{ border: "none", background: "transparent", width: "100%", fontFamily: "inherit", color: "#2b2118", fontSize: "16px", outlineColor: "#9b6a63" }}
+              />
+            </div>
+          </div>
 
-          <FormInput
-            className="form-line"
-            label="DATE"
-            type="text"
-            name="date"
-            value={eventData.date}
-            onChange={handleChange}
-            placeholder="mm/dd/yyyy"
-            required
-          />
+          <div className="form-line">
+            <label htmlFor="eventDate" style={{ display: "block", marginBottom: "8px", fontSize: "12px", fontWeight: "700", color: "#9b6a63", letterSpacing: "0.08em" }}>
+              DATE
+            </label>
+            <style>
+            {` .hide-calendar-icon::-webkit-calendar-picker-indicator {
+                display: none !important;
+                -webkit-appearance: none !important;
+              } 
+            `}
+            </style>
+            <div style={{ display: "flex", alignItems: "center", gap: "8px", background: "#fffdf9", padding: "0 14px", height: "46px", borderRadius: "8px", border: "1px solid #d8c9be" }}>
+              
+              <button 
+                type="button" 
+                onClick={openDatePicker}
+                tabIndex={0}
+                style={{ border: "none", background: "transparent", padding: 0, cursor: "pointer", display: "flex", alignItems: "center", outlineColor: "#9b6a63" }}
+              >
+                <CalendarDays 
+                  size={18} 
+                  color="#6f6258" 
+                  style={{ flexShrink: 0 }} 
+                />
+              </button>
+
+              <input
+                id="eventDate"
+                ref={dateInputRef}
+                type="date"
+                name="date"
+                className="hide-calendar-icon"
+                value={eventData.date}
+                onChange={handleChange}
+                required
+                tabIndex={0}
+                style={{ border: "none", background: "transparent", width: "100%", fontFamily: "inherit", color: "#2b2118", fontSize: "16px", outlineColor: "#9b6a63" }}
+              />
+            </div>
+          </div>
 
           <FormInput
             className="form-line"
@@ -258,6 +319,7 @@ function CreateEventPage() {
             onChange={handleChange}
             placeholder="--:-- --"
             required
+            tabIndex={0}
           />
 
           <FormInput
@@ -268,6 +330,7 @@ function CreateEventPage() {
             value={eventData.price}
             onChange={handleChange}
             placeholder="$    0.00"
+            tabIndex={0}
           />
 
           <FormInput
@@ -278,6 +341,7 @@ function CreateEventPage() {
             value={eventData.participantsLimit}
             onChange={handleChange}
             placeholder="No limit"
+            tabIndex={0}
           />
         </div>
 
@@ -288,6 +352,7 @@ function CreateEventPage() {
           value={eventData.description}
           onChange={handleChange}
           placeholder="Describe the vibe and what attendees should expect..."
+          tabIndex={0}
         />
 
         <div className="event-switches">
@@ -297,6 +362,7 @@ function CreateEventPage() {
               name="indoor"
               checked={eventData.indoor}
               onChange={handleChange}
+              tabIndex={0}
             />
             <span>Indoor Event</span>
           </label>
@@ -307,6 +373,7 @@ function CreateEventPage() {
               name="publicVisibility"
               checked={eventData.publicVisibility}
               onChange={handleChange}
+              tabIndex={0}
             />
             <span>Public Visibility</span>
           </label>
@@ -316,7 +383,7 @@ function CreateEventPage() {
           <p className="create-event-error-message">{errorMessage}</p>
         )}
 
-        <Button type="submit" className="publish-event-btn">
+        <Button type="submit" className="publish-event-btn" tabIndex={0}>
           Publish Event
         </Button>
       </form>
