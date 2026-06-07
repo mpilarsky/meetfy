@@ -1,15 +1,20 @@
 .upcoming-card {
+  display: flex;
+  flex-direction: column;
   overflow: hidden;
   background: #fffdf9;
   border: 1px solid #d8c9be;
-  border-radius: 18px;
+  border-radius: 18px; 
   width: 100%;
   max-width: 100%;
+  height: 100%;
+  min-height: 480px;
 }
 
 .upcoming-image {
   position: relative;
-  height: 220px;
+  height: 220px; 
+  flex-shrink: 0;
 }
 
 .upcoming-image img {
@@ -20,7 +25,7 @@
 
 .upcoming-image span {
   position: absolute;
-  top: 14px;
+  top: 18px; 
   left: 18px;
   padding: 5px 14px;
   background: #743642;
@@ -34,67 +39,76 @@
 .upcoming-image button {
   position: absolute;
   top: 16px;
-  right: 14px;
-  width: 40px;
-  height: 40px;
+  right: 16px;
+  width: 42px; 
+  height: 42px;
   border: 0;
   border-radius: 50%;
   background: #fffdf9;
   color: #743642;
   font-size: 23px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   cursor: pointer;
 }
 
 .upcoming-content {
-  min-height: 310px;
-  padding: 24px;
+  padding: 26px; 
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
 }
 
 .upcoming-title-row {
   display: flex;
   justify-content: space-between;
-  gap: 18px;
+  gap: 14px;
+  flex-wrap: wrap;
 }
 
 .upcoming-title-row h3 {
   margin: 0;
   color: #743642;
-  font-size: 18px;
+  font-size: 22px; 
   line-height: 1.2;
-  font-weight: 500;
+  flex: 1;
+  word-break: break-word;
 }
 
 .upcoming-title-row strong {
   color: #743642;
-  font-size: 16px;
-  font-weight: 500;
+  font-size: 22px;
 }
 
 .event-date,
 .event-location {
-  margin: 14px 0 0;
-  color: #83776e;
-  font-size: 14px;
+  margin: 12px 0 0;
+  color: #6f6258;
+  font-size: 13px;
 }
 
 .upcoming-description {
-  min-height: 72px;
-  margin: 26px 0 30px;
+  margin: 22px 0 24px;
   color: #6f6258;
-  font-size: 15px;
+  font-size: 16px;
   line-height: 1.35;
+  flex-grow: 1;
+  min-height: 78px;
 }
 
 .upcoming-content > button {
+  margin-top: auto;
   width: 100%;
-  height: 48px;
+  height: 44px;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: #fff0d6;
-  color: #4b1822;
+  background: #743642;
+  color: #ffffff;
   border: 0;
-  border-radius: 9px;
-  font-weight: 800;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 700;
   cursor: pointer;
 }

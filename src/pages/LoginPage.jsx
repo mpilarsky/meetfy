@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { signInWithEmailAndPassword, sendPasswordResetEmail } from "firebase/auth";
+import { sendPasswordResetEmail } from "firebase/auth";
 import { Eye, EyeOff } from "lucide-react";
 import { useAppData } from "../context/AppDataContext";
 import { auth } from "../firebase/firebase.js";
@@ -107,7 +107,6 @@ function LoginPage() {
             </Link>
           </header>
 
-
           {showResetForm ? (
             <form className="login-form" onSubmit={handleResetPassword}>
               <div className="login-intro">
@@ -180,16 +179,26 @@ function LoginPage() {
               <label className="login-field">
                 <div className="login-label-row">
                   <span>PASSWORD</span>
-                  <span 
-                    style={{ cursor: "pointer", fontSize: "14px" }} 
-                    onClick={() => {
+                  <button 
+                    type="button"
+                    style={{ 
+                      cursor: "pointer", 
+                      fontSize: "14px",
+                      background: "transparent",
+                      border: "none",
+                      padding: 0,
+                      color: "inherit",
+                      fontFamily: "inherit"
+                    }} 
+                    onClick={(e) => {
+                      e.preventDefault(); // Blokuje domyślne zachowanie przeglądarki
                       setShowResetForm(true);
                       setErrorMessage("");
                       setResetMessage("");
                     }}
                   >
                     Forgot password?
-                  </span>
+                  </button>
                 </div>
 
                 <div className="login-password-wrap">

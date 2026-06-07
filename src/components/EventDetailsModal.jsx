@@ -13,7 +13,7 @@ import avatar4 from "../assets/event-details-avatar-4.png";
 
 function EventDetailsModal({ event, onClose }) {
   const navigate = useNavigate();
-  const { joinEvent, addToFavorites } = useAppData();
+  const { joinEvent, addToFavorites, favoriteEvents, removeFromFavorites } = useAppData();
 
   const title = event?.title || "The Velvet Jazz Collective: Midnight Session";
   const image = event?.image || heroImage;
@@ -31,7 +31,7 @@ function EventDetailsModal({ event, onClose }) {
 
   const eventToSave = {
     ...event,
-    id: event?.id || Date.now(),
+    id: event?.id || title,
     title,
     image,
     date,
@@ -44,25 +44,30 @@ function EventDetailsModal({ event, onClose }) {
     description,
   };
 
+  const isFavorite = favoriteEvents.some((favEvent) => favEvent.id === eventToSave.id);
+
   const handleJoinEvent = () => {
     joinEvent(eventToSave);
-
     console.log("Joined event:", eventToSave);
-
     onClose();
     navigate("/events");
   };
 
-  const handleAddToFavorites = () => {
-    addToFavorites(eventToSave);
-
-    console.log("Added to favorites:", eventToSave);
-
-    onClose();
-    navigate("/favorites");
+  const handleToggleFavorite = () => {
+    if (isFavorite) {
+      removeFromFavorites(eventToSave.id);
+      console.log("Removed from favorites:", eventToSave.id);
+    } else {
+      addToFavorites(eventToSave);
+      console.log("Added to favorites:", eventToSave);
+      onClose();
+      navigate("/favorites");
+    }
   };
+
   const iconStyle = { marginBottom: "8px", color: "#666" };
   const btnIconStyle = { marginRight: "8px", verticalAlign: "middle" };
+
   return (
     <div className="event-modal-overlay" onClick={onClose}>
       <section
@@ -149,9 +154,14 @@ function EventDetailsModal({ event, onClose }) {
             <button
               type="button"
               className="favorite-event-btn"
-              onClick={handleAddToFavorites}
+              onClick={handleToggleFavorite}
             >
-              <Heart size={18} style={btnIconStyle} /> Add to Favorites
+              <Heart 
+                size={18} 
+                style={btnIconStyle} 
+                fill={isFavorite ? "currentColor" : "none"}
+              /> 
+              {isFavorite ? "Remove from Favorites" : "Add to Favorites"}
             </button>
           </div>
         </div>

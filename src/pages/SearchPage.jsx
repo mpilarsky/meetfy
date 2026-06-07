@@ -158,8 +158,16 @@ function SearchPage() {
                   {options.map((option) => (
                     <li
                       key={option}
+                      tabIndex={0} // <--- TO POZWALA NA WEJŚCIE KLAWISZEM TAB
                       className={filters[filterName] === option ? "active" : ""}
                       onClick={() => handleSelectFilter(filterName, option)}
+                      onKeyDown={(e) => {
+                        // <--- TO POZWALA WYBRAĆ OPCJĘ KLAWISZEM ENTER LUB SPACJĄ
+                        if (e.key === "Enter" || e.key === " ") {
+                          e.preventDefault(); // Blokuje przewijanie strony przy spacji
+                          handleSelectFilter(filterName, option);
+                        }
+                      }}
                     >
                       {option}
                     </li>
